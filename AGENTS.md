@@ -1,19 +1,31 @@
-# Reversa
+# CGDoc — Projeto de Engenharia Reversa
 
-> Framework de Engenharia Reversa instalado neste projeto.
+> Legado ASP Clássico em análise. Não é um projeto de desenvolvimento ativo.
 
-## Como usar
+## Estrutura do Projeto
 
-Digite `reversa` para ativar o Reversa e iniciar ou retomar a análise do projeto.
+```
+cgdoc/
+├── SAdm/    # Secretaria Administrativa (882 arquivos ASP)
+├── Sercod/  # Secretaria de Códigos
+├── libs/    # Smarty, FPDF
+└── db/      # SisprotWeb.mdb + schemas .sql
+```
 
-## Comportamento ao ativar
+## Entry Points
 
-Quando o usuário digitar `reversa` sozinho em uma mensagem:
+- `cgdoc/SAdm/login.asp` — Login SAdm
+- `cgdoc/Sercod/login.asp` — Login Sercod
 
-1. Ative o skill `reversa` disponível em `.agents/skills/reversa/SKILL.md`
-2. Leia o SKILL.md na íntegra e siga exatamente as instruções do Reversa
+## Reversa (engenharia reversa)
 
-## Regra não-negociável
+- Comando: digite `reversa` para ativar
+- Skills: `.claude/skills/` e `.agents/skills/`
+- Saídas em: `.reversa/` (análise bruta) e `_reversa_sdd/` (specs processadas)
+- **Regra**: nunca modifique arquivos em `cgdoc/` (legado)
 
-Nunca apague, modifique ou sobrescreva arquivos pré-existentes do projeto legado.
-O Reversa escreve **apenas** em `.reversa/` e `_reversa_sdd/`.
+## Migração em andamento
+
+- Stack alvo: **Go + MariaDB**
+- Estratégia: "CópiaPerfeita" — interface idêntica ao legado
+- Brief completo em `_reversa_sdd/migration/migration_brief.md`
