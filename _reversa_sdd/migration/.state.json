@@ -1,0 +1,68 @@
+{
+  "version": "1.2.28",
+  "startedAt": "2026-05-06T13:13:00Z",
+  "engine": "opencode",
+  "reversaVersion": "1.2.28",
+  "currentAgent": {
+    "agent": "designer",
+    "phase": "topology",
+    "status": "running",
+    "topologyApproved": false
+  },
+  "completedAgents": [
+    "paradigm_advisor",
+    "curator",
+    "data_master",
+    "strategist"
+  ],
+  "pendingAgents": [
+    "designer",
+    "inspector"
+  ],
+  "artifacts": [
+    {
+      "name": "paradigm_decision.md",
+      "path": "_reversa_sdd/migration/paradigm_decision.md",
+      "generatedAt": "2026-05-06T13:15:00Z",
+      "hash": "sha256:generated"
+    },
+    {
+      "name": "target_business_rules.md",
+      "path": "_reversa_sdd/migration/target_business_rules.md",
+      "generatedAt": "2026-05-06T13:20:00Z",
+      "hash": "sha256:generated"
+    },
+    {
+      "name": "discard_log.md",
+      "path": "_reversa_sdd/migration/discard_log.md",
+      "generatedAt": "2026-05-06T13:20:00Z",
+      "hash": "sha256:generated"
+    },
+    {
+      "name": "migration_strategy.md",
+      "path": "_reversa_sdd/migration/migration_strategy.md",
+      "generatedAt": "2026-05-06T14:15:00Z",
+      "hash": "sha256:generated"
+    },
+    {
+      "name": "risk_register.md",
+      "path": "_reversa_sdd/migration/risk_register.md",
+      "generatedAt": "2026-05-06T14:15:00Z",
+      "hash": "sha256:generated"
+    },
+    {
+      "name": "cutover_plan.md",
+      "path": "_reversa_sdd/migration/cutover_plan.md",
+      "generatedAt": "2026-05-06T14:15:00Z",
+      "hash": "sha256:generated"
+    }
+  ],
+  "ambiguityLog": [
+    {"id": "BR-HUMANA-001", "status": "RESOLVIDO", "decisao": "30 minutos"},
+    {"id": "BR-HUMANA-002", "status": "RESOLVIDO", "decisao": "BCrypt"},
+    {"id": "BR-HUMANA-003", "status": "RESOLVIDO", "decisao": "Usar arquivos .sql"},
+    {"id": "BR-HUMANA-004", "status": "RESOLVIDO", "decisao": "Módulos diferentes"}
+  ],
+  "lastCheckpoint": "2026-05-06T14:15:00Z",
+  "strategy": "Parallel Run"
+}

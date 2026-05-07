@@ -1,0 +1,344 @@
+<html>
+<head>
+<title>Usuários</title>
+<link REL="stylesheet" href="include/style.css" type="text/css">
+</head>
+<body topmargin=5 bgcolor=white {$onload}>
+{$includes}
+
+{include_if_exists file="include/header.asp"}
+
+<form name="frmSearch" method="GET" action="Usu_rios_list.asp">
+<input type="Hidden" name="a" value="search">
+<input type="Hidden" name="value" value="1">
+<input type="Hidden" name="SearchFor" value="">
+<input type="Hidden" name="SearchOption" value="">
+<input type="Hidden" name="SearchField" value="">
+</form>
+<table width=85% align=center><tr><td>
+
+<table  class="navigation" cellspacing="0" cellpadding="3" width=100%>
+
+<tr>
+<td align=left><font style="FONT-FAMILY: Verdana, Arial;">Usuário:</font>&nbsp;<b>{$userid}</b>&nbsp;
+<a href="login.asp?a=logout" >Sair</a>
+
+
+
+&nbsp;&nbsp;&nbsp;
+<a href="changepwd.asp" >Trocar senha</a>
+</td>
+
+
+<!--language-->
+
+
+</tr>
+</table>
+
+
+<br>
+<table class="main_table" cellspacing="0" cellpadding="0" width=100%>
+<tr><td>
+<div id="menu-4">
+<ul>
+{if $allow_Cadastro}
+	<li><a href="Cadastro_list.asp" 
+>Entrada/Saída</a></li>
+{/if}
+{if $allow_Tramitacao}
+	<li><a href="Tramitacao_list.asp" 
+>Tramitação</a></li>
+{/if}
+{if $allow_Impr_recibo}
+	<li><a href="Impr_recibo_list.asp" 
+>Impressão de recibo</a></li>
+{/if}
+{if $allow__AudMoviment}
+	<li><a href="_AudMoviment_list.asp" 
+>Auditoria</a></li>
+{/if}
+{if $allow_Usu_rios}
+	<li><a href="Usu_rios_list.asp" 
+ id="current-4" >Usuários</a></li>
+{/if}
+
+</ul>
+</div>
+</td></tr></table>
+
+
+
+<table class="main_table" cellspacing="0" cellpadding="0" width=100%>
+<tr><td colspan=2 height=1 class="line2"></td></tr>
+ {if $allow_search} 
+
+<tr>
+    <td class="bl" height="35" valign=center align=center>
+<b>Pesquisar </b> &nbsp;&nbsp;&nbsp;
+<select id="ctlSearchField">
+<option value="">Qualquer Campo</option>
+<option value="NúmeroDoUsuário" {$search_N_meroDoUsu_rio}>NúmeroDoUsuário</option>
+<option value="Nome" {$search_Nome}>Nome</option>
+<option value="Seção" {$search_Se__o}>Seção</option>
+<option value="Privilegio" {$search_Privilegio}>Privilegio</option>
+</select>
+&nbsp;
+<select id="ctlSearchOption">
+<option value="Contains" {$search_contains_option_selected}>Contém</option>
+<option value="Equals" {$search_equals_option_selected}>Igual a</option>
+<option value="Starts with ..." {$search_startswith_option_selected}>Inicia com</option>
+<option value="More than ..." {$search_more_option_selected}>Maior que</option>
+<option value="Less than ..." {$search_less_option_selected}>Menor  que</option>
+<option value="Equal or more than ..." {$search_equalormore_option_selected}>Igual ou maior que</option>
+<option value="Equal or less than ..." {$search_equalorless_option_selected}>Igual ou menor que</option>
+<option value="Empty" {$search_empty_option_selected}>Vazio</option>
+</select>
+&nbsp;
+<input type=text size=20 {if $useAJAX} autocomplete="off" onkeydown="listenEvent(event,this,'ordinary');" onkeyup="searchSuggest(event,this,'ordinary');" {else} onkeydown="e=event; if(!e) e = window.event; if (e.keyCode != 13) return true; e.cancel = true; RunSearch(); return false;" {/if}
+	  id="ctlSearchFor" {$search_searchfor}>
+&nbsp;
+<input type=button class="button" value="Pesquisar"
+onClick="javascript: RunSearch();">
+&nbsp;		
+<input type=button class=button value="Mostrar Todos" 
+onClick="javascript: frmSearch.a.value = 'showall'; frmSearch.submit();"> 	
+
+ {/if}  
+
+
+</td>
+
+<td class="bl"><strong>&nbsp;Registros por Página:
+<select 
+onChange="javascript: document.location='Usu_rios_list.asp?pagesize='+this.options[this.selectedIndex].value;">
+<option value="10" {$rpp10_selected}>10</option>
+<option value="20" {$rpp20_selected}>20</option>
+<option value="30" {$rpp30_selected}>30</option>
+<option value="50" {$rpp50_selected}>50</option>
+<option value="100" {$rpp100_selected}>100</option>
+<option value="500" {$rpp500_selected}>500</option>
+</select>
+</strong></td>
+
+</tr>
+<tr><td colspan=2 height=3 class="line2"></td></tr>
+
+
+
+
+ {if $allow_search} 
+<tr>
+    <td colspan=2><table width="100%" E7EDEF=0 border=0 bordercolor="#ffffff"  table style="behavior:url(table-highlight.htc);"
+       slcolor = "#dee9ec" hlcolor = "#ECF0F1">
+
+ {if $allow_add} 
+ <!-- Add new record -->
+&nbsp;&nbsp;<a href="Usu_rios_add.asp" class="toplinks">Incluir Novo</a>
+ {/if} 
+	   
+	 {if $rowsfound}
+ 
+	 
+ {if $allow_delete}  
+&nbsp;&nbsp;
+<a href="#" onClick="if (confirm('Tem certeza que desejar excluir estes registros?')) frmAdmin.submit(); return false;" class="toplinks">Excluir Selecionados</a>
+ {/if}  
+
+
+</td><td align=right>
+
+ {/if} 
+
+
+</td></tr>
+ {if $allow_search} 
+
+<tr><td colspan=2>
+<!-- delete form -->
+<form method="POST" action="Usu_rios_list.asp" name="frmAdmin">
+	<input type=hidden id="a" name="a" value="delete">
+
+<table class="data" align="center" width="100%" border="0" cellpadding=3 cellspacing=2 style="border: solid; border-width: 1px; border-color: #C0C0C0;">
+<!-- table header -->
+<tr class="blackshade" valign="top">
+
+<!--{if $column1show}-->
+
+ {if $allow_edit} 
+<td align="center"><img src="images/icon_edit.gif"></td>
+ {/if}  
+
+
+
+ {if $allow_deleteorexport} 
+<td align="center">
+<input type=checkbox onClick = "var i; /*this.checked=!this.checked; */
+if ((typeof frmAdmin.elements['mdelete[]'].length)=='undefined')
+	frmAdmin.elements['mdelete[]'].checked=this.checked;
+else
+for (i=0;i<frmAdmin.elements['mdelete[]'].length;++i) 
+	frmAdmin.elements['mdelete[]'][i].checked=this.checked;">
+</td>
+ {/if}  
+
+
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="Usu_rios_list.asp?orderby={$order_dir_N_meroDoUsu_rio}N%FAmeroDoUsu%E1rio">
+NúmeroDoUsuário</a>
+</td>
+<td>{$order_image_N_meroDoUsu_rio}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="Usu_rios_list.asp?orderby={$order_dir_PG}PG">
+PG</a>
+</td>
+<td>{$order_image_PG}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="Usu_rios_list.asp?orderby={$order_dir_Nome}Nome">
+Nome</a>
+</td>
+<td>{$order_image_Nome}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="Usu_rios_list.asp?orderby={$order_dir_Ramal}Ramal">
+Ramal</a>
+</td>
+<td>{$order_image_Ramal}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="Usu_rios_list.asp?orderby={$order_dir_Unidade}Unidade">
+Unidade</a>
+</td>
+<td>{$order_image_Unidade}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="Usu_rios_list.asp?orderby={$order_dir_Se__o}Se%E7%E3o">
+Seção</a>
+</td>
+<td>{$order_image_Se__o}</td>
+</table>
+</td>
+<td class=blackshade>Fotografia</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="Usu_rios_list.asp?orderby={$order_dir_Privilegio}Privilegio">
+Privilegio</a>
+</td>
+<td>{$order_image_Privilegio}</td>
+</table>
+</td>
+<!--{/if}-->
+</tr>
+
+<!-- table data -->
+<!--{foreach from=$rowinfo item=row}-->
+
+
+<tr valign="top"
+{$row.shadeclass} 
+onmouseover="this.className = 'rowselected';" onmouseout="this.className = '{$row.shadeclassname}';"
+> 
+
+
+
+ {if $allow_edit} 
+<td align="center">
+
+<a class="tablelinks" href="Usu_rios_edit.asp?{$row.1editlink}">
+Editar</a>
+
+&nbsp;
+</td>
+ {/if}  
+
+
+
+
+ {if $allow_deleteorexport} 
+<td align="center">
+
+<input type=checkbox name="mdelete[]" value="{$row.1recno}">
+
+<input type=hidden name="mdelete1[]" value="{$row.1id1}">
+&nbsp;</td>
+ {/if}  
+
+
+
+
+<td>
+{$row.1N_meroDoUsu_rio_value}
+</td>
+<td>
+{$row.1PG_value}
+</td>
+<td>
+{$row.1Nome_value}
+</td>
+<td>
+{$row.1Ramal_value}
+</td>
+<td>
+{$row.1Unidade_value}
+</td>
+<td>
+{$row.1Se__o_value}
+</td>
+<td>
+{$row.1Fotografia_value}
+</td>
+<td>
+{$row.1Privilegio_value}
+</td>
+
+
+
+<!--{/foreach}-->
+	
+</tr>
+
+
+
+
+
+</table>
+</form> 
+{/if} 
+<p align=center><b>{$message}</b></p>	   
+</td></tr></table></td>
+</tr>	
+   
+<tr><td class="bl" colspan=2 height="20" align=center>
+Ítens Encontrados: {$records_found}&nbsp;
+Página {$page} de {$maxpages}
+</td></tr>
+ <tr><td colspan=2 height=3 class="line2"></td></tr>
+ 
+<tr><td colspan=2 align="center" height="30">
+{$pagination}
+</td></tr> </table>
+ {/if}  
+
+
+
+
+</td></tr></table>
+{doevent name="ListOnLoad"}
+</td></tr></table>
+
+{include_if_exists file="include/footer.asp"}
+</body>
+</html>

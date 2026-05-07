@@ -1,0 +1,99 @@
+<html>
+<head>
+<title>Distrib. Interna (Seção): Pesquisa Avancada</title>
+</head>
+<link REL="stylesheet" href="include/style.css" type="text/css">
+{$includes}
+<body bgcolor=white {$onload}>
+{include_if_exists file="include/header.asp"}
+<!-- search form -->
+<form method="POST" 
+action="moviment_sec_list.asp" 
+name="editform" {if $noAJAX} onkeydown="OnKeyDown(event);" {/if} >
+	<input type="hidden" id="a" name="a" value="advsearch">
+
+{doevent name="SearchOnLoad"}
+	
+<table CELLPADDING=4 CELLSPACING=1 align='center' width='750' style="BORDER: #cccccc 1px solid;">
+<tr valign=center class=blackshade>
+<td colspan=5 class=tableheader>
+
+<table width=100% CELLSPACING=0 CELLPADDING=3><tr>
+<td width=200 class=tableheader>Distrib. Interna (Seção)</td>
+<td align=center class=tableheader>
+Pesquisa Avancada</td>
+<td width=200 class=tableheader>&nbsp;</td>
+</tr></table>
+
+</td></tr>
+
+<tr><td colspan=5 align=center valign=middle class=header2>
+
+<table><tr><td width=200>&nbsp;</td><td align=center width=300>
+
+<b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
+<div class="xboxcontent">
+<span class=fieldname>Pesquisar: </span>
+<input type="radio" name="type" value="and" {$all_checked}>Todas condições
+&nbsp;&nbsp;&nbsp;
+<input type="radio" name="type" value="or" {$any_checked}>Qualquer condição
+</div>
+<b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
+
+</td><td width=200>&nbsp;</td></tr></table>
+</td></tr>
+<tr valign=center class=blackshade>
+<td align=center valign=middle>&nbsp;</td><td width=30 align=center valign=middle class=fieldname>NOT</td>
+<td colspan=3 align=center valign=middle>&nbsp; </td></tr>
+
+		
+<tr class=shade>
+	<td class=fieldname>Solucao
+	<input type="Hidden" name="asearchfield[]" value="Solucao"></td>
+	<td align=center><input type=CheckBox name="not_Solucao" {$not_Solucao}></td>
+	
+	<td>
+	{$searchtype_Solucao}
+	</td>
+	
+	<td width=270>{build_edit_control field="Solucao" value=$value_Solucao mode="search"}</td>
+
+	<td width=270><span id="second_Solucao">
+	{build_edit_control field="Solucao" second=true value=$value1_Solucao mode="search"}
+	</span></td>
+	
+	
+</tr>
+		
+<tr class=shade>
+	<td class=fieldname>Cumprido
+	<input type="Hidden" name="asearchfield[]" value="Cumprido"></td>
+	<td align=center><input type=CheckBox name="not_Cumprido" {$not_Cumprido}></td>
+	
+	<td>
+	{$searchtype_Cumprido}
+	</td>
+	
+	<td width=270>{build_edit_control field="Cumprido" value=$value_Cumprido mode="search"}</td>
+
+	<td width=270><span id="second_Cumprido">
+	{build_edit_control field="Cumprido" second=true value=$value1_Cumprido mode="search"}
+	</span></td>
+	
+	
+</tr>
+
+<tr class=blackshade><td colspan=5 align=center>
+<input type=button class=button name="SearchButton" value="Pesquisar"
+onClick="javascript:document.forms.editform.submit();">
+<input class=button type=button value="Limpar" onclick="return ResetControls();">
+<input type=button class=button value="Voltar" onClick="javascript: document.forms.editform.a.value='return'; document.forms.editform.submit();">
+</td></tr>
+</table>
+
+</form>
+{include_if_exists file="include/footer.asp"}
+{$linkdata}
+
+</body>
+</html>

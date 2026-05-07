@@ -1,0 +1,96 @@
+<html>
+<head><title>Entrada/Saída</title>
+<link REL="stylesheet" href="include/style.css" type="text/css">
+{$includes}
+</head>
+
+<body {$bodyonload}>
+<form name="editform" encType="multipart/form-data" method="post" action="Cadastro_add.asp" {$onsubmit}>
+
+{include_if_exists file="include/header.asp"}
+
+<h1>Entrada/Saída, Novo Registro</h1>
+
+{doevent name="AddOnLoad"}
+{$message}
+
+
+
+&nbsp;&nbsp;&nbsp;<a  href="Cadastro_list.asp?a=return">Voltar</a><br><br>
+<table cellpadding=2 class="main_table" style="border: 1px solid Silver;">
+
+
+  <tr><td class=shade  width=150>Nr Protoc</td><td width=250>
+    {build_edit_control field="NrProtoc" mode="add" value=$value_NrProtoc}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>Data Entrada</td><td width=250>
+    {build_edit_control field="DtEntr" mode="add" value=$value_DtEntr}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>Natureza</td><td width=250>
+    {build_edit_control field="Nat" mode="add" value=$value_Nat}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>EMISSOR</td><td width=250>
+    {build_edit_control field="Emissor" mode="add" value=$value_Emissor}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>DESTINO</td><td width=250>
+    {build_edit_control field="Destino" mode="add" value=$value_Destino}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>TipoDoc</td><td width=250>
+    {build_edit_control field="TipoDoc" mode="add" value=$value_TipoDoc}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>Descrição</td><td width=250>
+    {build_edit_control field="Descr" mode="add" value=$value_Descr}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>Assunto</td><td width=250>
+    {build_edit_control field="Assunto" mode="add" value=$value_Assunto}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>Nome</td><td width=250>
+    {build_edit_control field="Nome" mode="add" value=$value_Nome}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>Nº Militar</td><td width=250>
+    {build_edit_control field="MASP" mode="add" value=$value_MASP}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>CPF</td><td width=250>
+    {build_edit_control field="CPF" mode="add" value=$value_CPF}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>Obs</td><td width=250>
+    {build_edit_control field="Obs" mode="add" value=$value_Obs}
+    </td></tr>
+  <tr><td class=shade  width=150>Incluido por</td><td width=250>
+    {build_edit_control field="Usuario" mode="add" value=$value_Usuario}
+    </td></tr>
+
+ <tr height=50><td colspan=2 align=center>
+ <input class=button type=submit value="Salvar" id=submit1 name=submit1>
+ <input class=button type=reset value="Limpar">
+   <input type=hidden name="a" value="added">
+ </td></tr>
+
+</form>
+ 
+   <!-- legend -->
+   <tr height=50><td colspan=2 align=left>
+   <hr width=400 noshade size=1>
+   <br><img src="images/icon_required.gif"> - Preenchimento Obrigatório
+   </td></tr>
+
+</table>
+
+{include_if_exists file="include/footer.asp"}
+
+{$linkdata}
+<script>SetToFirstControl();</script>
+</body>
+</html>
+

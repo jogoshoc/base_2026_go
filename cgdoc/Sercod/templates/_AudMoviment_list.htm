@@ -1,0 +1,333 @@
+<html>
+<head>
+<title>Auditoria</title>
+<link REL="stylesheet" href="include/style.css" type="text/css">
+</head>
+<body topmargin=5 bgcolor=white {$onload}>
+{$includes}
+
+{include_if_exists file="include/header.asp"}
+
+<form name="frmSearch" method="GET" action="_AudMoviment_list.asp">
+<input type="Hidden" name="a" value="search">
+<input type="Hidden" name="value" value="1">
+<input type="Hidden" name="SearchFor" value="">
+<input type="Hidden" name="SearchOption" value="">
+<input type="Hidden" name="SearchField" value="">
+</form>
+<table width=85% align=center><tr><td>
+
+<table  class="navigation" cellspacing="0" cellpadding="3" width=100%>
+
+<tr>
+<td align=left><font style="FONT-FAMILY: Verdana, Arial;">Usuário:</font>&nbsp;<b>{$userid}</b>&nbsp;
+<a href="login.asp?a=logout" >Sair</a>
+
+
+
+&nbsp;&nbsp;&nbsp;
+<a href="changepwd.asp" >Trocar senha</a>
+</td>
+
+
+<!--language-->
+
+
+</tr>
+</table>
+
+
+<br>
+<table class="main_table" cellspacing="0" cellpadding="0" width=100%>
+<tr><td>
+<div id="menu-4">
+<ul>
+{if $allow_Cadastro}
+	<li><a href="Cadastro_list.asp" 
+>Entrada/Saída</a></li>
+{/if}
+{if $allow_Tramitacao}
+	<li><a href="Tramitacao_list.asp" 
+>Tramitação</a></li>
+{/if}
+{if $allow_Impr_recibo}
+	<li><a href="Impr_recibo_list.asp" 
+>Impressão de recibo</a></li>
+{/if}
+{if $allow__AudMoviment}
+	<li><a href="_AudMoviment_list.asp" 
+ id="current-4" >Auditoria</a></li>
+{/if}
+{if $allow_Usu_rios}
+	<li><a href="Usu_rios_list.asp" 
+>Usuários</a></li>
+{/if}
+
+</ul>
+</div>
+</td></tr></table>
+
+
+
+<table class="main_table" cellspacing="0" cellpadding="0" width=100%>
+<tr><td colspan=2 height=1 class="line2"></td></tr>
+ {if $allow_search} 
+
+ {/if}  
+
+
+</td>
+
+<td class="bl"><strong>&nbsp;Registros por Página:
+<select 
+onChange="javascript: document.location='_AudMoviment_list.asp?pagesize='+this.options[this.selectedIndex].value;">
+<option value="10" {$rpp10_selected}>10</option>
+<option value="20" {$rpp20_selected}>20</option>
+<option value="30" {$rpp30_selected}>30</option>
+<option value="50" {$rpp50_selected}>50</option>
+<option value="100" {$rpp100_selected}>100</option>
+<option value="500" {$rpp500_selected}>500</option>
+</select>
+</strong></td>
+
+</tr>
+<tr><td colspan=2 height=3 class="line2"></td></tr>
+
+
+
+
+ {if $allow_search} 
+<tr>
+    <td colspan=2><table width="100%" E7EDEF=0 border=0 bordercolor="#ffffff"  table style="behavior:url(table-highlight.htc);"
+       slcolor = "#dee9ec" hlcolor = "#ECF0F1">
+
+	   
+	 {if $rowsfound}
+ 
+	 
+
+
+</td><td align=right>
+
+ {/if} 
+
+
+</td></tr>
+ {if $allow_search} 
+
+<tr><td colspan=2>
+<!-- delete form -->
+<form method="POST" action="_AudMoviment_list.asp" name="frmAdmin">
+	<input type=hidden id="a" name="a" value="delete">
+
+<table class="data" align="center" width="100%" border="0" cellpadding=3 cellspacing=2 style="border: solid; border-width: 1px; border-color: #C0C0C0;">
+<!-- table header -->
+<tr class="blackshade" valign="top">
+
+<!--{if $column1show}-->
+
+
+
+
+
+
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="_AudMoviment_list.asp?orderby={$order_dir_CodMov}CodMov">
+CodMov</a>
+</td>
+<td>{$order_image_CodMov}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="_AudMoviment_list.asp?orderby={$order_dir_NrProtoc}NrProtoc">
+NrProtoc</a>
+</td>
+<td>{$order_image_NrProtoc}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="_AudMoviment_list.asp?orderby={$order_dir_DataAlteracao}DataAlteracao">
+DataAlteracao</a>
+</td>
+<td>{$order_image_DataAlteracao}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="_AudMoviment_list.asp?orderby={$order_dir_DataAnt}DataAnt">
+DataAnt</a>
+</td>
+<td>{$order_image_DataAnt}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="_AudMoviment_list.asp?orderby={$order_dir_DataMod}DataMod">
+DataMod</a>
+</td>
+<td>{$order_image_DataMod}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="_AudMoviment_list.asp?orderby={$order_dir_OrigAnt}OrigAnt">
+OrigAnt</a>
+</td>
+<td>{$order_image_OrigAnt}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="_AudMoviment_list.asp?orderby={$order_dir_OrigMod}OrigMod">
+OrigMod</a>
+</td>
+<td>{$order_image_OrigMod}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="_AudMoviment_list.asp?orderby={$order_dir_DestAnt}DestAnt">
+DestAnt</a>
+</td>
+<td>{$order_image_DestAnt}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="_AudMoviment_list.asp?orderby={$order_dir_DestMod}DestMod">
+DestMod</a>
+</td>
+<td>{$order_image_DestMod}</td>
+</table>
+</td>
+<td class=blackshade>ObsAnt</td>
+<td class=blackshade>ObsMod</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="_AudMoviment_list.asp?orderby={$order_dir_PrazoAnt}PrazoAnt">
+PrazoAnt</a>
+</td>
+<td>{$order_image_PrazoAnt}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="_AudMoviment_list.asp?orderby={$order_dir_PrazoMod}PrazoMod">
+PrazoMod</a>
+</td>
+<td>{$order_image_PrazoMod}</td>
+</table>
+</td>
+<td><table><tr><td class=blackshade>
+<a class="columnheaders" 
+href="_AudMoviment_list.asp?orderby={$order_dir_ID}ID">
+ID</a>
+</td>
+<td>{$order_image_ID}</td>
+</table>
+</td>
+<!--{/if}-->
+</tr>
+
+<!-- table data -->
+<!--{foreach from=$rowinfo item=row}-->
+
+
+<tr valign="top"
+{$row.shadeclass} 
+onmouseover="this.className = 'rowselected';" onmouseout="this.className = '{$row.shadeclassname}';"
+> 
+
+
+
+
+
+
+
+
+
+
+<td>
+{$row.1CodMov_value}
+</td>
+<td>
+{$row.1NrProtoc_value}
+</td>
+<td>
+{$row.1DataAlteracao_value}
+</td>
+<td>
+{$row.1DataAnt_value}
+</td>
+<td>
+{$row.1DataMod_value}
+</td>
+<td>
+{$row.1OrigAnt_value}
+</td>
+<td>
+{$row.1OrigMod_value}
+</td>
+<td>
+{$row.1DestAnt_value}
+</td>
+<td>
+{$row.1DestMod_value}
+</td>
+<td>
+{$row.1ObsAnt_value}
+</td>
+<td>
+{$row.1ObsMod_value}
+</td>
+<td>
+{$row.1PrazoAnt_value}
+</td>
+<td>
+{$row.1PrazoMod_value}
+</td>
+<td>
+{$row.1ID_value}
+</td>
+
+
+
+<!--{/foreach}-->
+	
+</tr>
+
+
+
+
+
+</table>
+</form> 
+{/if} 
+<p align=center><b>{$message}</b></p>	   
+</td></tr></table></td>
+</tr>	
+   
+<tr><td class="bl" colspan=2 height="20" align=center>
+Ítens Encontrados: {$records_found}&nbsp;
+Página {$page} de {$maxpages}
+</td></tr>
+ <tr><td colspan=2 height=3 class="line2"></td></tr>
+ 
+<tr><td colspan=2 align="center" height="30">
+{$pagination}
+</td></tr> </table>
+ {/if}  
+
+
+
+
+</td></tr></table>
+{doevent name="ListOnLoad"}
+</td></tr></table>
+
+{include_if_exists file="include/footer.asp"}
+</body>
+</html>

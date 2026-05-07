@@ -1,0 +1,33 @@
+﻿{
+  "generated_at": "2026-05-05T00:00:00Z",
+  "project_root": "C:\\projeto_cgdoc",
+  "languages": [
+    { "name": "ASP Classico", "extensions": [".asp"], "file_count": 882 }
+  ],
+  "primary_language": "ASP Classico",
+  "frameworks": [],
+  "package_manager": null,
+  "entry_points": [
+    { "path": "cgdoc/SAdm/login.asp", "type": "app_entry" },
+    { "path": "cgdoc/Sercod/login.asp", "type": "app_entry" }
+  ],
+  "config_files": [],
+  "ci_cd": [],
+  "docker": null,
+  "database_hints": [
+    { "path": "cgdoc/Sercod/db/SisprotWeb.mdb", "type": "access_db" },
+    { "path": "cgdoc/SAdm/db/SisprotWeb.mdb", "type": "access_db" }
+  ],
+  "test_framework": null,
+  "test_file_count": 0,
+  "modules": ["SAdm", "Sercod"],
+  "total_files": 885,
+  "organization_suggestion": {
+    "granularity": "module",
+    "rationale": "Pastas top-level com nomes de dominio (SAdm, Sercod).",
+    "signals": [
+      { "type": "top_level_domain_folders", "evidence": ["cgdoc/SAdm/", "cgdoc/Sercod/"] }
+    ],
+    "features": []
+  }
+}

@@ -1,0 +1,225 @@
+<html>
+<head>
+<title>Tramitação: Pesquisa Avancada</title>
+</head>
+<link REL="stylesheet" href="include/style.css" type="text/css">
+{$includes}
+<body bgcolor=white {$onload}>
+{include_if_exists file="include/header.asp"}
+<!-- search form -->
+<form method="POST" 
+action="Tramitacao_list.asp" 
+name="editform" {if $noAJAX} onkeydown="OnKeyDown(event);" {/if} >
+	<input type="hidden" id="a" name="a" value="advsearch">
+
+{doevent name="SearchOnLoad"}
+	
+<table CELLPADDING=4 CELLSPACING=1 align='center' width='750' style="BORDER: #cccccc 1px solid;">
+<tr valign=center class=blackshade>
+<td colspan=5 class=tableheader>
+
+<table width=100% CELLSPACING=0 CELLPADDING=3><tr>
+<td width=200 class=tableheader>Tramitação</td>
+<td align=center class=tableheader>
+Pesquisa Avancada</td>
+<td width=200 class=tableheader>&nbsp;</td>
+</tr></table>
+
+</td></tr>
+
+<tr><td colspan=5 align=center valign=middle class=header2>
+
+<table><tr><td width=200>&nbsp;</td><td align=center width=300>
+
+<b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
+<div class="xboxcontent">
+<span class=fieldname>Pesquisar: </span>
+<input type="radio" name="type" value="and" {$all_checked}>Todas condições
+&nbsp;&nbsp;&nbsp;
+<input type="radio" name="type" value="or" {$any_checked}>Qualquer condição
+</div>
+<b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
+
+</td><td width=200>&nbsp;</td></tr></table>
+</td></tr>
+<tr valign=center class=blackshade>
+<td align=center valign=middle>&nbsp;</td><td width=30 align=center valign=middle class=fieldname>NOT</td>
+<td colspan=3 align=center valign=middle>&nbsp; </td></tr>
+
+		
+<tr class=shade>
+	<td class=fieldname>Nr Protoc
+	<input type="Hidden" name="asearchfield[]" value="NrProtoc"></td>
+	<td align=center><input type=CheckBox name="not_NrProtoc" {$not_NrProtoc}></td>
+	
+	<td>
+	{$searchtype_NrProtoc}
+	</td>
+	
+	<td width=270>{build_edit_control field="NrProtoc" value=$value_NrProtoc mode="search"}</td>
+
+	<td width=270><span id="second_NrProtoc">
+	{build_edit_control field="NrProtoc" second=true value=$value1_NrProtoc mode="search"}
+	</span></td>
+	
+	
+</tr>
+		
+<tr class=shade>
+	<td class=fieldname>Data Movim.
+	<input type="Hidden" name="asearchfield[]" value="DtMovim"></td>
+	<td align=center><input type=CheckBox name="not_DtMovim" {$not_DtMovim}></td>
+	
+	<td>
+	{$searchtype_DtMovim}
+	</td>
+	
+	<td width=270>{build_edit_control field="DtMovim" value=$value_DtMovim mode="search"}</td>
+
+	<td width=270><span id="second_DtMovim">
+	{build_edit_control field="DtMovim" second=true value=$value1_DtMovim mode="search"}
+	</span></td>
+	
+	
+</tr>
+		
+<tr class=shade>
+	<td class=fieldname>Seção ORIGEM
+	<input type="Hidden" name="asearchfield[]" value="OrigNome"></td>
+	<td align=center><input type=CheckBox name="not_OrigNome" {$not_OrigNome}></td>
+	
+	<td>
+	{$searchtype_OrigNome}
+	</td>
+	
+	<td width=270>{build_edit_control field="OrigNome" value=$value_OrigNome mode="search"}</td>
+
+	<td width=270><span id="second_OrigNome">
+	{build_edit_control field="OrigNome" second=true value=$value1_OrigNome mode="search"}
+	</span></td>
+	
+	
+</tr>
+		
+<tr class=shade>
+	<td class=fieldname>Seção DESTINO
+	<input type="Hidden" name="asearchfield[]" value="DestNome"></td>
+	<td align=center><input type=CheckBox name="not_DestNome" {$not_DestNome}></td>
+	
+	<td>
+	{$searchtype_DestNome}
+	</td>
+	
+	<td width=270>{build_edit_control field="DestNome" value=$value_DestNome mode="search"}</td>
+
+	<td width=270><span id="second_DestNome">
+	{build_edit_control field="DestNome" second=true value=$value1_DestNome mode="search"}
+	</span></td>
+	
+	
+</tr>
+		
+<tr class=shade>
+	<td class=fieldname>Emissor
+	<input type="Hidden" name="asearchfield[]" value="Emissor"></td>
+	<td align=center><input type=CheckBox name="not_Emissor" {$not_Emissor}></td>
+	
+	<td>
+	{$searchtype_Emissor}
+	</td>
+	
+	<td width=270>{build_edit_control field="Emissor" value=$value_Emissor mode="search"}</td>
+
+	<td width=270><span id="second_Emissor">
+	{build_edit_control field="Emissor" second=true value=$value1_Emissor mode="search"}
+	</span></td>
+	
+	
+</tr>
+		
+<tr class=shade>
+	<td class=fieldname>Assunto
+	<input type="Hidden" name="asearchfield[]" value="Assunto"></td>
+	<td align=center><input type=CheckBox name="not_Assunto" {$not_Assunto}></td>
+	
+	<td>
+	{$searchtype_Assunto}
+	</td>
+	
+	<td width=270>{build_edit_control field="Assunto" value=$value_Assunto mode="search"}</td>
+
+	<td width=270><span id="second_Assunto">
+	{build_edit_control field="Assunto" second=true value=$value1_Assunto mode="search"}
+	</span></td>
+	
+	
+</tr>
+		
+<tr class=shade>
+	<td class=fieldname>Descrição
+	<input type="Hidden" name="asearchfield[]" value="Descr"></td>
+	<td align=center><input type=CheckBox name="not_Descr" {$not_Descr}></td>
+	
+	<td>
+	{$searchtype_Descr}
+	</td>
+	
+	<td width=270>{build_edit_control field="Descr" value=$value_Descr mode="search"}</td>
+
+	<td width=270><span id="second_Descr">
+	{build_edit_control field="Descr" second=true value=$value1_Descr mode="search"}
+	</span></td>
+	
+	
+</tr>
+		
+<tr class=shade>
+	<td class=fieldname>Nome
+	<input type="Hidden" name="asearchfield[]" value="Nome"></td>
+	<td align=center><input type=CheckBox name="not_Nome" {$not_Nome}></td>
+	
+	<td>
+	{$searchtype_Nome}
+	</td>
+	
+	<td width=270>{build_edit_control field="Nome" value=$value_Nome mode="search"}</td>
+
+	<td width=270><span id="second_Nome">
+	{build_edit_control field="Nome" second=true value=$value1_Nome mode="search"}
+	</span></td>
+	
+	
+</tr>
+		
+<tr class=shade>
+	<td class=fieldname>Data Entrada
+	<input type="Hidden" name="asearchfield[]" value="DtEntr"></td>
+	<td align=center><input type=CheckBox name="not_DtEntr" {$not_DtEntr}></td>
+	
+	<td>
+	{$searchtype_DtEntr}
+	</td>
+	
+	<td width=270>{build_edit_control field="DtEntr" value=$value_DtEntr mode="search"}</td>
+
+	<td width=270><span id="second_DtEntr">
+	{build_edit_control field="DtEntr" second=true value=$value1_DtEntr mode="search"}
+	</span></td>
+	
+	
+</tr>
+
+<tr class=blackshade><td colspan=5 align=center>
+<input type=button class=button name="SearchButton" value="Pesquisar"
+onClick="javascript:document.forms.editform.submit();">
+<input class=button type=button value="Limpar" onclick="return ResetControls();">
+<input type=button class=button value="Voltar" onClick="javascript: document.forms.editform.a.value='return'; document.forms.editform.submit();">
+</td></tr>
+</table>
+
+</form>
+{include_if_exists file="include/footer.asp"}
+{$linkdata}
+
+</body>
+</html>

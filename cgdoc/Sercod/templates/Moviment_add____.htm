@@ -1,0 +1,67 @@
+<html>
+<head><title>Movimentação p/ Seções</title>
+<link REL="stylesheet" href="include/style.css" type="text/css">
+{$includes}
+</head>
+
+<body {$bodyonload}>
+<form name="editform" encType="multipart/form-data" method="post" action="Moviment_add.asp" {$onsubmit}>
+
+{include_if_exists file="include/header.asp"}
+
+<h1>Movimentação p/ Seções, Novo Registro</h1>
+
+{doevent name="AddOnLoad"}
+{$message}
+
+
+
+&nbsp;&nbsp;&nbsp;<a  href="Moviment_list.asp?a=return">Voltar</a><br><br>
+<table cellpadding=2 class="main_table" style="border: 1px solid Silver;">
+
+
+  <tr><td class=shade  width=150>Dt Movim</td><td width=250>
+    {build_edit_control field="DtMovim" mode="add" value=$value_DtMovim}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>ORIGEM</td><td width=250>
+    {build_edit_control field="OrigNome" mode="add" value=$value_OrigNome}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>DESTINO</td><td width=250>
+    {build_edit_control field="DestNome" mode="add" value=$value_DestNome}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade  width=150>Obs</td><td width=250>
+    {build_edit_control field="Obs" mode="add" value=$value_Obs}
+    </td></tr>
+  <tr><td class=shade  width=150>Prazo</td><td width=250>
+    {build_edit_control field="Prazo" mode="add" value=$value_Prazo}
+    </td></tr>
+  <tr><td class=shade  width=150>Incluido por</td><td width=250>
+    {build_edit_control field="UsuaMov" mode="add" value=$value_UsuaMov}
+    </td></tr>
+
+ <tr height=50><td colspan=2 align=center>
+ <input class=button type=submit value="Salvar" id=submit1 name=submit1>
+ <input class=button type=reset value="Limpar">
+   <input type=hidden name="a" value="added">
+ </td></tr>
+
+</form>
+ 
+   <!-- legend -->
+   <tr height=50><td colspan=2 align=left>
+   <hr width=400 noshade size=1>
+   <br><img src="images/icon_required.gif"> - Preenchimento Obrigatório
+   </td></tr>
+
+</table>
+
+{include_if_exists file="include/footer.asp"}
+
+{$linkdata}
+<script>SetToFirstControl();</script>
+</body>
+</html>
+

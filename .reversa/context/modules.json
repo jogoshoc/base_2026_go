@@ -1,0 +1,135 @@
+{
+  "generated_at": "2026-05-06T00:00:00Z",
+  "modules": [
+    {
+      "name": "SAdm",
+      "path": "cgdoc/SAdm",
+      "purpose": "Secretaria Administrativa - Gestão de processos, cadastros, tramitações e movimentações",
+      "primary_files": [
+        "cgdoc/SAdm/login.asp",
+        "cgdoc/SAdm/menu.asp",
+        "cgdoc/SAdm/Cadastro_list.asp",
+        "cgdoc/SAdm/Cadastro_add.asp",
+        "cgdoc/SAdm/Cadastro_edit.asp",
+        "cgdoc/SAdm/Tramitacao_list.asp",
+        "cgdoc/SAdm/Moviment_list.asp",
+        "cgdoc/SAdm/Usu_rios_list.asp",
+        "cgdoc/SAdm/include/dbcommon.asp",
+        "cgdoc/SAdm/libs/smarty.asp"
+      ],
+      "entities": [
+        {
+          "name": "Usu\u00e1rios",
+          "fields": [
+            { "name": "Usu\u00e1rio", "type": "string", "required": true },
+            { "name": "Senha", "type": "string", "required": true },
+            { "name": "Privilegio", "type": "string", "required": false }
+          ],
+          "confidence": "confirmed"
+        },
+        {
+          "name": "Cadastro",
+          "fields": [
+            { "name": "N_Processo", "type": "string", "required": true },
+            { "name": "Nome", "type": "string", "required": true },
+            { "name": "Data", "type": "datetime", "required": false }
+          ],
+          "confidence": "inferred"
+        },
+        {
+          "name": "Tramita\u00e7\u00e3o",
+          "fields": [
+            { "name": "Protocolo", "type": "string", "required": true },
+            { "name": "Data_Tramite", "type": "datetime", "required": true },
+            { "name": "Destino", "type": "string", "required": true }
+          ],
+          "confidence": "inferred"
+        },
+        {
+          "name": "Movimenta\u00e7\u00e3o",
+          "fields": [
+            { "name": "Processo", "type": "string", "required": true },
+            { "name": "Data_Movto", "type": "datetime", "required": true },
+            { "name": "Tipo", "type": "string", "required": false }
+          ],
+          "confidence": "inferred"
+        }
+      ],
+      "business_rules": [
+        {
+          "description": "Autentica\u00e7\u00e3o via usu\u00e1rio e senha armazenados no banco de dados",
+          "location": "cgdoc/SAdm/login.asp:30-98",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Controle de acesso via n\u00edvel de permiss\u00e3o (ACCESS_LEVEL_USER, ACCESS_LEVEL_ADMIN)",
+          "location": "cgdoc/SAdm/Cadastro_list.asp:10-13",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Valida\u00e7\u00e3o de sess\u00e3o antes de qualquer opera\u00e7\u00e3o",
+          "location": "cgdoc/SAdm/Cadastro_list.asp:5-9",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Busca avan\u00e7ada com m\u00faltiplos crit\u00e9rios (opes, not, tipo and/or)",
+          "location": "cgdoc/SAdm/Cadastro_list.asp:63-100",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": ["Sercod"],
+      "algorithms": [
+        {
+          "name": "Busca avan\u00e7ada",
+          "description": "Implementa l\u00f3gica de filtros com m\u00faltiplos crit\u00e9rios e combina\u00e7\u00f5es (and/or)",
+          "file": "cgdoc/SAdm/Cadastro_list.asp"
+        }
+      ],
+      "complexity": "medium"
+    },
+    {
+      "name": "Sercod",
+      "path": "cgdoc/Sercod",
+      "purpose": "Secretaria de C\u00f3digos - C\u00f3digos e numera\u00e7\u00e3o de processos",
+      "primary_files": [
+        "cgdoc/Sercod/login.asp",
+        "cgdoc/Sercod/menu.asp",
+        "cgdoc/Sercod/Cadastro_list.asp",
+        "cgdoc/Sercod/Tramitacao_list.asp",
+        "cgdoc/Sercod/Moviment_list.asp",
+        "cgdoc/Sercod/Usu_rios_list.asp"
+      ],
+      "entities": [
+        {
+          "name": "Usu\u00e1rios",
+          "fields": [
+            { "name": "Usu\u00e1rio", "type": "string", "required": true },
+            { "name": "Senha", "type": "string", "required": true },
+            { "name": "Privilegio", "type": "string", "required": false }
+          ],
+          "confidence": "confirmed"
+        },
+        {
+          "name": "Cadastro",
+          "fields": [],
+          "confidence": "inferred"
+        }
+      ],
+      "business_rules": [
+        {
+          "description": "Autentica\u00e7\u00e3o id\u00eantica ao m\u00f3dulo SAdm",
+          "location": "cgdoc/Sercod/login.asp",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Estrutura de arquivos id\u00eantica ao SAdm (padr\u00e3o Clone",
+          "location": "cgdoc/Sercod/",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": ["SAdm"],
+      "algorithms": [],
+      "complexity": "low"
+    }
+  ]
+}

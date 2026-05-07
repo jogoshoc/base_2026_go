@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><HTML><HEAD><TITLE>Movimentação p/ Seções</TITLE><META http-equiv=Content-Type content="text/html; charset=windows-1252"><LINK 
+href="include/style.css" type=text/css rel=stylesheet><META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD><BODY bgColor=white topMargin=5 {$onload}>{$includes}{include_if_exists file="include/header.asp"}<FORM name=frmSearch action=Moviment_list.asp method=get><input type="Hidden" name="a" value="search"><input type="Hidden" name="value" value="1"><input type="Hidden" name="SearchFor" value=""><input type="Hidden" name="SearchOption" value=""><input type="Hidden" name="SearchField" value=""></FORM><TABLE width="85%" align=center><TR><TD>{include file="$showmasterfile"}<TABLE class=navigation cellSpacing=0 cellPadding=3 width="100%"><TR><TD align=left><FONT 
+            style="FONT-FAMILY: Verdana, Arial">Usuário:</FONT>&nbsp;<B>{$userid}</B>&nbsp; 
+            <A href="login.asp?a=logout">Sair</A> &nbsp;&nbsp;&nbsp; <A 
+            href="changepwd.asp">Trocar 
+      senha</A></TD><!--language--></TABLE><BR><TABLE class=main_table cellSpacing=0 cellPadding=0 width="100%"><TR><TD><DIV id=menu-4><UL>{if $allow_Cadastro}<LI><A href="Cadastro_list.asp">Entrada/Saída</A>{/if}{if $allow_Tramitacao}<LI><A href="Tramitacao_list.asp">Tramitação</A>{/if}{if $allow_Impr_recibo}<LI><A href="Impr_recibo_list.asp">Impressão de recibo</A>{/if}{if $allow__AudMoviment}<LI><A href="_AudMoviment_list.asp">Auditoria</A>{/if}{if $allow_Usu_rios}<LI><A 
+            href="Usu_rios_list.asp">Usuários</A>{/if}</LI></UL></DIV></TD></TABLE><TABLE class=main_table cellSpacing=0 cellPadding=0 width="100%"><TR><TD class=line2 colSpan=2 height=1><STRONG><FONT face=Tahoma 
+            color=#68838b size=5>Movimentação p/ Seções 
+            (secretaria)</FONT></STRONG></TD>{if $allow_search}{/if}</TD><TR><TD class=bl><STRONG>&nbsp;Registros por Página: <select 
+onChange="javascript: document.location='Moviment_list.asp?pagesize='+this.options[this.selectedIndex].value;"><option value="10" {$rpp10_selected}>10</option><option value="20" {$rpp20_selected}>20</option><option value="30" {$rpp30_selected}>30</option><option value="50" {$rpp50_selected}>50</option><option value="100" {$rpp100_selected}>100</option><option value="500" {$rpp500_selected}>500</option></select></STRONG></TD><TR><TD class=line2 colSpan=2 height=3></TD>{if $allow_search}<TR><TD colSpan=2><TABLE style="BEHAVIOR: url(table-highlight.htc)" 
+            borderColor=#ffffff width="100%" border=0 hlcolor="#ECF0F1" 
+            slcolor="#dee9ec" table E7EDEF="0">{if $allow_add}<!-- Add new record -->&nbsp;&nbsp;<A 
+              class=toplinks href="Moviment_add.asp">Incluir Novo</A>{/if}{if $rowsfound}{if $allow_delete}&nbsp;&nbsp; 
+              <A class=toplinks 
+              onclick="if (confirm('Tem certeza que desejar excluir estes registros?')) frmAdmin.submit(); return false;" 
+              href="#">Excluir Selecionados</A>{/if}</TD><TR><TD align=right>{/if}</TD>{if $allow_search}<TR><TD colSpan=2><!-- delete form --><FORM name=frmAdmin action=Moviment_list.asp method=post><input type=hidden id="a" name="a" value="delete"><TABLE class=data 
+                  style="BORDER-RIGHT: #c0c0c0 1px solid; BORDER-TOP: #c0c0c0 1px solid; BORDER-LEFT: #c0c0c0 1px solid; BORDER-BOTTOM: #c0c0c0 1px solid" 
+                  cellSpacing=2 cellPadding=3 width="100%" align=center 
+border=0><!-- table header --><TR class=blackshade vAlign=top><!--{if $column1show}-->{if $allow_edit}<TD align=middle><IMG src="images/icon_edit.gif"></TD>{/if}{if $allow_deleteorexport}<TD align=middle><INPUT 
+                        onclick="var i; /*this.checked=!this.checked; */&#13;&#10;if ((typeof frmAdmin.elements['mdelete[]'].length)=='undefined')&#13;&#10;&#9;frmAdmin.elements['mdelete[]'].checked=this.checked;&#13;&#10;else&#13;&#10;for (i=0;i<frmAdmin.elements['mdelete[]'].length;++i) &#13;&#10;&#9;frmAdmin.elements['mdelete[]'][i].checked=this.checked;" 
+                        type=checkbox></TD>{/if}<TD><TABLE><TR><TD class=blackshade><A class=columnheaders 
+                              href="Moviment_list.asp?orderby={$order_dir_NrProtoc}NrProtoc">Nr 
+                              Protoc</A></TD><TD>{$order_image_NrProtoc}</TD></TABLE></TD><TD><TABLE><TR><TD class=blackshade><A class=columnheaders 
+                              href="Moviment_list.asp?orderby={$order_dir_DtMovim}DtMovim">Dt 
+                              Movim</A></TD><TD>{$order_image_DtMovim}</TD></TABLE></TD><TD><TABLE><TR><TD class=blackshade><A class=columnheaders 
+                              href="Moviment_list.asp?orderby={$order_dir_OrigNome}OrigNome">ORIGEM</A></TD><TD>{$order_image_OrigNome}</TD></TABLE></TD><TD><TABLE><TR><TD class=blackshade><A class=columnheaders 
+                              href="Moviment_list.asp?orderby={$order_dir_DestNome}DestNome">DESTINO</A></TD><TD>{$order_image_DestNome}</TD></TABLE></TD><TD><TABLE><TR><TD class=blackshade><A class=columnheaders 
+                              href="Moviment_list.asp?orderby={$order_dir_Obs}Obs">Obs</A></TD><TD>{$order_image_Obs}</TD></TABLE></TD><TD><TABLE><TR><TD class=blackshade><A class=columnheaders 
+                              href="Moviment_list.asp?orderby={$order_dir_Prazo}Prazo">Prazo</A></TD><TD>{$order_image_Prazo}</TD></TABLE></TD><TD><TABLE><TR><TD class=blackshade><A class=columnheaders 
+                              href="Moviment_list.asp?orderby={$order_dir_Cumprido}Cumprido">Cumprido</A></TD><TD>{$order_image_Cumprido}</td></table></td><td><table><tr><td class=blackshade><a class="columnheaders" 
+href="Moviment_list.asp?orderby={$order_dir_PastaArquiv}PastaArquiv">
+Solução</a></TD><td>{$order_image_PastaArquiv}</td></TABLE></TD><TD><TABLE><TR><TD class=blackshade><A class=columnheaders 
+                              href="Moviment_list.asp?orderby={$order_dir_PastaArquiv}PastaArquiv">Solução</A></TD><TD>{$order_image_PastaArquiv}</TD></TABLE></TD><!--{/if}--><!-- table data --><!--{foreach from=$rowinfo item=row}--><TR onmouseover="this.className = 'rowselected';" 
+                    onmouseout="this.className = '{$row.shadeclassname}';" 
+                    vAlign=top {$row.shadeclass}>{if $allow_edit}<TD align=middle><A class=tablelinks 
+                        href="Moviment_edit.asp?{$row.1editlink}">Editar</A> 
+                        &nbsp; </TD>{/if}{if $allow_deleteorexport}<TD align=middle><INPUT type=checkbox value="{$row.1recno}" name=mdelete[]><input type=hidden name="mdelete1[]" value="{$row.1id1}"><input type=hidden name="mdelete2[]" value="{$row.1id2}">&nbsp;</TD>{/if}<TD>{$row.1NrProtoc_value}</TD><TD>{$row.1DtMovim_value}</TD><TD>{$row.1OrigNome_value}</TD><TD>{$row.1DestNome_value}</TD><TD>{$row.1Obs_value}</TD><TD>{$row.1Prazo_value}</TD><TD>{$row.1Cumprido_value}</TD><TD>{$row.1PastaArquiv_value}</TD><!--{/foreach}--></TABLE></FORM>{/if}<P 
+            align=center><B>{$message}</B></P></TD></TABLE></TD><TR><TD class=bl align=middle colSpan=2 height=20>Ítens Encontrados: {$records_found}&nbsp; Página {$page}de 
+          {$maxpages}</TD><TR><TD class=line2 colSpan=2 height=3></TD><TR><TD align=middle colSpan=2 height=30>{$pagination}</TD></TABLE>{/if}</TD></TABLE>{doevent name="ListOnLoad"}</TD></TABLE>{include_if_exists file="include/footer.asp"}</BODY></HTML>

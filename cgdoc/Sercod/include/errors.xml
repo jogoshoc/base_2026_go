@@ -1,0 +1,445 @@
+<?xml version="1.0" standalone="yes"?>
+<rs>
+<row>
+<marked>No</marked>
+<Keywords>error syntax UPDATE</Keywords>
+<ID>1</ID>
+<ErrorNumber>2147217900</ErrorNumber>
+<ErrorDescription>Syntax error in UPDATE statement </ErrorDescription>
+<Solution>&lt;P&gt;This commonly occurs when you have a field name that is a reserved word.&lt;/P&gt;&lt;P&gt;Please refer to the following article in the ASPRunner's FAQ for detailed information&lt;BR&gt;&lt;A href="http://www.xlinesoft.com/asprunner/faq.htm#updatesyntax"&gt;http://www.xlinesoft.com/asprunner/faq.htm#updatesyntax&lt;/A&gt; &lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>provider initialised</Keywords>
+<ID>2</ID>
+<ErrorNumber>2147418113</ErrorNumber>
+<ErrorDescription>Data Provider could not be initialised </ErrorDescription>
+<Solution>Please refer to the following article in the ASPRunner's FAQ for detailed information&lt;BR&gt;&lt;A href="http://www.xlinesoft.com/asprunner/faq.htm#initialized"&gt;http://www.xlinesoft.com/asprunner/faq.htm#initialized&lt;/A&gt; </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>operation updatable query</Keywords>
+<ID>3</ID>
+<ErrorNumber>2147467259</ErrorNumber>
+<ErrorDescription>Operation must use an updateable query </ErrorDescription>
+<Solution>Please refer to the following article in the ASPRunner's FAQ for detailed information&lt;BR&gt;&lt;A href="http://xlinesoft.com/asprunner/docs/troubleshooting__operation_must_use_an_updateable_query__errors.htm"&gt;http://xlinesoft.com/asprunner/docs/troubleshooting__operation_must_use_an_updateable_query__errors.htm&lt;/A&gt; </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>unable registry key</Keywords>
+<ID>4</ID>
+<ErrorNumber>2147467259</ErrorNumber>
+<ErrorDescription>Unable to open registry key </ErrorDescription>
+<Solution>&lt;P&gt;This error can happen for a number of reasons. Usually it happens when path to the database is incorrect.&lt;/P&gt;&lt;P&gt;Please refer to the following article in the ASPRunner's FAQ for detailed information&lt;BR&gt;&lt;A href="http://www.xlinesoft.com/asprunner/faq.htm#unabletoopen"&gt;http://www.xlinesoft.com/asprunner/faq.htm#unabletoopen&lt;/A&gt; &lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>provider initialized</Keywords>
+<ID>5</ID>
+<ErrorNumber>2147467259</ErrorNumber>
+<ErrorDescription>Data provider could not be initialized </ErrorDescription>
+<Solution>&lt;P&gt;This error can happen for a number of reasons. Usually it happens due to server components conflict.&lt;/P&gt;&lt;P&gt;Please refer to the following article in the ASPRunner's FAQ for detailed information&lt;BR&gt;&lt;A href="http://www.xlinesoft.com/asprunner/faq.htm#initialized"&gt;http://www.xlinesoft.com/asprunner/faq.htm#initialized&lt;/A&gt; &lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>few parameters</Keywords>
+<ID>6</ID>
+<ErrorNumber>2147217904</ErrorNumber>
+<ErrorDescription>Too few parameters </ErrorDescription>
+<Solution>This error means one of the following:&lt;br&gt;1. your query contains parameters. Don't use query with parameters in ASPRunnerPro.&lt;br&gt;2. One of field names in SQL query above is incorrect. Make sure all
+field names in this query are correct.</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>exclusively another</Keywords>
+<ID>8</ID>
+<ErrorNumber>2147467259</ErrorNumber>
+<ErrorDescription>It is already opened exclusively by another user </ErrorDescription>
+<Solution>Please refer to the following article in the ASPRunner's FAQ for detailed information&lt;BR&gt;&lt;A href="http://www.xlinesoft.com/asprunner/faq.htm#exclusively"&gt;http://www.xlinesoft.com/asprunner/faq.htm#exclusively&lt;/A&gt; </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>error INSERT INTO</Keywords>
+<ID>9</ID>
+<ErrorNumber>2147217900</ErrorNumber>
+<ErrorDescription>Syntax error in INSERT INTO statement </ErrorDescription>
+<Solution>&lt;P&gt;This commonly occurs when you have a field name that is a reserved word.&lt;/P&gt;&lt;P&gt;Please refer to the following article in the ASPRunner's FAQ for detailed information&lt;BR&gt;&lt;A href="http://www.xlinesoft.com/asprunner/faq.htm#updatesyntax"&gt;http://www.xlinesoft.com/asprunner/faq.htm#updatesyntax&lt;/A&gt; &lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>criteria type mismatch</Keywords>
+<ID>10</ID>
+<ErrorNumber>2147217913</ErrorNumber>
+<ErrorDescription>Data type mismatch in criteria expression </ErrorDescription>
+<Solution>&lt;P&gt;The SQL error 80040E07 occurs when attempting to use the "Insert Record" or the "Update Record" server behavior to set the value of a column in Microsoft Access with an empty string ("").&lt;/P&gt;
+&lt;P&gt;Please refer to the following article in the ASPRunner's FAQ for detailed information&lt;BR&gt;&lt;A href="http://www.xlinesoft.com/asprunner/faq.htm#datatypemismatch"&gt;http://www.xlinesoft.com/asprunner/faq.htm#datatypemismatch&lt;/A&gt; &lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>Login failed</Keywords>
+<ID>11</ID>
+<ErrorNumber>2147749453</ErrorNumber>
+<ErrorDescription>Login failed for user </ErrorDescription>
+<Solution>&lt;P&gt;These errors are generated if SQL Server does not accept the logon account and/or password being submitted. One possible reason could be that a corresponding SQL Server account has not been setup for the Windows NT account that is used to access the database. An example of an account used to access the SQL Server database could be the IUSR_computername account used by Internet Information Services (IIS) for anonymous access to ASP pages.&lt;/P&gt;
+&lt;P&gt;Please refer to the following article in the ASPRunner's FAQ for detailed information&lt;BR&gt;&lt;A href="http://www.xlinesoft.com/asprunner/faq.htm#loginfailed"&gt;http://www.xlinesoft.com/asprunner/faq.htm#loginfailed&lt;/A&gt; &lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>criteria type mismatch</Keywords>
+<ID>12</ID>
+<ErrorNumber>2147749383</ErrorNumber>
+<ErrorDescription>Data type mismatch in criteria expression </ErrorDescription>
+<Solution>&lt;P&gt;The SQL error 80040E07 occurs when attempting to use the "Insert Record" or the "Update Record" server behavior to set the value of a column in Microsoft Access with an empty string ("").&lt;/P&gt;
+&lt;P&gt;Please refer to the following article in the ASPRunner's FAQ for detailed information&lt;BR&gt;&lt;A href="http://www.xlinesoft.com/asprunner/faq.htm#datatypemismatch"&gt;http://www.xlinesoft.com/asprunner/faq.htm#datatypemismatch&lt;/A&gt; &lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>Login failed</Keywords>
+<ID>30</ID>
+<ErrorNumber>2147217843</ErrorNumber>
+<ErrorDescription>Login failed for user</ErrorDescription>
+<Solution>Error occurs -2147217843 because the user prtracker does not have privilege to create a SQL Server database. Note that all database operations are performed by functions inside PRTRACK.DLL which runs under the authority of user prtracker (assuming that you set it up this way in component services). The two ways to fix this problem. 1) Make the user prtracker a local administrator on the SQL Server computer. 2) Or make user prtracker a System Administrator of SQL Server. See http://help.prtracker.com/ConfigureSQLServer.html </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>&lt;NULL&gt;</Keywords>
+<ID>31</ID>
+<ErrorNumber>3705</ErrorNumber>
+<ErrorDescription>When you use Commerce Server, you may receive the following error message: 
+Sitename 
+The page cannot be displayed 
+We apologize for the inconvenience. Please try again later. If the problem persists, please contact our webmaster. 
+In the Microsoft Windows 2000 Application Event log, you see the following: 
+Event Type: Error
+Event Source: Commerce Server 2000
+Event Category: None
+Event ID: 4097
+Date: 7/25/2001
+Time: 4:49:04 PM
+User: N/A
+Computer: SERVER1
+Description:
+Retail 
+Error Type: ADODB.Connection Page: /retail/Default.asp 
+File: /retail/include/global_siteconfig_lib.asp
+Line:280
+80004005
+Operation is not allowed when the object is closed.
+Note: Set Application("MSCSEnv") = DEVELOPMENT to turn on client error messages.
+Note: Please see error\500error.asp to further customize error messages. 
+</ErrorDescription>
+<Solution>To check the connection strings, follow these steps: 1. Open Commerce Server Manager, double-click Commerce Server Manager, and then double-click Commerce Sites. 
+2. Double-click the site that is not working, then double-click Site Resources. 
+3. Right-click Transactions and click Properties. 
+4. Click Modify to change the connection string information.NOTE: To change the SQL port number, you must add a comma and then the port number, as follows: 
+SERVERNAME,Portnumber  
+5. Click Test Connection. 
+Repeat this process for the Retail Data Warehouse ProductCatalog object, as well as the Campaign and Profile objects.
+
+After you correct the problem, you must restart the Commerce application by using IISReset.
+
+If you receive the following error message 
+Error: CommerceServer2000's Administration database is not accessible, access to site is denied temporarily. 
+there is a problem with the connection to the MSCS_Admin database. To verify the connection string, follow these steps: 1. Open Commerce Server Manager. 
+2. Right-click Commerce Server Manager and click Properties. 
+3. Click Modify to change the connection string information.NOTE: To change the SQL port number, you must add a comma and then the port number, as follows: 
+SERVERNAME,Portnumber  
+4. Click Test Connection. 
+</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>&lt;NULL&gt;</Keywords>
+<ID>32</ID>
+<ErrorNumber>2147221005</ErrorNumber>
+<ErrorDescription>When you use a WebDAV query to perform a deep traversal search of a document library (Web Storage System-based) in Microsoft Office SharePoint Portal Server 2003, you may receive an error message that is similar to the following: 
+Error Code: -2147221005</ErrorDescription>
+<Solution>CAUSE
+This behavior occurs because SharePoint Portal Server 2003 does not support WebDAV queries to backward-compatible document libraries.
+WORKAROUND
+To work around this behavior, use one of the following methods, depending on your situation:  Use the Search feature in SharePoint Portal Server 2003 to search backward-compatible document libraries on the portal site. For more information about how to use the Search feature to search the portal site, see the "Searching the Portal Site" topic in SharePoint Portal Server 2003 Help. 
+ Use the Query Service Web service. For more information about the Query Service Web service, see the "Reference" topic in the "Microsoft Office SharePoint Portal Server 2003" topic in the "Applications" section of the Microsoft SharePoint Products and Technologies 2003 Software Development Kit (SDK). To view the Microsoft SharePoint Products and Technologies 2003 SDK, visit the following Microsoft Web site: 
+http://msdn.microsoft.com/library/default.asp?url=/library/en-us/spptsdk/html/SPSDKWelcome.asp (http://msdn.microsoft.com/library/default.asp?url=/library/en-us/spptsdk/html/SPSDKWelcome.asp) 
+
+
+http://support.microsoft.com/default.aspx?scid=kb;en-us;842685</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>CreateObject Failed error dll</Keywords>
+<ID>33</ID>
+<ErrorNumber>2147312566</ErrorNumber>
+<ErrorDescription>006~ASP 0177~Server.CreateObject Failed~Error loading type library/DLL. </ErrorDescription>
+<Solution>This error indacated that you have a corrupt MDAC (Microsoft Data Access Components) installation on your computer. Please reinstal MDAC&lt;/SPAN&gt;&lt;/SPAN&gt; </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>&lt;NULL&gt;</Keywords>
+<ID>34</ID>
+<ErrorNumber>3704</ErrorNumber>
+<ErrorDescription>Operation is not allowed when the object is closed.
+Note: Set Application("MSCSEnv") = DEVELOPMENT to turn on client error messages.
+Note: Please see error\500error.asp to further customize error messages. 
+</ErrorDescription>
+<Solution>Commerce Server uses a Universal Data Link (UDL) data link connection over OLEDB provider to connect to the Microsoft SQL Server computer. These errors indicate that the connection to the site's database failed. Possible causes include the following:  The connection string is wrong. The password may have changed, the port may have changed, and so on. 
+ The database is offline. 
+ The SQL server is paused or stopped. 
+ The SQL server is unreachable because of a network issue, such as a DNS issue, a changed name, and so on. 
+</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>Run-time error</Keywords>
+<ID>35</ID>
+<ErrorNumber>2147217911</ErrorNumber>
+<ErrorDescription>When you use the PKMCDO KnowledgeVersion object to programmatically check in a document, you may receive the following error message: Run-time error '-2147217911 (80040e09)': You cannot check in the document. </ErrorDescription>
+<Solution>This problem may occur when you log on to SharePoint Portal Server by using a user account whose password is blank. The Microsoft OLE DB provider for Internet Publishing (Msdaipp.dll) retrieves the password from the IDBBinderProperties interface and incorrectly sets the empty string in the password to NULL. As a result, the NULL value is not processed by the WinInet component. </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>&lt;NULL&gt;</Keywords>
+<ID>36</ID>
+<ErrorNumber>2147220973</ErrorNumber>
+<ErrorDescription>The transport failed to connect to the server. </ErrorDescription>
+<Solution>It seems that you type wrong smtp server on the User Login Settings dialog on the Security tab or mail2 server is down.</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>error wrong type</Keywords>
+<ID>37</ID>
+<ErrorNumber>2146825287</ErrorNumber>
+<ErrorDescription>The application is using arguments that are of the wrong type, are out of acceptable range, or are in conflict with one another. </ErrorDescription>
+<Solution>This error occurs 1. if you type letter in the field which is defined as number/numeric. I recommend you to use validation for this field. 2. there is type variance in the masterdetail relationsgip settings, lookup wizard settings or OwnerID settings. </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>ODBC requested properties</Keywords>
+<ID>38</ID>
+<ErrorNumber>2147217887</ErrorNumber>
+<ErrorDescription>ODBC driver does not support the requested properties </ErrorDescription>
+<Solution>Contact us at &lt;A href="mailto:support@xlinesoft.com"&gt;support@xlinesoft.com&lt;/A&gt; and send connection string from dbconnection.asp file along with full error message </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>connection perform</Keywords>
+<ID>40</ID>
+<ErrorNumber>3709</ErrorNumber>
+<ErrorDescription>The connection cannot be used to perform this operation. It is either closed or invalid in this context. </ErrorDescription>
+<Solution>fuck</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>Class registered</Keywords>
+<ID>42</ID>
+<ErrorNumber>2147221164</ErrorNumber>
+<ErrorDescription>"Class not registered" (-2147221164) Module: Project.verifyFields </ErrorDescription>
+<Solution>This error usually means that you have a corrupted MDAC (Microsoft Data Access Components) installation on your computer. Reinstall MDAC. </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>ADODB Connection </Keywords>
+<ID>45</ID>
+<ErrorNumber>3706</ErrorNumber>
+<ErrorDescription>Error 3706 Provider cannot be found ADODB.Connection </ErrorDescription>
+<Solution>This error message means that MDAC (Microsoft Data Access Components) is not installed on the computer or MDAC installation is corrupted. Reinstall MDAC. </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>exception occurred</Keywords
+><ID>46</ID>
+<ErrorNumber>507</ErrorNumber>
+<ErrorDescription>&lt;P&gt;An exception occurred &lt;/P&gt;</ErrorDescription>
+<Solution>&lt;P&gt;Please contact us at &lt;A href="mailto:support@xlinesoft.com"&gt;support@xlinesoft.com&lt;/A&gt;&amp;nbsp;and send&amp;nbsp;detailed description of what you doing or your event code.&lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>Object required</Keywords>
+<ID>47</ID>
+<ErrorNumber>424</ErrorNumber>
+<ErrorDescription>&lt;P&gt;Object required &lt;/P&gt;</ErrorDescription>
+<Solution>&lt;P&gt;Please contact us at &lt;A href="mailto:support@xlinesoft.com"&gt;support@xlinesoft.com&lt;/A&gt;&amp;nbsp;and send&amp;nbsp;detailed description of what you doing or your event code.&lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>&lt;NULL&gt;</Keywords>
+<ID>48</ID>
+<ErrorNumber>2147217864</ErrorNumber>
+<ErrorDescription>&lt;P&gt;&amp;nbsp;&lt;/P&gt;
+&lt;P&gt;Row cannot be located for updating. Some values may have been changed since it was last read. &lt;/P&gt;</ErrorDescription>
+<Solution>we fixed it </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>Command object</Keywords>
+<ID>49</ID>
+<ErrorNumber>2147217908</ErrorNumber>
+<ErrorDescription>Command text has not been set for the command object. </ErrorDescription>
+<Solution>This happens if you use an ODBC DSN for the database connection string (see global.asa). Please use the same format as we provide - i.e. directly referencing the OLE DB provider. </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>Method failed</Keywords>
+<ID>50</ID>
+<ErrorNumber>2147220999</ErrorNumber>
+<ErrorDescription>Error -2147220999: Method '~' of object '~' failed </ErrorDescription>
+<Solution>This error message means that MDAC (Microsoft Data Access Components) is not installed on the computer or MDAC installation is corrupted. Reinstall MDAC. </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>&lt;NULL&gt;</Keywords>
+<ID>51</ID>
+<ErrorNumber>2147217873</ErrorNumber>
+<ErrorDescription>Error Code : -2147217873 INSERT statement conflicted with COLUMN FOREIGN KEY constraint 'FK_ForeignKeyName'. The conflict occurred in database 'DatabaseName', table 'TableName', column 'Exposureid'. </ErrorDescription>
+<Solution>&lt;P&gt;This error occurs due to one of the following reasons:
+
+&lt;br&gt;1. Invalid data has been entered on the Add/Edit page. For example, string values were entered into numeric field or field size exceeds maximum possible value. To avoid this error, you need to choose validation type and enter max length on the "Edit as settings" dialog on the "Visual Editor" tab. 
+&lt;br&gt;2. On the Add/Edit page user entered invalid data in the foreign key field that links together master and detail tables.  There are three solutions for this problem : 
+&lt;br&gt; - make this field readonly (you can do it on the "Visual Editor" tab)
+&lt;br&gt; - remove this field from the Add/Edit page (you can do it on the Choose fields tab)
+&lt;br&gt; - make this field lookup wizard on the "Visual Editor" tab (in other words, make it drop-down box, in this case user would be able to choose only from existing external key) &lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>Automation procedure</Keywords>
+<ID>52</ID>
+<ErrorNumber>2147024769</ErrorNumber>
+<ErrorDescription>Automation error The specified procedure could not be found. </ErrorDescription>
+<Solution>please download and reinstall ASPRunnerPro. </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>Sender</Keywords>
+<ID>53</ID>
+<ErrorNumber>2147220979</ErrorNumber>
+<ErrorDescription>At least one of the From or Sender fields is required, and neither was found. </ErrorDescription>
+<Solution>please fill all required fileds on the Security Tab. </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>type mismatch</Keywords>
+<ID>54</ID>
+<ErrorNumber>13</ErrorNumber>
+<ErrorDescription>Type mismatch </ErrorDescription>
+<Solution>&lt;P&gt;This error occurs because value you type on the ADD/EDIT page and value in the database is not the same. Please validate this field on the "Visual Editor" tab.&lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>&lt;NULL&gt;</Keywords>
+<ID>55</ID>
+<ErrorNumber>3219</ErrorNumber>
+<ErrorDescription>Operation is not allowed in this context. </ErrorDescription>
+<Solution>&lt;P&gt;This error occurs when any field (blob, ole, object etc.) except binary type field was used for Database image. Probably, you need not a database image, but document upload. Then you should do the following: 
+&lt;br&gt;1. Add new varchar or text type field to your database. 
+&lt;br&gt;2. Set View and Edit types of this field to document upload and document download &lt;/P&gt;
+</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>initialization string</Keywords>
+<ID>57</ID>
+<ErrorNumber>2147217805</ErrorNumber>
+<ErrorDescription>B&amp;gt;Technical information &lt;BR&gt;Error number -2147217805 &lt;BR&gt;Error description Format of the initialization string does not conform to the OLE DB specification. &lt;BR&gt;URL /test/md/filename_list.asp &lt;BR&gt;SQL query select .....,..,......,...,. From MIDS.filename&lt;/B&gt;&lt;BR&gt;&lt;BR&gt;&amp;lt;%&lt;BR&gt;strConnection = "Provider=MSDataShape;DRIVER= &amp;nbsp;{IBM DB2 ODBC DRIVER};DSN=DSN_NAME;UID=USERID;PWD=PASSWORD; MODE=SHARE;DBALIAS=DSN_NAME; TXNISOLATION=1; SCHEMALIST="'QQQQ'"; CURRENTSCHEMA=QQQQ;"&lt;BR&gt;%&amp;gt; </ErrorDescription>
+<Solution>&lt;P&gt;Contact us at &lt;A href="mailto:support@xlinesoft.com"&gt;support@xlinesoft.com&lt;/A&gt; and send connection string from dbconnection.asp file and full error message.&lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>Invalid procedure</Keywords>
+<ID>59</ID>
+<ErrorNumber>5</ErrorNumber>
+<ErrorDescription>Invalid procedure call or argument </ErrorDescription>
+<Solution>&lt;P&gt;Perhaps there&amp;nbsp;is an&amp;nbsp;error in the event code.&lt;/P&gt;
+&lt;P&gt;Contact us at &lt;A href="mailto:support@xlinesoft.com"&gt;support@xlinesoft.com&lt;/A&gt; and send your event code.&lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>&lt;NULL&gt;</Keywords>
+<ID>60</ID>
+<ErrorNumber>2147012865</ErrorNumber>
+<ErrorDescription>Internet Client Error: Connection Reset. </ErrorDescription>
+<Solution>&lt;P&gt;Connection Reset. Connect again.&lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>CreateObject</Keywords>
+<ID>61</ID>
+<ErrorNumber>2147024770</ErrorNumber>
+<ErrorDescription>006~ASP 0177~Falha em Server.CreateObject~8007007e </ErrorDescription>
+<Solution>Reinstall MDAC (Microsoft Data Access Components)</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>recipient gateway</Keywords>
+<ID>63</ID>
+<ErrorNumber>2147220977</ErrorNumber>
+<ErrorDescription>The server rejected one or more recipient addresses. The server response was: 550 not local host test.com, not a gateway </ErrorDescription>
+<Solution>&lt;P&gt;You type wrong email for the email field in one of the events.&lt;/P&gt;
+&lt;P&gt;Please type correct email address.&lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>type mismatch</Keywords>
+<ID>64</ID>
+<ErrorNumber>2147352571</ErrorNumber>
+<ErrorDescription>&lt;P&gt;type mismatch&lt;/P&gt;</ErrorDescription>
+<Solution>&lt;P&gt;This error occurs because value you type on the ADD/EDIT page and value in the database is not the same. &lt;/P&gt;
+&lt;P&gt;Please validate this field on the "Visual Editor" tab.&lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>&lt;NULL&gt;</Keywords>
+<ID>65</ID>
+<ErrorNumber>500</ErrorNumber>
+<ErrorDescription>'LoginOnLoad' is undefined </ErrorDescription>
+<Solution>&amp;lt;P&amp;gt;This is caused by a new restriction that is imposed on the length of the Shape query string in Microsoft &amp;lt;A&amp;nbsp;href="http://www.kbalertz.com/838405/passed.shaping.service.error.after.apply.aspx#" target=_blank&amp;gt;Data Access&amp;lt;/A&amp;gt; Components (MDAC) 2.8. This restriction does not exist in earlier versions of MDAC.&amp;lt;/P&amp;gt;&lt;BR&gt;workaround&amp;gt;&lt;BR&gt;&amp;lt;SCRIPT type=text/javascript&amp;gt;loadTOCNode(1, 'workaround');&amp;lt;/SCRIPT&amp;gt;&lt;BR&gt;&lt;BR&gt;Without this fix, the Shape provider permits up to 32 KB in a single query string. To work around this problem, use one of the following methods: &lt;BR&gt;&amp;lt;TABLE class="list ul"&amp;gt;&lt;BR&gt;&amp;lt;TR&amp;gt;&lt;BR&gt;&amp;lt;TD class=bullet&amp;gt;&amp;lt;/TD&amp;gt;&lt;BR&gt;&amp;lt;TD class=text&amp;gt;Rewrite the queries to fit this limitation.&amp;lt;/TD&amp;gt;&amp;lt;/TR&amp;gt;&lt;BR&gt;&amp;lt;TR&amp;gt;&lt;BR&gt;&amp;lt;TD class=bullet&amp;gt;&amp;lt;/TD&amp;gt;&lt;BR&gt;&amp;lt;TD class=text&amp;gt;Use the reshaping feature to break the recordset up into smaller queries.&amp;lt;/TD&amp;gt;&amp;lt;/TR&amp;gt;&amp;lt;/TABLE&amp;gt; </Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>collection corresponding</Keywords>
+<ID>66</ID>
+<ErrorNumber>3265</ErrorNumber>
+<ErrorDescription>Item cannot be found in the collection corresponding to the requested name or ordinal. </ErrorDescription>
+<Solution>&lt;P&gt;There&amp;nbsp;are no records in the recordset.&lt;/P&gt;
+&lt;P&gt;Please edit your event code in the following way:&lt;/P&gt;
+&lt;P&gt;strSQL = "select * from AnyTable where AnyColumn='AnyValue'"&lt;/P&gt;
+&lt;P&gt;set rsTemp = CreateObject("ADODB.Recordset")&lt;/P&gt;
+&lt;P&gt;rsTemp.Open strSQLExists, dbConnection&lt;/P&gt;
+&lt;P&gt;and then use rsTemp("fieldname").&lt;/P&gt;
+&lt;P&gt;Or you can contact to &lt;A href="mailto:support@xlinesoft.com"&gt;support@xlinesoft.com&lt;/A&gt; and send your event code. We'll help you.&lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>check manual</Keywords>
+<ID>67</ID>
+<ErrorNumber>2147217900</ErrorNumber>
+<ErrorDescription>Error description You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' getdate()) end as Minutes from LoginAttempts where ip = '192.168.111.168'' at line 1 &lt;BR&gt;URL /orders/dispatchallstatus/login.asp &lt;BR&gt;</ErrorDescription>
+<Solution>&lt;P&gt;Contact us at &lt;A href="mailto:support@xlinesoft.com"&gt;support@xlinesoft.com&lt;/A&gt; and send a detailed description of what you doing.&lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>Unspecified error </Keywords>
+<ID>68</ID>
+<ErrorNumber>2147467259</ErrorNumber>
+<ErrorDescription>Unspecified error </ErrorDescription>
+<Solution>This error means one of the following:&lt;BR&gt;&lt;BR&gt;1. One or more required fields were not filled&lt;BR&gt;2. One of entered values do not conform field type (character values in numeric or date fields)&lt;BR&gt;3. You trying to enter a value into field which is of Autonumber type. &lt;BR&gt;4. You have a relationship between tables that requires you to put into foreign key field one of existing values from another table. If you put value that don't exist in another table you see the same error.&lt;BR&gt;&lt;BR&gt;To resolve this issues you need to dowble check what relationships you have in your database, what fields are required or don't allow zero length values. Try to find what field causes this problem by removing part of fields from this page.&lt;BR&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>Command invalid</Keywords>
+<ID>69</ID>
+<ErrorNumber>800a0e7d</ErrorNumber>
+<ErrorDescription>ADODB.Command error '800a0e7d'&amp;nbsp;&lt;BR&gt;The connection cannot be used to perform this operation. It is either closed&amp;nbsp;&lt;BR&gt;or invalid in this context. </ErrorDescription>
+<Solution>&lt;P&gt;The most likely cause is that you are trying to set the command object's activeConnection to an invalid connection object, or you didn't set the activeConnection property at all. Check over your code, and make sure your connection object is valid and open before trying to set it as the active connection for your command object. &lt;/P&gt;
+&lt;P&gt;&amp;nbsp;&lt;/P&gt;
+&lt;P&gt;It seems that&amp;nbsp; there is a bug in your event handlers code.&lt;/P&gt;
+&lt;P&gt;Please double check your event code.&lt;/P&gt;
+&lt;P&gt;Or contact to &lt;A href="mailto:support@xlinesoft.com"&gt;support@xlinesoft.com&lt;/A&gt; and send your event code.&lt;/P&gt;</Solution>
+</row>
+<row>
+<marked>No</marked>
+<Keywords>Error row </Keywords>
+<ID>76</ID>
+<ErrorNumber>80040e2f</ErrorNumber>
+<ErrorDescription>Error in row </ErrorDescription>
+<Solution>This error means one of the following:&lt;BR&gt;&lt;BR&gt;1. One or more required fields were not filled&lt;BR&gt;2. One of entered values do not conform field type (character values in numeric or date fields)&lt;BR&gt;3. You trying to enter a value into field which is of Autonumber type. &lt;BR&gt;4. You have a relationship between tables that requires you to put into foreign key field one of existing values from another table. If you put value that don't exist in another table you see the same error.&lt;BR&gt;&lt;BR&gt;To resolve this issues you need to dowble check what relationships you have in your database, what fields are required or don't allow zero length values. Try to find what field causes this problem by removing part of fields from this page. </Solution>
+</row>
+</rs>

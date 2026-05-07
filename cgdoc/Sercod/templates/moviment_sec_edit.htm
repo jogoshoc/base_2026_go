@@ -1,0 +1,71 @@
+<html>
+<head><title>Distrib. Interna (Seção)</title>
+<link REL="stylesheet" href="include/style.css" type="text/css">
+{$includes}
+</head>
+
+<body {$bodyonload}>
+<form name="editform" encType="multipart/form-data" method="post" action="moviment_sec_edit.asp" {$onsubmit}>
+
+{include_if_exists file="include/header.asp"}
+
+<h1>Distrib. Interna (Seção), Editar registro [
+CodDist: {$show_key1}
+,
+Nr Protoc: {$show_key2}
+]
+</h1>
+
+{doevent name="EditOnLoad"}
+{$message}
+
+
+&nbsp;&nbsp;&nbsp;<a href="moviment_sec_list.asp?a=return" >Voltar</a><br><br>
+<table cellpadding=2 class="main_table" style="border: 1px solid Silver;">
+
+<input type=hidden name=editid1 value="{$key1}">
+<input type=hidden name=editid2 value="{$key2}">
+
+  <tr><td class=shade width=150>Data Distrib</td><td width=250>
+    {build_edit_control field="DtMovim" value=$value_DtMovim mode="edit"}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade width=150>Destino (func)</td><td width=250>
+    {build_edit_control field="DestNome" value=$value_DestNome mode="edit"}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade width=150>Obs</td><td width=250>
+    {build_edit_control field="Obs" value=$value_Obs mode="edit"}
+    </td></tr>
+  <tr><td class=shade width=150>Prazo</td><td width=250>
+    {build_edit_control field="Prazo" value=$value_Prazo mode="edit"}
+    </td></tr>
+  <tr><td class=shade width=150>Cumprido</td><td width=250>
+    {build_edit_control field="Cumprido" value=$value_Cumprido mode="edit"}
+    </td></tr>
+  <tr><td class=shade width=150>Solução</td><td width=250>
+    {build_edit_control field="Solucao" value=$value_Solucao mode="edit"}
+    </td></tr>
+
+ <tr height=50><td colspan=2 align=center>
+ <input class=button type=submit value="Salvar" id=submit1 name=submit1>
+ <input class=button type=reset value="Limpar">
+ <input type=hidden name="a" value="edited">
+ </td></tr>
+
+</form>
+ 
+   <!-- legend -->
+   <tr height=50><td colspan=2 align=left>
+   <hr width=400 noshade size=1>
+   <br><img src="images/icon_required.gif"> - Preenchimento Obrigatório
+   </td></tr>
+
+</table>
+
+{include_if_exists file="include/footer.asp"}
+
+{$linkdata}
+<script>SetToFirstControl();</script>
+</body>
+</html>

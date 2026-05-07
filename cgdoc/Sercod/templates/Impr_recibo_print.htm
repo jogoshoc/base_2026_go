@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>Impressão de recibo</title>
+<link REL="stylesheet" href="include/style.css" type="text/css">
+</head>
+{literal}
+<style> 
+table {  border-collapse: collapse} 
+td { 
+ padding: 5px; 
+ margin: 0px; 
+ border-width: 1px; 
+ border-style: solid; 
+ border-color: #000000; 
+}
+</style> 
+{/literal}
+{include_if_exists file="include/header.asp"}
+{doevent name="PrintOnLoad"}
+	
+	
+<h1>Impressão de recibo</h1>
+<table align='center' width='95%' border='0' cellpadding=3 cellspacing=2>
+
+
+<tr>
+<!--{if $column1show}-->
+		<td class=blackshade>Descr</td>
+	<td class=blackshade>Nome</td>
+	<td class=blackshade>DtMovim</td>
+	<td class=blackshade>Destino</td>
+	<td class=blackshade>NrProtoc</td>
+<!--{/if}-->	
+</tr>
+{foreach from=$rowinfo item=row}
+<tr valign=top>
+
+
+
+
+<td>
+{$row.1Descr_value}
+</td>
+<td>
+{$row.1Nome_value}
+</td>
+<td>
+{$row.1DtMovim_value}
+</td>
+<td>
+{$row.1Destino_value}
+</td>
+<td>
+{$row.1NrProtoc_value}
+</td>
+
+</tr>
+{/foreach}
+<!-- totals row -->
+</table>
+{include_if_exists file="include/footer.asp"}
+</body>
+
+</html>

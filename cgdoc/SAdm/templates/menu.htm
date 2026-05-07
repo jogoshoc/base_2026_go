@@ -1,0 +1,40 @@
+<html>
+<head>
+<link REL="stylesheet" href="include/style.css" type="text/css">
+</head>
+<body>
+{include_if_exists file="include/header.asp"}
+<br>
+<table><tr>
+<td align=center>Usuário: <b>{$username}</b> &nbsp;
+<a href="login.asp?a=logout">Sair</a>
+</td><td width=20>&nbsp;</td>
+{if $not_a_guest}
+<td><a href="changepwd.asp">Trocar senha</a></td>
+{/if}
+</tr></table>
+<hr size=1 noshade>
+
+{if $allow_Cadastro}
+<a href="Cadastro_list.asp">
+Entrada/Saída</a> <br>
+{/if}
+{if $allow_Tramitacao}
+<a href="Tramitacao_list.asp">
+Tramitação</a> <br>
+{/if}
+{if $allow_Impr_recibo}
+<a href="Impr_recibo_list.asp">
+Impressão de recibo</a> <br>
+{/if}
+{if $allow__AudMoviment}
+<a href="_AudMoviment_list.asp">
+Auditoria</a> <br>
+{/if}
+{if $allow_Usu_rios}
+<a href="Usu_rios_list.asp">
+Usuários</a> <br>
+{/if}
+{include_if_exists file="include/footer.asp"}
+</body>
+</html>

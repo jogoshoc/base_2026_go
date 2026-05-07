@@ -1,0 +1,80 @@
+<html>
+<head><title>Usuários</title>
+<link REL="stylesheet" href="include/style.css" type="text/css">
+{$includes}
+</head>
+
+<body {$bodyonload}>
+<form name="editform" encType="multipart/form-data" method="post" action="Usu_rios_edit.asp" {$onsubmit}>
+
+{include_if_exists file="include/header.asp"}
+
+<h1>Usuários, Editar registro [
+NúmeroDoUsuário: {$show_key1}
+]
+</h1>
+
+{doevent name="EditOnLoad"}
+{$message}
+
+
+&nbsp;&nbsp;&nbsp;<a href="Usu_rios_list.asp?a=return" >Voltar</a><br><br>
+<table cellpadding=2 class="main_table" style="border: 1px solid Silver;">
+
+<input type=hidden name=editid1 value="{$key1}">
+
+  <tr><td class=shade width=150>NúmeroDoUsuário</td><td width=250>
+    {build_edit_control field="NúmeroDoUsuário" value=$value_N_meroDoUsu_rio mode="edit"}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade width=150>PG</td><td width=250>
+    {build_edit_control field="PG" value=$value_PG mode="edit"}
+    </td></tr>
+  <tr><td class=shade width=150>Nome</td><td width=250>
+    {build_edit_control field="Nome" value=$value_Nome mode="edit"}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade width=150>Ramal</td><td width=250>
+    {build_edit_control field="Ramal" value=$value_Ramal mode="edit"}
+    </td></tr>
+  <tr><td class=shade width=150>Unidade</td><td width=250>
+    {build_edit_control field="Unidade" value=$value_Unidade mode="edit"}
+    </td></tr>
+  <tr><td class=shade width=150>Seção</td><td width=250>
+    {build_edit_control field="Seção" value=$value_Se__o mode="edit"}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade width=150>Fotografia</td><td width=250>
+    {build_edit_control field="Fotografia" value=$value_Fotografia mode="edit"}
+    </td></tr>
+  <tr><td class=shade width=150>Senha</td><td width=250>
+    {build_edit_control field="Senha" value=$value_Senha mode="edit"}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+  <tr><td class=shade width=150>Privilegio</td><td width=250>
+    {build_edit_control field="Privilegio" value=$value_Privilegio mode="edit"}
+      &nbsp;<img src="images/icon_required.gif">
+  </td></tr>
+
+ <tr height=50><td colspan=2 align=center>
+ <input class=button type=submit value="Salvar" id=submit1 name=submit1>
+ <input class=button type=reset value="Limpar">
+ <input type=hidden name="a" value="edited">
+ </td></tr>
+
+</form>
+ 
+   <!-- legend -->
+   <tr height=50><td colspan=2 align=left>
+   <hr width=400 noshade size=1>
+   <br><img src="images/icon_required.gif"> - Preenchimento Obrigatório
+   </td></tr>
+
+</table>
+
+{include_if_exists file="include/footer.asp"}
+
+{$linkdata}
+<script>SetToFirstControl();</script>
+</body>
+</html>

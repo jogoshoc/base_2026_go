@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>Distrib. Interna (Seção)</title>
+<link REL="stylesheet" href="include/style.css" type="text/css">
+</head>
+{literal}
+<style> 
+table {  border-collapse: collapse} 
+td { 
+ padding: 5px; 
+ margin: 0px; 
+ border-width: 1px; 
+ border-style: solid; 
+ border-color: #000000; 
+}
+</style> 
+{/literal}
+{include_if_exists file="include/header.asp"}
+{doevent name="PrintOnLoad"}
+	
+{include file="$showmasterfile"}
+	
+<h1>Distrib. Interna (Seção)</h1>
+<table align='center' width='95%' border='0' cellpadding=3 cellspacing=2>
+
+
+<tr>
+<!--{if $column1show}-->
+		<td class=blackshade>Solução</td>
+	<td class=blackshade>Data Distrib</td>
+	<td class=blackshade>Destino (func)</td>
+	<td class=blackshade>Obs</td>
+	<td class=blackshade>Prazo</td>
+	<td class=blackshade>Cumprido</td>
+<!--{/if}-->	
+</tr>
+{foreach from=$rowinfo item=row}
+<tr valign=top>
+
+
+
+
+<td>
+{$row.1Solucao_value}
+</td>
+<td>
+{$row.1DtMovim_value}
+</td>
+<td>
+{$row.1DestNome_value}
+</td>
+<td>
+{$row.1Obs_value}
+</td>
+<td>
+{$row.1Prazo_value}
+</td>
+<td>
+{$row.1Cumprido_value}
+</td>
+
+</tr>
+{/foreach}
+<!-- totals row -->
+</table>
+{include_if_exists file="include/footer.asp"}
+</body>
+
+</html>

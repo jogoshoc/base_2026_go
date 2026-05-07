@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Entrada/Saída</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252"><LINK 
+href="include/style.css" type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY bgColor=white topMargin=5 {$onload}>{$includes}{include_if_exists file="include/header.asp"} 
+<FORM name=frmSearch action=Cadastro_list.asp method=get>
+  <input type="Hidden" name="a" value="search">
+  <input type="Hidden" name="value" value="1">
+  <input type="Hidden" name="SearchFor" value="">
+  <input type="Hidden" name="SearchOption" value="">
+  <input type="Hidden" name="SearchField" value="">
+</FORM>
+<TABLE width="85%" align=center>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE class=navigation cellSpacing=0 cellPadding=3 width="100%">
+        <TBODY>
+        <TR>
+          <TD align=left><FONT 
+            style="FONT-FAMILY: Verdana, Arial">Usuário:</FONT>&nbsp;<B>{$userid}</B>&nbsp; 
+            <A href="login.asp?a=logout">Sair</A> &nbsp;&nbsp;&nbsp; <A 
+            href="changepwd.asp">Trocar senha</A> 
+      </TD><!--language--></TR></TBODY></TABLE><BR>
+      <TABLE class=main_table cellSpacing=0 cellPadding=0 width="100%">
+        <TBODY>
+        <TR>
+          <TD>
+            <DIV id=menu-4>
+            <UL>{if $allow_Cadastro}
+              <LI><A id=current-4 href="Cadastro_list.asp">Entrada/Saída</A> {/if}{if $allow_Tramitacao}
+              <LI><A href="Tramitacao_list.asp">Tramitação</A> {/if}{if $allow_Impr_recibo}
+              <LI><A href="Impr_recibo_list.asp">Impressão de recibo</A> {/if}{if $allow__AudMoviment}
+              <LI><A href="_AudMoviment_list.asp">Auditoria</A> {/if}{if $allow_Usu_rios}
+              <LI><A href="Usu_rios_list.asp">Usuários</A> 
+            {/if}</LI></UL></DIV></TD></TR></TBODY></TABLE>
+      <TABLE class=main_table cellSpacing=0 cellPadding=0 width="100%">
+        <TBODY>
+        <TR>
+          <TD class=line2 colSpan=2 height=1><STRONG><FONT face=Tahoma 
+            color=#68838b size=5>Entrada/saída de 
+        documentos</FONT></STRONG></TD></TR>{if $allow_search}
+        <TR>
+          <TD class=bl vAlign=center align=middle height=35><B>Pesquisar 
+            </B>&nbsp;&nbsp;&nbsp; <select id="ctlSearchField">
+<option value="">Qualquer Campo</option>
+<option value="NrProtoc" {$search_NrProtoc}>Nr Protoc</option>
+<option value="DtEntr" {$search_DtEntr}>Data Entrada</option>
+<option value="Nat" {$search_Nat}>Natureza</option>
+<option value="Emissor" {$search_Emissor}>EMISSOR</option>
+<option value="Destino" {$search_Destino}>DESTINO</option>
+<option value="TipoDoc" {$search_TipoDoc}>TipoDoc</option>
+<option value="Descr" {$search_Descr}>Descrição</option>
+<option value="Assunto" {$search_Assunto}>Assunto</option>
+<option value="Nome" {$search_Nome}>Nome</option>
+<option value="MASP" {$search_MASP}>Nº Militar</option>
+<option value="CPF" {$search_CPF}>CPF</option>
+<option value="Obs" {$search_Obs}>Obs</option>
+</select> &nbsp; <select id="ctlSearchOption">
+<option value="Contains" {$search_contains_option_selected}>Contém</option>
+<option value="Equals" {$search_equals_option_selected}>Igual a</option>
+<option value="Starts with ..." {$search_startswith_option_selected}>Inicia com</option>
+<option value="More than ..." {$search_more_option_selected}>Maior que</option>
+<option value="Less than ..." {$search_less_option_selected}>Menor  que</option>
+<option value="Equal or more than ..." {$search_equalormore_option_selected}>Igual ou maior que</option>
+<option value="Equal or less than ..." {$search_equalorless_option_selected}>Igual ou menor que</option>
+<option value="Empty" {$search_empty_option_selected}>Vazio</option>
+</select> &nbsp; 
+            <INPUT id=ctlSearchFor {if $useAJAX} autocomplete="off" onkeydown="listenEvent(event,this,'ordinary');" onkeyup="searchSuggest(event,this,'ordinary');" {else} onkeydown="e=event; if(!e) e = window.event; if (e.keyCode != 13) return true; e.cancel = true; RunSearch(); return false;" {/if} {$search_searchfor}> &nbsp; <INPUT class=button onClick="javascript: RunSearch();" type=button value=Pesquisar> 
+            &nbsp; <INPUT class=button onClick="javascript: frmSearch.a.value = 'showall'; frmSearch.submit();" type=button value="Mostrar Todos"> 
+{/if}</TD>
+          <TD class=bl><STRONG>&nbsp;Registros por Página: <select 
+onChange="javascript: document.location='Cadastro_list.asp?pagesize='+this.options[this.selectedIndex].value;">
+<option value="10" {$rpp10_selected}>10</option>
+<option value="20" {$rpp20_selected}>20</option>
+<option value="30" {$rpp30_selected}>30</option>
+<option value="50" {$rpp50_selected}>50</option>
+<option value="100" {$rpp100_selected}>100</option>
+<option value="500" {$rpp500_selected}>500</option>
+</select> </STRONG></TD></TR>
+        <TR>
+          <TD class=line2 colSpan=2 height=3></TD></TR>{if $allow_search}
+        <TR>
+          <TD colSpan=2>
+            <TABLE style="BEHAVIOR: url(table-highlight.htc)" 
+            borderColor=#ffffff width="100%" border=0 hlcolor="#ECF0F1" 
+            slcolor="#dee9ec" table E7EDEF="0">{if $allow_add}<!-- Add new record -->&nbsp;&nbsp;<A 
+              class=toplinks href="Cadastro_add.asp">Incluir Novo</A> {/if}{if $rowsfound}{if $allow_delete}&nbsp;&nbsp; <A 
+              class=toplinks 
+              onclick="if (confirm('Tem certeza que desejar excluir estes registros?')) frmAdmin.submit(); return false;" 
+              href="#">Excluir Selecionados</A> {/if}</TD>
+              <TBODY>
+              <TR>
+                <TD align=right>{if $allow_search}&nbsp;&nbsp;&nbsp; <A 
+                  class=toplinks href="Cadastro_search.asp">Pesquisa 
+                  Avancada</A> {/if}{/if}</TD></TR>{if $allow_search}
+              <TR>
+                <TD colSpan=2><!-- delete form -->
+                  <FORM name=frmAdmin action=Cadastro_list.asp method=post><input type=hidden id="a" name="a" value="delete">
+                  <TABLE class=data 
+                  style="BORDER-RIGHT: #c0c0c0 1px solid; BORDER-TOP: #c0c0c0 1px solid; BORDER-LEFT: #c0c0c0 1px solid; BORDER-BOTTOM: #c0c0c0 1px solid" 
+                  cellSpacing=2 cellPadding=3 width="100%" align=center 
+border=0><!-- table header -->
+                    <TBODY>
+                    <TR class=blackshade vAlign=top><!--{if $column1show}-->{if $allow_edit}
+                      <TD align=middle width=34><IMG 
+                        src="images/icon_edit.gif"></TD>{/if}{if $allow_deleteorexport}
+                      <TD align=middle width=27><INPUT 
+                        onclick="var i; /*this.checked=!this.checked; */&#13;&#10;if ((typeof frmAdmin.elements['mdelete[]'].length)=='undefined')&#13;&#10;&#9;frmAdmin.elements['mdelete[]'].checked=this.checked;&#13;&#10;else&#13;&#10;for (i=0;i<frmAdmin.elements['mdelete[]'].length;++i) &#13;&#10;&#9;frmAdmin.elements['mdelete[]'][i].checked=this.checked;" 
+                        type=checkbox> </TD>{/if}{if $allow_Moviment}
+                      <TD width=78>&nbsp;</TD>{/if}{if $allow_moviment_sec2}{/if}
+                      <TD width=93>
+                        <TABLE>
+                          <TBODY>
+                          <TR>
+                            <TD class=blackshade><A class=columnheaders 
+                              href="Cadastro_list.asp?orderby={$order_dir_NrProtoc}NrProtoc">Nr 
+                              Protoc</A> </TD>
+                            <TD>{$order_image_NrProtoc}</TD></TR></TBODY></TABLE></TD>
+                      <TD width=93>
+                        <TABLE>
+                          <TBODY>
+                          <TR>
+                            <TD class=blackshade><A class=columnheaders 
+                              href="Cadastro_list.asp?orderby={$order_dir_DtEntr}DtEntr">Data 
+                              Entrada</A> </TD>
+                            <TD>{$order_image_DtEntr}</TD></TR></TBODY></TABLE></TD>
+                      <TD width=93>
+                        <TABLE>
+                          <TBODY>
+                          <TR>
+                            <TD class=blackshade><A class=columnheaders 
+                              href="Cadastro_list.asp?orderby={$order_dir_Nat}Nat">Natureza</A> 
+                            </TD>
+                            <TD>{$order_image_Nat}</TD></TR></TBODY></TABLE></TD>
+                      <TD width=93>
+                        <TABLE>
+                          <TBODY>
+                          <TR>
+                            <TD class=blackshade><A class=columnheaders 
+                              href="Cadastro_list.asp?orderby={$order_dir_Emissor}Emissor">EMISSOR</A> 
+                            </TD>
+                            <TD>{$order_image_Emissor}</TD></TR></TBODY></TABLE></TD>
+                      <TD width=93>
+                        <TABLE>
+                          <TBODY>
+                          <TR>
+                            <TD class=blackshade><A class=columnheaders 
+                              href="Cadastro_list.asp?orderby={$order_dir_Destino}Destino">DESTINO</A> 
+                            </TD>
+                            <TD>{$order_image_Destino}</TD></TR></TBODY></TABLE></TD>
+                      <TD width=93>
+                        <TABLE>
+                          <TBODY>
+                          <TR>
+                            <TD class=blackshade><A class=columnheaders 
+                              href="Cadastro_list.asp?orderby={$order_dir_TipoDoc}TipoDoc">TipoDoc</A> 
+                            </TD>
+                            <TD>{$order_image_TipoDoc}</TD></TR></TBODY></TABLE></TD>
+                      <TD width=93>
+                        <TABLE>
+                          <TBODY>
+                          <TR>
+                            <TD class=blackshade><A class=columnheaders 
+                              href="Cadastro_list.asp?orderby={$order_dir_Descr}Descr">Descrição</A> 
+                            </TD>
+                            <TD>{$order_image_Descr}</TD></TR></TBODY></TABLE></TD>
+                      <TD width=93>
+                        <TABLE>
+                          <TBODY>
+                          <TR>
+                            <TD class=blackshade><A class=columnheaders 
+                              href="Cadastro_list.asp?orderby={$order_dir_Assunto}Assunto">Assunto</A> 
+                            </TD>
+                            <TD>{$order_image_Assunto}</TD></TR></TBODY></TABLE></TD>
+                      <TD width=93>
+                        <TABLE>
+                          <TBODY>
+                          <TR>
+                            <TD class=blackshade><A class=columnheaders 
+                              href="Cadastro_list.asp?orderby={$order_dir_Nome}Nome">Nome</A> 
+                            </TD>
+                            <TD>{$order_image_Nome}</TD></TR></TBODY></TABLE></TD>
+                       <TD width=93>
+                        <TABLE>
+                          <TBODY>
+                          <TR>
+                            <TD class=blackshade><A class=columnheaders 
+                              href="Cadastro_list.asp?orderby={$order_dir_MASP}MASP">MASP</A> 
+                            </TD>
+                            <TD>{$order_image_Nome}</TD></TR></TBODY></TABLE></TD>							
+   					   <TD width=93>
+                        <TABLE>
+                          <TBODY>
+                          <TR>
+                            <TD class=blackshade><A class=columnheaders 
+                              href="Cadastro_list.asp?orderby={$order_dir_CPF}CPF">CPF</A> 
+                            </TD>
+                            <TD>{$order_image_Nome}</TD></TR></TBODY></TABLE></TD>	
+                      <TD class=blackshade width=93>Obs</TD>
+                      <TD width=10>&nbsp;</TD></TD><!--{/if}--></TR><!-- table data --><!--{foreach from=$rowinfo item=row}-->
+                    <TR onMouseOver="this.className = 'rowselected';" 
+                    onmouseout="this.className = '{$row.shadeclassname}';" 
+                    vAlign=top {$row.shadeclass}>{if $allow_edit}
+                      <TD align=middle width=34><A class=tablelinks 
+                        href="Cadastro_edit.asp?{$row.1editlink}">Editar</A> 
+                        &nbsp; </TD>{/if}{if $allow_deleteorexport}
+                      <TD align=middle width=27><INPUT type=checkbox value="{$row.1recno}" name=mdelete[]> <input type=hidden name="mdelete1[]" value="{$row.1id1}">&nbsp;</TD>{/if}{if $allow_Moviment}
+                      <TD align=middle width=78><A class=tablelinks 
+                        href="Moviment_list.asp?{$row.1Moviment_masterkeys}" 
+                        {if $useAJAX} onMouseOver="showDetailsPreview(this,'Moviment_detailspreview.asp?{$row.1Moviment_masterkeys}');" onMouseOut="hideDetailsPreview(this);" {/if}>Movimentação p/ Seções</A> </TD>{/if}{if $allow_moviment_sec2}{/if}
+                      <TD width=93>{$row.1NrProtoc_value} </TD>
+                      <TD width=93>{$row.1DtEntr_value} </TD>
+                      <TD width=93>{$row.1Nat_value} </TD>
+                      <TD width=93>{$row.1Emissor_value} </TD>
+                      <TD width=93>{$row.1Destino_value} </TD>
+                      <TD width=93>{$row.1TipoDoc_value} </TD>
+                      <TD width=93>{$row.1Descr_value} </TD>
+                      <TD width=93>{$row.1Assunto_value} </TD>
+                      <TD width=93>{$row.1Nome_value} </TD>
+                      <TD width=93>{$row.1MASP_value} </TD>					  
+                      <TD width=93>{$row.1CPF_value} </TD>					  					  
+                      <TD width=93>{$row.1Obs_value} </TD>
+                      <TD align=middle width=41><A class=tablelinks 
+                        href="moviment_sec2_list.asp?{$row.1moviment_sec2_masterkeys}" 
+                        {if $useAJAX} onMouseOver="showDetailsPreview(this,'moviment_sec2_detailspreview.asp?{$row.1moviment_sec2_masterkeys}');" onMouseOut="hideDetailsPreview(this);" {/if}>Distrib. Interna</A> 
+                    </TD><!--{/foreach}--></TR></TBODY></TABLE></FORM>{/if}
+                  <P 
+            align=center><B>{$message}</B></P></TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD class=bl align=middle colSpan=2 height=20>Ítens Encontrados: {$records_found}&nbsp; Página {$page}de 
+          {$maxpages}</TD></TR>
+        <TR>
+          <TD class=line2 colSpan=2 height=3></TD></TR>
+        <TR>
+          <TD align=middle colSpan=2 height=30>{$pagination} 
+          </TD></TR></TBODY></TABLE>{/if}</TD></TR></TBODY></TABLE>{doevent name="ListOnLoad"} 
+</TD></TR></TABLE>{include_if_exists file="include/footer.asp"} </BODY></HTML>

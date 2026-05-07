@@ -1,0 +1,191 @@
+{
+  "version": "1.2.28",
+  "project": "projeto_cgdoc",
+  "user_name": "oliveira",
+  "chat_language": "pt-br",
+  "doc_language": "Português",
+  "answer_mode": "chat",
+  "doc_level": "completo",
+  "output_folder": "_reversa_sdd",
+  "phase": "revisao",
+  "completed": [
+    "scout",
+    "archaeologist",
+    "detective",
+    "architect",
+    "redator",
+    "reviewer"
+  ],
+  "pending": [],
+  "checkpoints": {
+    "scout": {
+      "completed_at": "2026-05-05T00:00:00Z",
+      "files_generated": [
+        "_reversa_sdd/inventory.md",
+        "_reversa_sdd/dependencies.md",
+        ".reversa/context/surface.json"
+      ],
+      "summary": "882 arquivos ASP, 2 modulos (SAdm, Sercod), banco Access"
+    },
+    "archaeologist": {
+      "completed_at": "2026-05-06T00:00:00Z",
+      "modules_analyzed": ["SAdm", "Sercod"],
+      "files_generated": [
+        "_reversa_sdd/code-analysis.md",
+        "_reversa_sdd/data-dictionary.md",
+        ".reversa/context/modules.json"
+      ],
+      "summary": "Analisados SAdm e Sercod. Estrutura CRUD padrao, autenticação via Access, entidades: Usuarios, Cadastro, Tramitação, Movimentação."
+    },
+    "detective": {
+      "completed_at": "2026-05-06T00:00:00Z",
+      "files_generated": [
+        "_reversa_sdd/domain.md",
+        "_reversa_sdd/permissions.md",
+        "_reversa_sdd/adrs/001-autenticacao-access.md",
+        "_reversa_sdd/adrs/002-rbac-simples.md",
+        "_reversa_sdd/adrs/003-crud-gerado.md"
+      ],
+      "summary": "Extraídas 9 regras de negócio, matriz de permissões (3 papéis), 3 ADRs retroativos. Sem histórico Git."
+    },
+    "architect": {
+      "completed_at": "2026-05-06T00:00:00Z",
+      "files_generated": [
+        "_reversa_sdd/architecture.md",
+        "_reversa_sdd/c4-context.md",
+        "_reversa_sdd/c4-containers.md",
+        "_reversa_sdd/c4-components.md",
+        "_reversa_sdd/erd-complete.md",
+        "_reversa_sdd/traceability/spec-impact-matrix.md"
+      ],
+      "summary": "Gerados C4 (contexto, containers, componentes), ERD completo, Spec Impact Matrix. Dívidas: ASP clássico, Access, sem testes."
+    },
+    "redator": {
+      "completed_at": "2026-05-06T10:53:00Z",
+      "units_generated": 2,
+      "files_generated": [
+        "_reversa_sdd/SAdm/requirements.md",
+        "_reversa_sdd/SAdm/design.md",
+        "_reversa_sdd/SAdm/tasks.md",
+        "_reversa_sdd/SAdm/contracts.md",
+        "_reversa_sdd/SAdm/decisions.md",
+        "_reversa_sdd/SAdm/legacy-mapping.md",
+        "_reversa_sdd/Sercod/requirements.md",
+        "_reversa_sdd/Sercod/design.md",
+        "_reversa_sdd/Sercod/tasks.md",
+        "_reversa_sdd/Sercod/contracts.md",
+        "_reversa_sdd/Sercod/decisions.md",
+        "_reversa_sdd/Sercod/legacy-mapping.md",
+        "_reversa_sdd/traceability/code-spec-matrix.md"
+      ],
+      "summary": "13 arquivos gerados em 2 units. Cobertura ~64% do legado."
+    },
+    "reviewer": {
+      "completed_at": "2026-05-06T10:55:00Z",
+      "files_generated": [
+        "_reversa_sdd/questions.md",
+        "_reversa_sdd/confidence-report.md"
+      ],
+      "summary": "Revisão concluída. Confiança ~69%. 5 lacunas críticas identificadas. 10 perguntas geradas."
+    }
+  },
+  "engines": [
+    "claude-code",
+    "gemini-cli",
+    "antigravity",
+    "opencode",
+    "github-copilot",
+    "aider"
+  ],
+  "agents": [
+    "reversa",
+    "reversa-scout",
+    "reversa-archaeologist",
+    "reversa-detective",
+    "reversa-architect",
+    "reversa-writer",
+    "reversa-reviewer",
+    "reversa-visor",
+    "reversa-data-master",
+    "reversa-design-system",
+    "reversa-agents-help",
+    "reversa-reconstructor",
+    "reversa-migrate",
+    "reversa-paradigm-advisor",
+    "reversa-curator",
+    "reversa-strategist",
+    "reversa-designer",
+    "reversa-inspector",
+    "reversa-n8n"
+  ],
+  "created_files": [
+    ".claude\\skills\\reversa",
+    ".agents\\skills\\reversa",
+    ".claude\\skills\\reversa-scout",
+    ".agents\\skills\\reversa-scout",
+    ".claude\\skills\\reversa-archaeologist",
+    ".agents\\skills\\reversa-archaeologist",
+    ".claude\\skills\\reversa-detective",
+    ".agents\\skills\\reversa-detective",
+    ".claude\\skills\\reversa-architect",
+    ".agents\\skills\\reversa-architect",
+    ".claude\\skills\\reversa-writer",
+    ".agents\\skills\\reversa-writer",
+    ".claude\\skills\\reversa-reviewer",
+    ".agents\\skills\\reversa-reviewer",
+    ".claude\\skills\\reversa-visor",
+    ".agents\\skills\\reversa-visor",
+    ".claude\\skills\\reversa-data-master",
+    ".agents\\skills\\reversa-data-master",
+    ".claude\\skills\\reversa-design-system",
+    ".agents\\skills\\reversa-design-system",
+    ".claude\\skills\\reversa-agents-help",
+    ".agents\\skills\\reversa-agents-help",
+    ".claude\\skills\\reversa-reconstructor",
+    ".agents\\skills\\reversa-reconstructor",
+    ".claude\\skills\\reversa-migrate",
+    ".agents\\skills\\reversa-migrate",
+    ".claude\\skills\\reversa-paradigm-advisor",
+    ".agents\\skills\\reversa-paradigm-advisor",
+    ".claude\\skills\\reversa-curator",
+    ".agents\\skills\\reversa-curator",
+    ".claude\\skills\\reversa-strategist",
+    ".agents\\skills\\reversa-strategist",
+    ".claude\\skills\\reversa-designer",
+    ".agents\\skills\\reversa-designer",
+    ".claude\\skills\\reversa-inspector",
+    ".agents\\skills\\reversa-inspector",
+    ".claude\\skills\\reversa-n8n",
+    ".agents\\skills\\reversa-n8n",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "AGENTS.md",
+    ".github\\copilot-instructions.md",
+    "CONVENTIONS.md",
+    ".reversa\\state.json",
+    ".reversa\\config.toml",
+    ".reversa\\config.user.toml",
+    ".reversa\\plan.md",
+    ".reversa\\version",
+    ".reversa\\_config\\manifest.yaml",
+    ".reversa\\templates\\actions-template.md",
+    ".reversa\\templates\\principles-template.md",
+    ".reversa\\templates\\quality-template.md",
+    ".reversa\\templates\\requirements-template.md",
+    ".reversa\\templates\\roadmap-template.md",
+    ".reversa\\scripts\\sh\\bind-to-extraction.sh",
+    ".reversa\\scripts\\sh\\prepare-roadmap.sh",
+    ".reversa\\scripts\\sh\\verify-prerequisites.sh",
+    ".reversa\\scripts\\ps\\bind-to-extraction.ps1",
+    ".reversa\\scripts\\ps\\prepare-roadmap.ps1",
+    ".reversa\\scripts\\ps\\verify-prerequisites.ps1",
+    ".reversa\\hooks.yml"
+  ],
+  "redator_progress": {
+    "current": 13,
+    "total": 13,
+    "current_file": "_reversa_sdd/traceability/code-spec-matrix.md",
+    "last_updated": "2026-05-06T10:53:00Z",
+    "completed": true
+  }
+}
