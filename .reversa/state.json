@@ -1,5 +1,5 @@
 {
-  "version": "1.2.28",
+  "version": "1.2.33",
   "project": "projeto_cgdoc",
   "user_name": "oliveira",
   "chat_language": "pt-br",
@@ -29,7 +29,10 @@
     },
     "archaeologist": {
       "completed_at": "2026-05-06T00:00:00Z",
-      "modules_analyzed": ["SAdm", "Sercod"],
+      "modules_analyzed": [
+        "SAdm",
+        "Sercod"
+      ],
       "files_generated": [
         "_reversa_sdd/code-analysis.md",
         "_reversa_sdd/data-dictionary.md",

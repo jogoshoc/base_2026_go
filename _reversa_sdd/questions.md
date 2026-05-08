@@ -8,11 +8,11 @@
 
 **P-01:** O ID de admin hardcoded (1088608) está correto?
 - Requirements: `SAdm/requirements.md` — RB-03
-- Resposta: _Preencha aqui_
+- Resposta: ✅ CONFIRMADO. Usuário "1088608" recebe ACCESS_LEVEL_ADMIN em login.asp:21. Durante migração: mover para constante/configuração (var de ambiente) para garantir paridade no Parallel Run.
 
 **P-02:** Qual é o tempo de expiração de sessão?
 - Requirements: `SAdm/requirements.md` — RNF Performance (marcado como 🟡 inferido)
-- Resposta: _Preencha aqui_
+- Resposta: ✅ CONFIRMADO. Sistema usa padrão IIS/ASP Clásssico (20 minutos). Nenhum Session.Timeout encontrado nos arquivos. Durante migração: configurar middleware de sessão Go com 20m.
 
 **P-03:** As senhas são armazenadas em texto claro ou com hash?
 - Design: `SAdm/design.md` — Decisões de Design
@@ -52,7 +52,7 @@
 
 **P-09:** Existem outras entidades além de Cadastro, Tramitação e Movimentação?
 - Code Analysis: `_reversa_sdd/code-analysis.md`
-- Resposta: _Preencha aqui_
+- Resposta: ✅ CONFIRMADO. Entidades identificadas: `Usuários` (login), `Orgaos`, `Tipodoc`, `acesso` (log), `_AudMoviment` (audit trail), `moviment_sec`. Total: 7+ tabelas.
 
 **P-10:** Qual é a lógica de numeração de processos no Sercod?
 - Specs: `Sercod/tasks.md` — T-06 (marcado 🔴)
@@ -65,6 +65,16 @@
 - 🔴 Itens críticos que bloqueiam reimplementação
 - 🟡 Itens inferidos que precisam de validação
 - Todas as respostas serão incorporadas nas specs
+
+## Notas para Migração
+
+### Decisões Técnicas Registradas
+
+1. **Admin ID (1088608):** Durante migração Go, mover para variável de ambiente `ADMIN_USER_ID` para garantir paridade no Parallel Run.
+
+2. **Session Timeout:** Configurar middleware de sessão Go com `20m` (20 minutos) para paridade com padrão IIS/ASP.
+
+3. **Senhas em Texto Claro:** Implementaremos login aceitando texto claro para compatibilidade com base MariaDB importada. Criar tarefa de "Security Upgrade" para converter para bcrypt após Go assumir produção.
 
 ---
 

@@ -4,65 +4,51 @@
   "engine": "opencode",
   "reversaVersion": "1.2.28",
   "currentAgent": {
-    "agent": "designer",
-    "phase": "topology",
-    "status": "running",
-    "topologyApproved": false
+    "agent": "inspector",
+    "phase": null,
+    "status": "complete",
+    "topologyApproved": true
   },
   "completedAgents": [
     "paradigm_advisor",
     "curator",
     "data_master",
-    "strategist"
-  ],
-  "pendingAgents": [
+    "strategist",
     "designer",
     "inspector"
   ],
+  "pendingAgents": [],
   "artifacts": [
-    {
-      "name": "paradigm_decision.md",
-      "path": "_reversa_sdd/migration/paradigm_decision.md",
-      "generatedAt": "2026-05-06T13:15:00Z",
-      "hash": "sha256:generated"
-    },
-    {
-      "name": "target_business_rules.md",
-      "path": "_reversa_sdd/migration/target_business_rules.md",
-      "generatedAt": "2026-05-06T13:20:00Z",
-      "hash": "sha256:generated"
-    },
-    {
-      "name": "discard_log.md",
-      "path": "_reversa_sdd/migration/discard_log.md",
-      "generatedAt": "2026-05-06T13:20:00Z",
-      "hash": "sha256:generated"
-    },
-    {
-      "name": "migration_strategy.md",
-      "path": "_reversa_sdd/migration/migration_strategy.md",
-      "generatedAt": "2026-05-06T14:15:00Z",
-      "hash": "sha256:generated"
-    },
-    {
-      "name": "risk_register.md",
-      "path": "_reversa_sdd/migration/risk_register.md",
-      "generatedAt": "2026-05-06T14:15:00Z",
-      "hash": "sha256:generated"
-    },
-    {
-      "name": "cutover_plan.md",
-      "path": "_reversa_sdd/migration/cutover_plan.md",
-      "generatedAt": "2026-05-06T14:15:00Z",
-      "hash": "sha256:generated"
-    }
+    {"name": "paradigm_decision.md", "path": "_reversa_sdd/migration/paradigm_decision.md", "generatedAt": "2026-05-06T13:15:00Z", "hash": "sha256:generated"},
+    {"name": "target_business_rules.md", "path": "_reversa_sdd/migration/target_business_rules.md", "generatedAt": "2026-05-06T13:20:00Z", "hash": "sha256:generated"},
+    {"name": "discard_log.md", "path": "_reversa_sdd/migration/discard_log.md", "generatedAt": "2026-05-06T13:20:00Z", "hash": "sha256:generated"},
+    {"name": "migration_strategy.md", "path": "_reversa_sdd/migration/migration_strategy.md", "generatedAt": "2026-05-06T14:15:00Z", "hash": "sha256:generated"},
+    {"name": "risk_register.md", "path": "_reversa_sdd/migration/risk_register.md", "generatedAt": "2026-05-06T14:15:00Z", "hash": "sha256:generated"},
+    {"name": "cutover_plan.md", "path": "_reversa_sdd/migration/cutover_plan.md", "generatedAt": "2026-05-06T14:15:00Z", "hash": "sha256:generated"},
+    {"name": "topology_decision.md", "path": "_reversa_sdd/migration/topology_decision.md", "generatedAt": "2026-05-06T13:25:00Z", "hash": "sha256:generated"},
+    {"name": "target_architecture.md", "path": "_reversa_sdd/migration/target_architecture.md", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "target_domain_model.md", "path": "_reversa_sdd/migration/target_domain_model.md", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "target_data_model.md", "path": "_reversa_sdd/migration/target_data_model.md", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "data_migration_plan.md", "path": "_reversa_sdd/migration/data_migration_plan.md", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "parity_specs.md", "path": "_reversa_sdd/migration/parity_specs.md", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "01-login.feature", "path": "_reversa_sdd/migration/parity_tests/01-login.feature", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "02-logout.feature", "path": "_reversa_sdd/migration/parity_tests/02-logout.feature", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "03-list-cadastros.feature", "path": "_reversa_sdd/migration/parity_tests/03-list-cadastros.feature", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "04-busca.feature", "path": "_reversa_sdd/migration/parity_tests/04-busca.feature", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "05-create-cadastro.feature", "path": "_reversa_sdd/migration/parity_tests/05-create-cadastro.feature", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "06-edit-cadastro.feature", "path": "_reversa_sdd/migration/parity_tests/06-edit-cadastro.feature", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "07-delete-cadastro.feature", "path": "_reversa_sdd/migration/parity_tests/07-delete-cadastro.feature", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "08-tramitar.feature", "path": "_reversa_sdd/migration/parity_tests/08-tramitar.feature", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "09-moviment.feature", "path": "_reversa_sdd/migration/parity_tests/09-moviment.feature", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "10-export.feature", "path": "_reversa_sdd/migration/parity_tests/10-export.feature", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"},
+    {"name": "11-print.feature", "path": "_reversa_sdd/migration/parity_tests/11-print.feature", "generatedAt": "2026-05-07T00:00:00Z", "hash": "sha256:generated"}
   ],
   "ambiguityLog": [
     {"id": "BR-HUMANA-001", "status": "RESOLVIDO", "decisao": "30 minutos"},
     {"id": "BR-HUMANA-002", "status": "RESOLVIDO", "decisao": "BCrypt"},
     {"id": "BR-HUMANA-003", "status": "RESOLVIDO", "decisao": "Usar arquivos .sql"},
-    {"id": "BR-HUMANA-004", "status": "RESOLVIDO", "decisao": "Módulos diferentes"}
+    {"id": "BR-HUMANA-004", "status": "RESOLVIDO", "decisao": "Modulos diferentes"}
   ],
-  "lastCheckpoint": "2026-05-06T14:15:00Z",
+  "lastCheckpoint": "2026-05-07T00:00:00Z",
   "strategy": "Parallel Run"
 }
