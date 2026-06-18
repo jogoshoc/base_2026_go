@@ -1,0 +1,56 @@
+services:
+  db:
+    image: mariadb:10.11
+    container_name: cgdoc_db
+    restart: always
+    env_file: .env
+    ports:
+      - 3307:3306
+    volumes:
+      - cgdoc_db_data:/var/lib/mysql
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./cgdoc/SAdm/db/cgdoc_SAdm.sql:/legacy_dumps/cgdoc_SAdm.sql:ro
+      - ./cgdoc/Sercod/db/cgdoc_sercod.sql:/legacy_dumps/cgdoc_sercod.sql:ro
+      - ./cgdoc/Sercod/SAdm/db/cgdoc_sercod_SAdm.sql:/legacy_dumps/cgdoc_sercod_SAdm.sql:ro
+      - ./migrations:/migrations:ro
+
+  sadm-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cgdoc_sadm_app
+    command: [./sadm_app]
+    restart: unless-stopped
+    ports:
+      - 5001:8080
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: cgdoc_user
+      DB_PASSWORD: cts@pmmgcgdoc
+      DB_NAME: movedb_SAdm
+      SERVER_PORT: 8080
+
+  sercod-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cgdoc_sercod_app
+    command: [./sercod_app]
+    restart: unless-stopped
+    ports:
+      - 5002:8082
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: cgdoc_user
+      DB_PASSWORD: cts@pmmgcgdoc
+      DB_NAME: movedb_Sercod
+      SERVER_PORT: 8080
+
+volumes:
+  cgdoc_db_data:
