@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"cgdoc/internal/application/cadastro"
-	"cgdoc/internal/domain/entities"
 	"cgdoc/internal/interfaces/middleware"
 )
 

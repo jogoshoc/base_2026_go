@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"cgdoc/internal/application/auth"
-	"cgdoc/internal/domain/entities"
 	"cgdoc/internal/interfaces/middleware"
 )
 

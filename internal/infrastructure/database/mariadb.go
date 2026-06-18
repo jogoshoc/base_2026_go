@@ -1,7 +1,6 @@
 package database
 
 import (
-	"context"
 	"database/sql"
 
 	"cgdoc/internal/domain/entities"
@@ -296,7 +295,7 @@ func (r *movimentRepo) FindByNrProtoc(nrprotoc string) ([]*entities.Moviment, er
 func (r *movimentRepo) FindByID(codmov string) (*entities.Moviment, error) {
 	var m entities.Moviment
 	err := r.DB.QueryRow(
-		"SELECT codmov, nrprotoc, dtmovim, orignome, destnome, obs, prazo, usua_mov, cumplido FROM moviment WHERE codmov = ?",
+		"SELECT codmov, nrprotoc, dtmovim, orignome, destnome, obs, prazo, usua_mov, cumprido FROM moviment WHERE codmov = ?",
 		codmov,
 	).Scan(&m.CodMov, &m.NrProtoc, &m.DtMovim, &m.OrigNome, &m.DestNome, &m.Obs, &m.Prazo, &m.UsuaMov, &m.Cumprido)
 	if err == sql.ErrNoRows {
@@ -310,7 +309,7 @@ func (r *movimentRepo) FindByID(codmov string) (*entities.Moviment, error) {
 
 func (r *movimentRepo) Create(m *entities.Moviment) error {
 	_, err := r.DB.Exec(
-		"INSERT INTO moviment (codmov, nrprotoc, dtmovim, orignome, destnome, obs, prazo, usua_mov, cumplido) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+		"INSERT INTO moviment (codmov, nrprotoc, dtmovim, orignome, destnome, obs, prazo, usua_mov, cumprido) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
 		m.CodMov, m.NrProtoc, m.DtMovim, m.OrigNome, m.DestNome, m.Obs, m.Prazo, m.UsuaMov, m.Cumprido,
 	)
 	return err
@@ -318,7 +317,7 @@ func (r *movimentRepo) Create(m *entities.Moviment) error {
 
 func (r *movimentRepo) Update(m *entities.Moviment) error {
 	_, err := r.DB.Exec(
-		"UPDATE moviment SET nrprotoc = ?, dtmovim = ?, orignome = ?, destnome = ?, obs = ?, prazo = ?, usua_mov = ?, cumplido = ? WHERE codmov = ?",
+		"UPDATE moviment SET nrprotoc = ?, dtmovim = ?, orignome = ?, destnome = ?, obs = ?, prazo = ?, usua_mov = ?, cumprido = ? WHERE codmov = ?",
 		m.NrProtoc, m.DtMovim, m.OrigNome, m.DestNome, m.Obs, m.Prazo, m.UsuaMov, m.Cumprido, m.CodMov,
 	)
 	return err

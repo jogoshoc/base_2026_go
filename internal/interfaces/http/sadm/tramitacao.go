@@ -95,14 +95,18 @@ func (h *TramitacaoHandler) Add(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	dtmovim, _ := time.Parse("2006-01-02T15:04", r.Form.Get("dtmovim"))
 
+	origNome := r.Form.Get("orignome")
+	if origNome == "" {
+		origNome = session.UserID // Usa o usuário logado como origem se não informado
+	}
+
 	req := &tramitacao.CreateRequest{
 		NrProtoc: r.Form.Get("nrprotoc"),
 		DtMovim:  dtmovim,
-		OrigNome: r.Form.Get("orignome"),
+		OrigNome: origNome,
 		DestNome: r.Form.Get("destnome"),
 		Obs:      r.Form.Get("obs"),
 		Prazo:    r.Form.Get("prazo"),
-		UsuaMov:  session.UserID,
 	}
 
 	_, err := h.service.Create(req)

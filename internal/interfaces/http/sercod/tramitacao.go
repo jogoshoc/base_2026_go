@@ -92,17 +92,21 @@ func (h *TramitacaoHandler) Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	origNome := r.Form.Get("orignome")
+	if origNome == "" {
+		origNome = session.UserID
+	}
+
 	r.ParseForm()
 	dtmovim, _ := time.Parse("2006-01-02T15:04", r.Form.Get("dtmovim"))
 
 	req := &tramitacao.CreateRequest{
 		NrProtoc: r.Form.Get("nrprotoc"),
 		DtMovim:  dtmovim,
-		OrigNome: r.Form.Get("orignome"),
+		OrigNome: origNome,
 		DestNome: r.Form.Get("destnome"),
 		Obs:      r.Form.Get("obs"),
 		Prazo:    r.Form.Get("prazo"),
-		UsuaMov:  session.UserID,
 	}
 
 	_, err := h.service.Create(req)
@@ -193,13 +197,13 @@ func (h *MovimentHandler) Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+
 	r.ParseForm()
 	dtmovim, _ := time.Parse("2006-01-02T15:04", r.Form.Get("dtmovim"))
 
 	req := &moviment.CreateRequest{
 		NrProtoc: r.Form.Get("nrprotoc"),
 		DtMovim:  dtmovim,
-		UsuaMov:  session.UserID,
 		Cumprido: r.Form.Get("cumprido"),
 		Obs:      r.Form.Get("obs"),
 	}
