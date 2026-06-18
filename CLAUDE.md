@@ -1,20 +1,69 @@
-# Reversa
+# CGDoc — Manual para Agentes de IA
 
-> Framework de Engenharia Reversa instalado neste projeto.
+> Projeto Go + MariaDB. Migração do ASP legado concluída.
+> Containers Docker rodando em produção.
 
-## Como usar
+## Comandos Úteis
 
-Digite `/reversa` para ativar o Reversa e iniciar ou retomar a análise do projeto.
+```bash
+# Ver logs
+docker compose logs -f sadm-app sercod-app
 
-## Comportamento ao ativar
+# Acessar banco
+docker compose exec db mariadb -u root -p"$MYSQL_ROOT_PASSWORD" movedb_SAdm
 
-Quando o usuário digitar `/reversa` ou a palavra `reversa` sozinha em uma mensagem:
+# Rebuild de app específico
+docker compose build sadm-app && docker compose up -d sadm-app
 
-1. Ative o skill `reversa` disponível em `.claude/skills/reversa/SKILL.md`
-2. Se não encontrar em `.claude/skills/`, tente `.agents/skills/reversa/SKILL.md`
-3. Leia o SKILL.md na íntegra e siga exatamente as instruções do Reversa
+# Reset completo (destrói volume de dados)
+docker compose down -v && docker compose up -d
+```
 
-## Regra não-negociável
+## Regras
 
-Nunca apague, modifique ou sobrescreva arquivos pré-existentes do projeto legado.
-O Reversa escreve **apenas** em `.reversa/` e `_reversa_sdd/`.
+1. **Nunca modifique** arquivos em `cgdoc/` (código legado ASP)
+2. **Nunca modifique** arquivos em `.reversa/` ou `_reversa_sdd/` (saídas do Reversa)
+3. **Sempre use** `mysql.Config{}` para DSN (senha contém `@`)
+4. **Sempre use** `INSERT IGNORE` em ETLs (dados legados podem ter duplicatas)
+5. **Sempre use** `--force` em imports de SQLs legados
+6. **Tabelas legadas** têm PascalCase (`Cadastro`, `Usuários`, `Moviment`)
+7. **Tabelas Go** têm lowercase (`cadastro`, `usuarios`, `moviment`)
+
+## Estrutura de Pacotes
+
+```
+internal/
+├── application/    # Services (casos de uso)
+├── config/         # Config (DSN, ports, session)
+├── domain/
+│   ├── entities/   # Structs de domínio
+│   └── valueobjects/  # NrProtoc com prefixos
+├── infrastructure/
+│   ├── database/   # Repositórios + interfaces
+│   └── session/    # Session manager
+└── interfaces/
+    ├── http/       # Handlers (sadm/ + sercod/)
+    └── middleware/  # Auth middleware
+```
+
+## Conexão com o Banco
+
+Usar `mysql.Config{}` do pacote `github.com/go-sql-driver/mysql`:
+```go
+cfg := mysql.Config{
+    User:                 d.User,
+    Passwd:               d.Password,
+    Net:                  "tcp",
+    Addr:                 d.Host + ":" + strconv.Itoa(d.Port),
+    DBName:               d.Database,
+    ParseTime:            true,
+    AllowNativePasswords: true,
+}
+return cfg.FormatDSN()
+```
+
+## Problemas Conhecidos
+
+- `go-sql-driver/mysql` v1.10.0 requer `AllowNativePasswords: true` para MariaDB
+- Senha `cts@pmmgcgdoc` contém `@` — usar `mysql.Config{}` para evitar parsing incorreto
+- Sercod usa porta 8082 internamente (não 8080) — mapeamento Docker é `5002:8082`

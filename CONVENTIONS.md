@@ -1,19 +1,45 @@
-# Reversa
+# CGDoc — Convenções de Código
 
-> Framework de Engenharia Reversa instalado neste projeto.
+## Stack
+- **Linguagem**: Go 1.25+
+- **Router**: chi v5
+- **Database**: MariaDB 10.11 (driver: go-sql-driver/mysql v1.10)
+- **Container**: Docker Compose
 
-## Como usar
+## Convenções Go
+- Pacotes em lowercase, sem underlines
+- Interfaces no pacote `database/` (repository.go)
+- Implementações no mesmo pacote (mariadb.go)
+- Handlers em `interfaces/http/{sadm,sercod}/`
+- Services em `application/{auth,cadastro,moviment,tramitacao}/`
 
-Para ativar o Reversa, escreva `reversa` sozinho em uma mensagem.
+## Nomenclatura de Tabelas
+- **Legado**: PascalCase com acentos (`Usuários`, `Cadastro`, `Moviment`, `Orgaos`, `Tipodoc`)
+- **Go**: lowercase sem acentos (`usuarios`, `cadastro`, `moviment`, `tramitacao`, `orgaos`, `tipodoc`, `acesso`, `sessoes`)
 
-## Comportamento ao ativar
+## Prefixos NrProtoc
+- SAdm: `sadm-`
+- Sercod: `sercod-`
+- Sercod_SAdm: `sercod_sadm-`
 
-Quando o usuário escrever `reversa` sozinho:
+## Geração de CodMov
+- Moviment: `"MV" + time.Now().Format("20060102150405")` (legacy: `MV-{id}`)
+- Tramitacao: `"TM" + time.Now().Format("20060102150405")` (legacy: `TM-{id}`)
 
-1. Ative o skill `reversa` disponível em `.agents/skills/reversa/SKILL.md`
-2. Leia o SKILL.md na íntegra e siga exatamente as instruções do Reversa
+## ETL
+- Usar `INSERT IGNORE` para tolerar duplicatas
+- Usar `COALESCE` para campos nulos
+- Nunca dropar tabelas legadas (preservar para fallback)
+- Renomear tabelas conflitantes (ex: `acesso` → `acesso_legado`)
 
-## Regra não-negociável
+## Autenticação
+- Sessão via cookie (`CGDocSession`)
+- Timeout: 20 minutos
+- Admin padrão: `1088608`
+- Senhas em plain text (legado) — migrar para bcrypt eventualmente
 
-Nunca apague, modifique ou sobrescreva arquivos pré-existentes do projeto legado.
-O Reversa escreve **apenas** em `.reversa/` e `_reversa_sdd/`.
+## Git
+- Commits em português
+- Prefixo `feat:` para novas features, `fix:` para correções, `docs:` para documentação
+- Binários compilados (`sadm`, `sercod`) não versionar
+- `.env` não versionar
