@@ -10,6 +10,7 @@ import (
 	"cgdoc/internal/application/tramitacao"
 	"cgdoc/internal/application/moviment"
 	"cgdoc/internal/config"
+	_ "github.com/go-sql-driver/mysql"
 	"cgdoc/internal/domain/valueobjects"
 	"cgdoc/internal/infrastructure/database"
 	"cgdoc/internal/infrastructure/session"
@@ -17,7 +18,7 @@ import (
 	"cgdoc/internal/interfaces/middleware"
 
 	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
+	chimw "github.com/go-chi/chi/middleware"
 )
 
 func main() {
@@ -67,8 +68,8 @@ func main() {
 
 	// Router
 	r := chi.NewRouter()
-	r.Use(middleware.Logger)
-	r.Use(middleware.Recoverer)
+	r.Use(chimw.Logger)
+	r.Use(chimw.Recoverer)
 
 	// Public routes
 	r.Get("/login", authHandler.Login)

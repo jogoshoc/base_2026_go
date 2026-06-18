@@ -4,6 +4,8 @@ import (
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/go-sql-driver/mysql"
 )
 
 type Config struct {
@@ -27,11 +29,20 @@ type DatabaseConfig struct {
 }
 
 func (d DatabaseConfig) DSN() string {
-	return d.User + ":" + d.Password + "@tcp(" + d.Host + ":" + strconv.Itoa(d.Port) + ")/" + d.Database + "?parseTime=true"
+	cfg := mysql.Config{
+		User:                 d.User,
+		Passwd:               d.Password,
+		Net:                  "tcp",
+		Addr:                 d.Host + ":" + strconv.Itoa(d.Port),
+		DBName:               d.Database,
+		ParseTime:            true,
+		AllowNativePasswords: true,
+	}
+	return cfg.FormatDSN()
 }
 
 type SessionConfig struct {
-	Timeout time.Duration
+	Timeout    time.Duration
 	CookieName string
 }
 
@@ -61,7 +72,7 @@ func Load() *Config {
 			Database: getEnv("DB_NAME", "cgdoc"),
 		},
 		Session: SessionConfig{
-			Timeout:   sessionTimeout,
+			Timeout:    sessionTimeout,
 			CookieName: cookieName,
 		},
 		Admin: AdminConfig{
