@@ -37,9 +37,9 @@ type usuarioRepo struct {
 func (r *usuarioRepo) FindByNrUsuario(nrUsuario string) (*entities.Usuario, error) {
 	var u entities.Usuario
 	err := r.DB.QueryRow(
-		"SELECT codigo, nr_usuario, pg, nome, ramal, unidade, secao, privilegio FROM usuarios WHERE nr_usuario = ?",
+		"SELECT codigo, nr_usuario, pg, nome, ramal, unidade, secao, senha, privilegio FROM usuarios WHERE nr_usuario = ?",
 		nrUsuario,
-	).Scan(&u.Codigo, &u.NrUsuario, &u.PG, &u.Nome, &u.Ramal, &u.Unidade, &u.Secao, &u.Privilegio)
+	).Scan(&u.Codigo, &u.NrUsuario, &u.PG, &u.Nome, &u.Ramal, &u.Unidade, &u.Secao, &u.Senha, &u.Privilegio)
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}
@@ -52,9 +52,9 @@ func (r *usuarioRepo) FindByNrUsuario(nrUsuario string) (*entities.Usuario, erro
 func (r *usuarioRepo) FindByID(codigo int) (*entities.Usuario, error) {
 	var u entities.Usuario
 	err := r.DB.QueryRow(
-		"SELECT codigo, nr_usuario, pg, nome, ramal, unidade, secao, privilegio FROM usuarios WHERE codigo = ?",
+		"SELECT codigo, nr_usuario, pg, nome, ramal, unidade, secao, senha, privilegio FROM usuarios WHERE codigo = ?",
 		codigo,
-	).Scan(&u.Codigo, &u.NrUsuario, &u.PG, &u.Nome, &u.Ramal, &u.Unidade, &u.Secao, &u.Privilegio)
+	).Scan(&u.Codigo, &u.NrUsuario, &u.PG, &u.Nome, &u.Ramal, &u.Unidade, &u.Secao, &u.Senha, &u.Privilegio)
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}
@@ -94,7 +94,7 @@ func (r *usuarioRepo) Delete(codigo int) error {
 }
 
 func (r *usuarioRepo) ListAll() ([]*entities.Usuario, error) {
-	rows, err := r.DB.Query("SELECT codigo, nr_usuario, pg, nome, ramal, unidade, secao, privilegio FROM usuarios")
+	rows, err := r.DB.Query("SELECT codigo, nr_usuario, pg, nome, ramal, unidade, secao, senha, privilegio FROM usuarios")
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +103,7 @@ func (r *usuarioRepo) ListAll() ([]*entities.Usuario, error) {
 	var usuarios []*entities.Usuario
 	for rows.Next() {
 		var u entities.Usuario
-		if err := rows.Scan(&u.Codigo, &u.NrUsuario, &u.PG, &u.Nome, &u.Ramal, &u.Unidade, &u.Secao, &u.Privilegio); err != nil {
+		if err := rows.Scan(&u.Codigo, &u.NrUsuario, &u.PG, &u.Nome, &u.Ramal, &u.Unidade, &u.Secao, &u.Senha, &u.Privilegio); err != nil {
 			return nil, err
 		}
 		usuarios = append(usuarios, &u)
