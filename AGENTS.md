@@ -1,150 +1,108 @@
-# CGDoc — Sistema de Tramitação de Documentos
+# CGDoc — Manual para Agentes de IA (AGENTS.md)
 
-> Migração concluída: ASP Clássico + Access → Go + MariaDB
-> Estratégia: "CópiaPerfeita" — interface e funcionalidade idênticas ao legado
+> **Propósito**: Instruções específicas para ferramentas de IA (Claude, Cursor, etc.)
+> **Data**: 19/06/2026
+> **Estado**: Funcional. 8/8 tarefas concluídas.
 
-## Arquitetura
+---
+
+## Contexto do Projeto
+
+Este é o sistema CGDoc, migrado de ASP Clássico + Microsoft Access para Go + MariaDB.
+São 3 containers Docker rodando no servidor Contabo (vmi2968998).
+
+**Acessos:**
+- SSH: `deploy@100.64.117.78` (Tailscale) ou `157.173.124.16` (público)
+- SAdm: http://100.64.117.78:5001
+- Sercod: http://100.64.117.78:5002
+- MariaDB: porta 3307, root/cts@pmmgcgdoc
+- GitHub: `git@github-jogoshoc:jogoshoc/base_2026_go.git` (chave: `~/.ssh/id_ed25519_jogoshoc`)
+
+---
+
+## Estado Atual (19/06/2026)
+
+### ✅ Funcionalidades Implementadas e Testadas
+
+| Funcionalidade | SAdm (5001) | Sercod (5002) |
+|----------------|-------------|---------------|
+| Login (bcrypt) | ✅ | ✅ |
+| Listar cadastros | ✅ | ✅ |
+| Ver cadastro | ✅ | ✅ |
+| Adicionar cadastro | ✅ | ✅ |
+| Editar cadastro | ✅ | ✅ |
+| Excluir cadastro | ✅ | ✅ |
+| Search (7 filtros) | ✅ | ✅ |
+| Movimentação | ✅ | ✅ |
+| Tramitação | ✅ | ✅ |
+| Testes unitários | ✅ (17 testes) | — |
+
+### ⏳ Pendentes (baixa prioridade)
+- Rota `/cadastro` sem subpath → 404 (usar `/cadastro/list`)
+- SSO entre SAdm e Sercod
+- CI/CD (GitHub Actions)
+- Logging estruturado
+
+---
+
+## Regras para Agentes
+
+### Sempre Fazer
+- Usar `mysql.Config{}` para construir DSN (senha contém `@`)
+- Usar `AllowNativePasswords: true` nas configs MySQL
+- Incluir `senha` nas queries SELECT de usuários (FindByNrUsuario, FindByID, ListAll)
+- Usar `golang.org/x/crypto/bcrypt` para hash/verificação de senhas
+- Usar `INSERT IGNORE` em ETLs (duplicatas legadas)
+- Prefixar containers com `--no-cache` no build para garantir binários atualizados
+- Verificar `go vet ./...` e `go test ./internal/application/... -v` após alterações
+
+### Nunca Fazer
+- Modificar arquivos em `cgdoc/` (código legado ASP)
+- Modificar `.reversa/` ou `_reversa_sdd/` (saídas do Reversa)
+- Dropar tabelas legadas (preservar para fallback)
+- Usar `as any`, `@ts-ignore` ou equivalentes em Go
+- Commitar sem verificar lint + testes
+
+---
+
+## Fluxo de Autenticação
 
 ```
-┌──────────────┐    ┌──────────────┐
-│  sadm-app    │    │ sercod-app   │
-│  Go + chi    │    │  Go + chi    │
-│  porta 5001  │    │  porta 5002  │
-└──────┬───────┘    └──────┬───────┘
-       │                   │
-       └────────┬──────────┘
-                │ TCP :3306
-        ┌───────┴────────┐
-        │   MariaDB 10.11│
-        │   cgdoc_db     │
-        │   porta 3307   │
-        └────────────────┘
+1. POST /login → authHandler.Login
+2. authService.Login(username, password)
+3. usuarioRepo.FindByNrUsuario(username) → {senha_hash, ...}
+4. auth.CheckPassword(plain_password, senha_hash)
+   → Se hash bcrypt ($2a$...): bcrypt.CompareHashAndPassword
+   → Se plain text: compara direto + migra para bcrypt (HashPassword + UPDATE)
+5. sessionMgr.CreateSession(userID) → sessionID
+6. set cookie CGDocSession → redirect /menu
 ```
 
-## Bancos de Dados
+---
 
-| Banco | Origem | Registros | Finalidade |
-|-------|--------|-----------|------------|
-| `movedb_SAdm` | `cgdoc_SAdm.sql` | ~80k | Secretaria Administrativa |
-| `movedb_Sercod` | `cgdoc_sercod.sql` | ~102k | Secretaria de Códigos |
-| `movedb_Sercod_SAdm` | `cgdoc_sercod_SAdm.sql` | ~51k | Tramitação entre módulos |
-
-Cada banco contém **tabelas legadas** (PascalCase: `Cadastro`, `Usuários`, `Moviment`) e **tabelas Go** (lowercase: `cadastro`, `usuarios`, `moviment`, `tramitacao`, `orgaos`, `tipodoc`, `acesso`, `sessoes`).
-
-## Transformações Aplicadas
-
-| Campo Legado | Campo Go | Transformação |
-|-------------|----------|---------------|
-| `NrProtoc` (INT) | `nrprotoc` (VARCHAR) | Prefixo `sadm-`/`sercod-`/`sercod_sadm-` + número |
-| `CodMov` (INT AUTO_INCREMENT) | `codmov` (VARCHAR) | `MV-{id}` (moviment), `TM-{id}` (tramitacao) |
-| `Prazo` (DATETIME) | `prazo` (VARCHAR) | Formatado como `YYYY-MM-DD` |
-| `Usuários`.`NúmeroDoUsuário` | `nr_usuario` | Sem alteração |
-
-## Como Rodar
+## Conexão SSH com GitHub
 
 ```bash
-cd /home/deploy/Apps/base_2026_go
-docker compose up -d
+# A chave id_ed25519_jogoshoc autentica como usuário "jogoshoc"
+ssh -T github-jogoshoc
+# Hi jogoshoc! You've successfully authenticated...
+
+# Push
+cd ~/Apps/base_2026_go
+git push origin master
 ```
 
-Isso inicia:
-1. **MariaDB** (`cgdoc_db`) com dados legados + schema Go populado
-2. **SAdm app** (`cgdoc_sadm_app`) na porta 5001
-3. **Sercod app** (`cgdoc_sercod_app`) na porta 5002
+---
 
-Para rebuildar os apps após alterações no código:
+## Testes
+
 ```bash
-docker compose build sadm-app sercod-app
-docker compose up -d sadm-app sercod-app
+# Rodar todos os testes
+cd ~/Apps/base_2026_go
+go test ./internal/application/... -v
+
+# Testes específicos
+go test ./internal/application/auth/... -v
+go test ./internal/application/cadastro/... -v
+go test ./internal/application/moviment/... -v
 ```
-
-## Endpoints
-
-### SAdm (http://localhost:5001)
-| Rota | Método | Descrição |
-|------|--------|-----------|
-| `/login` | GET/POST | Login |
-| `/logout` | GET | Logout |
-| `/menu` | GET | Menu principal |
-| `/cadastro/list` | GET | Listar cadastros |
-| `/cadastro/add` | GET/POST | Adicionar cadastro |
-| `/cadastro/edit` | GET/POST | Editar cadastro |
-| `/cadastro/search` | GET/POST | Buscar cadastro |
-| `/cadastro/delete` | GET | Excluir cadastro |
-| `/tramitacao/list` | GET | Listar tramitações |
-| `/tramitacao/add` | GET/POST | Adicionar tramitação |
-| `/moviment/list` | GET | Listar movimentações |
-| `/moviment/add` | GET/POST | Adicionar movimentação |
-
-### Sercod (http://localhost:5002)
-Mesmas rotas do SAdm, operando sobre `movedb_Sercod`.
-
-## Pipeline de Inicialização (Docker)
-
-A ordem de execução no `docker-entrypoint-initdb.d/` é:
-
-1. **`01-create-databases.sql`** — Cria os 3 bancos + usuário `cgdoc_user`
-2. **`02-load-schemas.sh`** — Importa os 3 SQLs legados (com `--force` para duplicatas)
-3. **`03-migrate-to-go-schema.sh`** — Cria schema Go + executa ETL de transformação
-
-Os arquivos de migração estão em `migrations/`:
-- `001_initial_schema.sql` — Cria as tabelas Go
-- `etl-legado-to-go.sql` — Transforma dados legados → schema Go
-
-## Estrutura do Projeto
-
-```
-/
-├── cmd/
-│   ├── sadm/main.go      # Entry point SAdm (porta 8080)
-│   └── sercod/main.go    # Entry point Sercod (porta 8082)
-├── internal/
-│   ├── application/      # Casos de uso (services)
-│   │   ├── auth/         # Autenticação
-│   │   ├── cadastro/     # Cadastro de documentos
-│   │   ├── moviment/     # Movimentação
-│   │   └── tramitacao/   # Tramitação
-│   ├── config/           # Config (DSN com mysql.Config)
-│   ├── domain/
-│   │   ├── entities/     # Entidades (Usuario, Cadastro, Moviment, Tramitacao)
-│   │   └── valueobjects/ # NrProtoc com prefixos
-│   ├── infrastructure/
-│   │   ├── database/     # Repositórios MariaDB
-│   │   └── session/      # Gerenciamento de sessão
-│   └── interfaces/
-│       ├── http/
-│       │   ├── sadm/     # Handlers SAdm
-│       │   └── sercod/   # Handlers Sercod
-│       └── middleware/   # Auth middleware
-├── migrations/           # Schema SQL + ETL
-├── docker-entrypoint-initdb.d/  # Scripts de init do DB
-├── cgdoc/               # Código legado ASP (NÃO MODIFICAR)
-├── docker-compose.yml
-├── Dockerfile
-├── .env                 # Credenciais do banco
-└── go.mod
-```
-
-## Credenciais
-
-- **DB Root**: `root` / `cts@pmmgcgdoc` (porta 3307)
-- **DB User**: `cgdoc_user` / `cts@pmmgcgdoc`
-- **Admin App**: `1088608` (senha precisa ser resetada — hash dummy na migration)
-
-## Pontos de Atenção
-
-1. **Senhas em plain text** — O legado armazenava senhas em texto claro. A migration preservou esse formato. Recomenda-se implementar bcrypt.
-2. **`moviment`.`cumprido`** — O repositório usa `cumprido` (português). Verificar se olegado usava `Cumprido` ou `Cumprido`.
-3. **NrProtoc duplicados** — ~0.6% dos registros no SAdm foram deduplicados (UNIQUE constraint). Revisar se é aceitável.
-4. **`acesso` legado vazio** — As tabelas de log de acesso estavam vazias nos 3 bancos. 0 registros migrados é esperado.
-5. **`version: '3.8'` obsoleto** — O docker-compose.yml tem warning sobre atributo `version` obsoleto. Remover na próxima atualização.
-
-## Testes de Paridade Pendentes
-
-- [ ] Login com usuário legado (ex: `s1656743`)
-- [ ] Listagem de cadastro com filtros
-- [ ] Criação de novo cadastro
-- [ ] Edição de cadastro existente
-- [ ] Movimentação de documento
-- [ ] Tramitação entre módulos
-- [ ] Exclusão de registro
