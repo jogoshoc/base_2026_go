@@ -90,6 +90,7 @@ func main() {
 	protected.Post("/cadastro/edit", cadastroHandler.Edit)
 	protected.Get("/cadastro/search", cadastroHandler.Search)
 	protected.Post("/cadastro/search", cadastroHandler.Search)
+	protected.Get("/cadastro/view", cadastroHandler.View)
 	protected.Get("/cadastro/delete", cadastroHandler.Delete)
 
 	// Tramitação routes

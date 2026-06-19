@@ -175,8 +175,55 @@ func (r *cadastroRepo) Delete(controle int) error {
 }
 
 func (r *cadastroRepo) Search(params map[string]interface{}) ([]*entities.Cadastro, error) {
-	// Basic implementation - can be enhanced with dynamic query building
-	return nil, nil
+	query := "SELECT controle, nrprotoc, dtentr, descr, emissor, nome, assunto, tipodoc, nat, destino, obs, usuario, pastaarquiv, cpf, masp FROM cadastro WHERE 1=1"
+	var args []interface{}
+
+	if val, ok := params["nrprotoc"]; ok && val != "" {
+		query += " AND nrprotoc LIKE ?"
+		args = append(args, "%"+val.(string)+"%")
+	}
+	if val, ok := params["nome"]; ok && val != "" {
+		query += " AND nome LIKE ?"
+		args = append(args, "%"+val.(string)+"%")
+	}
+	if val, ok := params["assunto"]; ok && val != "" {
+		query += " AND assunto LIKE ?"
+		args = append(args, "%"+val.(string)+"%")
+	}
+	if val, ok := params["emissor"]; ok && val != "" {
+		query += " AND emissor LIKE ?"
+		args = append(args, "%"+val.(string)+"%")
+	}
+	if val, ok := params["destino"]; ok && val != "" {
+		query += " AND destino = ?"
+		args = append(args, val.(string))
+	}
+	if val, ok := params["nat"]; ok && val != "" {
+		query += " AND nat = ?"
+		args = append(args, val.(string))
+	}
+	if val, ok := params["tipodoc"]; ok && val != "" {
+		query += " AND tipodoc = ?"
+		args = append(args, val.(string))
+	}
+
+	query += " ORDER BY nrprotoc DESC LIMIT 50"
+
+	rows, err := r.DB.Query(query, args...)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var cadastros []*entities.Cadastro
+	for rows.Next() {
+		var c entities.Cadastro
+		if err := rows.Scan(&c.Controle, &c.NrProtoc, &c.DtEntr, &c.Descr, &c.Emissor, &c.Nome, &c.Assunto, &c.TipoDoc, &c.Nat, &c.Destino, &c.Obs, &c.Usuario, &c.PastaArquiv, &c.CPF, &c.MASP); err != nil {
+			return nil, err
+		}
+		cadastros = append(cadastros, &c)
+	}
+	return cadastros, nil
 }
 
 func (r *cadastroRepo) ListByPrefix(prefix string, limit, offset int) ([]*entities.Cadastro, error) {

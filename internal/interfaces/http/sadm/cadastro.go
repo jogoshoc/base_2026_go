@@ -45,7 +45,7 @@ func (h *CadastroHandler) List(w http.ResponseWriter, r *http.Request) {
 <td>` + c.Descr + `</td>
 <td>` + c.Nome + `</td>
 <td>` + c.Destino + `</td>
-<td><a href="/cadastro/edit?controle=` + strconv.Itoa(c.Controle) + `">Editar</a></td>
+<td><a href="/cadastro/view?controle=` + strconv.Itoa(c.Controle) + `">Ver</a> | <a href="/cadastro/edit?controle=` + strconv.Itoa(c.Controle) + `">Editar</a></td>
 </tr>`
 	}
 
@@ -55,6 +55,46 @@ func (h *CadastroHandler) List(w http.ResponseWriter, r *http.Request) {
 </body>
 </html>`
 
+	w.Write([]byte(html))
+}
+
+
+func (h *CadastroHandler) View(w http.ResponseWriter, r *http.Request) {
+	controle, err := strconv.Atoi(r.URL.Query().Get("controle"))
+	if err != nil {
+		http.Error(w, "controle invalido", http.StatusBadRequest)
+		return
+	}
+
+	c, err := h.service.GetByID(controle)
+	if err != nil || c == nil {
+		http.Error(w, "Cadastro nao encontrado", http.StatusNotFound)
+		return
+	}
+
+	html := `<!DOCTYPE html>
+<html>
+<head><title>Cadastro - SAdm</title></head>
+<body>
+<h1>Detalhes do Cadastro</h1>
+<table border="1">
+<tr><td>Nr Protoc:</td><td>` + c.NrProtoc + `</td></tr>
+<tr><td>Data Entrada:</td><td>` + c.DtEntr.Format("02/01/2006 15:04") + `</td></tr>
+<tr><td>Descricao:</td><td>` + c.Descr + `</td></tr>
+<tr><td>Emissor:</td><td>` + c.Emissor + `</td></tr>
+<tr><td>Nome:</td><td>` + c.Nome + `</td></tr>
+<tr><td>Assunto:</td><td>` + c.Assunto + `</td></tr>
+<tr><td>Tipo Doc:</td><td>` + c.TipoDoc + `</td></tr>
+<tr><td>Natureza:</td><td>` + c.Nat + `</td></tr>
+<tr><td>Destino:</td><td>` + c.Destino + `</td></tr>
+<tr><td>Usuario:</td><td>` + c.Usuario + `</td></tr>
+<tr><td>Obs:</td><td>` + c.Obs + `</td></tr>
+<tr><td>CPF:</td><td>` + c.CPF + `</td></tr>
+<tr><td>MASP:</td><td>` + c.MASP + `</td></tr>
+</table>
+<p><a href="/cadastro/list">Voltar</a></p>
+</body>
+</html>`
 	w.Write([]byte(html))
 }
 
@@ -206,7 +246,7 @@ func (h *CadastroHandler) Search(w http.ResponseWriter, r *http.Request) {
 <td>` + c.NrProtoc + `</td>
 <td>` + c.Descr + `</td>
 <td>` + c.Nome + `</td>
-<td><a href="/cadastro/edit?controle=` + strconv.Itoa(c.Controle) + `">Editar</a></td>
+<td><a href="/cadastro/view?controle=` + strconv.Itoa(c.Controle) + `">Ver</a> | <a href="/cadastro/edit?controle=` + strconv.Itoa(c.Controle) + `">Editar</a></td>
 </tr>`
 	}
 
