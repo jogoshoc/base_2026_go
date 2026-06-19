@@ -43,9 +43,17 @@ func (s *AuthService) Login(username, password string) (*entities.Session, error
 		return nil, ErrInvalidCredentials
 	}
 
-	// Plain text compatibility - in future, use bcrypt
-	if usuario.Senha != password {
-		return nil, ErrInvalidCredentials
+	// Verificar senha: suporta bcrypt (novo) e plain text (legado)
+	if !CheckPassword(password, usuario.Senha) {
+		if usuario.Senha != password {
+			return nil, ErrInvalidCredentials
+		}
+		// Migrar senha plain text para bcrypt na primeira autenticacao
+		hashed, err := HashPassword(password)
+		if err == nil {
+			usuario.Senha = hashed
+			s.repo.Update(usuario)
+		}
 	}
 
 	// Determine access level

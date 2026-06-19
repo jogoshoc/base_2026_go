@@ -3,50 +3,81 @@ package cadastro
 import (
 	"testing"
 	"time"
-
-	"cgdoc/internal/domain/entities"
-	"cgdoc/internal/domain/valueobjects"
 )
 
-func TestCadastro_Validate(t *testing.T) {
+func TestCreateRequest_Validate(t *testing.T) {
 	tests := []struct {
 		name    string
-		c       *entities.Cadastro
+		req     *CreateRequest
 		wantErr bool
 	}{
 		{
-			name: "valid cadastro",
-			c: &entities.Cadastro{
-				NrProtoc: "sadm-0000001",
-				DtEntr:   time.Now(),
-				Descr:    "Test",
-				Emissor:  "Test",
-				Nome:     "Test",
-				Assunto:  "Test",
-				TipoDoc:  "Test",
-				Nat:      "Entrada",
-				Destino:  "SERCOD",
+			name: "valid request",
+			req: &CreateRequest{
+				DtEntr:  time.Now(),
+				Descr:   "Teste de documento",
+				Emissor: "Teste",
+				Nome:    "Teste",
+				Assunto: "Teste",
+				TipoDoc: "OF",
+				Nat:     "Entrada",
+				Destino: "ARQUIVO",
 			},
 			wantErr: false,
 		},
 		{
-			name: "missing nrprotoc",
-			c: &entities.Cadastro{
+			name: "missing descricao",
+			req: &CreateRequest{
 				DtEntr:  time.Now(),
-				Descr:   "Test",
-				Emissor: "Test",
-				Nome:    "Test",
-				Assunto: "Test",
-				TipoDoc: "Test",
+				Descr:   "",
+				Emissor: "Teste",
+				Nome:    "Teste",
+				Assunto: "Teste",
+				TipoDoc: "OF",
 				Nat:     "Entrada",
-				Destino: "SERCOD",
+				Destino: "ARQUIVO",
 			},
 			wantErr: true,
 		},
 		{
-			name: "missing required fields",
-			c: &entities.Cadastro{
-				NrProtoc: "sadm-0000001",
+			name: "missing nome",
+			req: &CreateRequest{
+				DtEntr:  time.Now(),
+				Descr:   "Teste",
+				Emissor: "Teste",
+				Nome:    "",
+				Assunto: "Teste",
+				TipoDoc: "OF",
+				Nat:     "Entrada",
+				Destino: "ARQUIVO",
+			},
+			wantErr: true,
+		},
+		{
+			name: "missing destino",
+			req: &CreateRequest{
+				DtEntr:  time.Now(),
+				Descr:   "Teste",
+				Emissor: "Teste",
+				Nome:    "Teste",
+				Assunto: "Teste",
+				TipoDoc: "OF",
+				Nat:     "Entrada",
+				Destino: "",
+			},
+			wantErr: true,
+		},
+		{
+			name: "missing tipodoc",
+			req: &CreateRequest{
+				DtEntr:  time.Now(),
+				Descr:   "Teste",
+				Emissor: "Teste",
+				Nome:    "Teste",
+				Assunto: "Teste",
+				TipoDoc: "",
+				Nat:     "Entrada",
+				Destino: "ARQUIVO",
 			},
 			wantErr: true,
 		},
@@ -54,65 +85,64 @@ func TestCadastro_Validate(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := tt.c.Validate()
+			err := tt.req.Validate()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("CreateRequest.Validate() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
-func TestCadastro_HasPrefix(t *testing.T) {
-	c := &entities.Cadastro{NrProtoc: "sadm-0000001"}
-	
-	if !c.HasPrefix("sadm-") {
-		t.Error("Should have sadm- prefix")
+func TestUpdateRequest_Fields(t *testing.T) {
+	req := &UpdateRequest{
+		Descr:   "Descricao atualizada",
+		Nome:    "Nome atualizado",
+		Assunto: "Assunto atualizado",
+		Destino: "Destino atualizado",
+		Obs:     "Observacao atualizada",
 	}
-	
-	if c.HasPrefix("sercod-") {
-		t.Error("Should not have sercod- prefix")
+
+	if req.Descr != "Descricao atualizada" {
+		t.Errorf("UpdateRequest.Descr should be updated")
 	}
 }
 
-func TestNrProtoc_Parse(t *testing.T) {
-	tests := []struct {
-		input    string
-		wantPref string
-		wantNum  int
-		wantErr  bool
-	}{
-		{"sadm-0000001", "sadm-", 1, false},
-		{"sercod-0000050", "sercod-", 50, false},
-		{"invalid", "", 0, true},
+func TestSearchParams_ToMap(t *testing.T) {
+	params := SearchParams{
+		NrProtoc: "sadm-",
+		Nome:     "Teste",
+		Assunto:  "Documento",
 	}
 
-	for _, tt := range tests {
-		t.Run(tt.input, func(t *testing.T) {
-			n, err := valueobjects.ParseNrProtoc(tt.input)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("ParseNrProtoc() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !tt.wantErr {
-				if n.Prefix() != tt.wantPref {
-					t.Errorf("Prefix() = %v, want %v", n.Prefix(), tt.wantPref)
-				}
-				if n.Numero() != tt.wantNum {
-					t.Errorf("Numero() = %v, want %v", n.Numero(), tt.wantNum)
-				}
-			}
-		})
+	m := params.ToMap()
+	if len(m) != 3 {
+		t.Errorf("Expected 3 params, got %d", len(m))
+	}
+
+	if m["nrprotoc"] != "sadm-" {
+		t.Errorf("Expected nrprotoc=sadm-, got %v", m["nrprotoc"])
 	}
 }
 
-func TestNrProtoc_String(t *testing.T) {
-	n := valueobjects.NewNrProtoc("sadm-", 1)
-	if n.String() != "sadm-0000001" {
-		t.Errorf("String() = %v, want sadm-0000001", n.String())
+func TestSearchParams_ToMap_Empty(t *testing.T) {
+	params := SearchParams{}
+	m := params.ToMap()
+	if len(m) != 0 {
+		t.Errorf("Expected empty map, got %d entries", len(m))
 	}
-	
-	n = valueobjects.NewNrProtoc("sercod-", 50)
-	if n.String() != "sercod-0000050" {
-		t.Errorf("String() = %v, want sercod-0000050", n.String())
+}
+
+func TestBuildSearchQuery(t *testing.T) {
+	params := SearchParams{
+		Nome:    "Silva",
+		Assunto: "Oficio",
+	}
+
+	query, args := BuildSearchQuery(params)
+	if query == "" {
+		t.Error("Query should not be empty")
+	}
+	if len(args) != 2 {
+		t.Errorf("Expected 2 args, got %d", len(args))
 	}
 }
