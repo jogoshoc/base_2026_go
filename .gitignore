@@ -7,3 +7,7 @@ Thumbs.db
 .vs/
 .reversa/cache/
 _reversa_sdd/temp/
+*.exe
+/query
+/sadm.exe
+/sercod.exe
