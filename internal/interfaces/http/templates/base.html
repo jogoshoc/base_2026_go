@@ -1,0 +1,315 @@
+{{define "base"}}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGDoc - {{.Title}}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0D0D0D;
+            color: #FFFFFF;
+            min-height: 100vh;
+        }
+        .header {
+            background: #0D0D0D;
+            border-bottom: 2px solid #C8A96E;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-logo {
+            height: 50px;
+            width: 50px;
+            background: #C8A96E;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0D0D0D;
+            font-size: 20px;
+        }
+        .header-title { color: #C8A96E; font-size: 18px; font-weight: bold; }
+        .header-user { color: #AAAAAA; font-size: 13px; }
+        .header-user strong { color: #FFFFFF; }
+        .header-actions { display: flex; align-items: center; gap: 15px; }
+        .header-actions a { color: #C8A96E; text-decoration: none; font-size: 13px; }
+        .header-actions a:hover { text-decoration: underline; }
+        .layout { display: flex; min-height: calc(100vh - 74px); }
+        .sidebar {
+            width: 220px;
+            background: #2C2C2C;
+            padding: 20px 0;
+            flex-shrink: 0;
+        }
+        .sidebar a {
+            display: block;
+            color: #C8A96E;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .sidebar a:hover { background: #3A3A3A; }
+        .sidebar a.active { background: #3A3A3A; border-left-color: #C8A96E; }
+        .sidebar .sidebar-section {
+            color: #AAAAAA;
+            font-size: 11px;
+            text-transform: uppercase;
+            padding: 15px 20px 5px;
+            letter-spacing: 1px;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            background: #0D0D0D;
+            overflow-x: auto;
+        }
+        .card {
+            background: #2C2C2C;
+            border: 1px solid #3A3A3A;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        .card-title {
+            color: #C8A96E;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #3A3A3A;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        th {
+            background: #2C2C2C;
+            color: #FFFFFF;
+            padding: 10px 10px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 2px solid #C8A96E;
+            white-space: nowrap;
+        }
+        td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #3A3A3A;
+            color: #FFFFFF;
+        }
+        tr:nth-child(even) td { background: #1A1A1A; }
+        tr:nth-child(odd) td { background: #222222; }
+        tr:hover td { background: #333333; }
+        input, select, textarea {
+            background: #3A3A3A;
+            border: 1px solid #555555;
+            color: #FFFFFF;
+            padding: 8px 12px;
+            border-radius: 3px;
+            font-size: 13px;
+            font-family: inherit;
+            width: 100%;
+            max-width: 400px;
+        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #C8A96E; }
+        label { color: #AAAAAA; font-size: 13px; display: block; margin-bottom: 4px; }
+        .form-group { margin-bottom: 12px; }
+        .form-row { display: flex; gap: 15px; flex-wrap: wrap; }
+        .form-row .form-group { flex: 1; min-width: 200px; }
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: inherit;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-primary { background: #A89060; color: #000000; }
+        .btn-primary:hover { background: #C8A96E; }
+        .btn-secondary { background: #3A3A3A; color: #FFFFFF; }
+        .btn-secondary:hover { background: #555555; }
+        .btn-danger { background: #CC0000; color: #FFFFFF; }
+        .btn-danger:hover { background: #FF0000; }
+        .btn-link { background: none; color: #C8A96E; padding: 0; font-weight: normal; }
+        .btn-link:hover { text-decoration: underline; }
+        .pagination {
+            margin-top: 15px;
+            text-align: center;
+            color: #AAAAAA;
+            font-size: 13px;
+        }
+        .pagination a { color: #C8A96E; text-decoration: none; margin: 0 3px; }
+        .pagination a:hover { text-decoration: underline; }
+        .pagination .current { color: #FFFFFF; font-weight: bold; }
+        .pagination .total { color: #AAAAAA; margin-left: 10px; }
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            align-items: end;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .filter-bar .form-group { margin-bottom: 0; }
+        .filter-bar .advanced { margin-left: auto; color: #C8A96E; font-size: 12px; }
+        .error-msg { color: #CC0000; font-weight: bold; margin: 10px 0; font-size: 13px; }
+        .success-msg { color: #00CC00; font-weight: bold; margin: 10px 0; }
+        .checkbox-column { width: 30px; text-align: center; }
+        .actions-column { width: 120px; white-space: nowrap; }
+        .actions-column a { color: #C8A96E; font-size: 12px; margin-right: 5px; text-decoration: none; }
+        .actions-column a:hover { text-decoration: underline; }
+        .login-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 74px);
+        }
+        .login-box {
+            background: #2C2C2C;
+            border: 1px solid #3A3A3A;
+            border-radius: 6px;
+            padding: 40px;
+            width: 380px;
+            max-width: 90%;
+        }
+        .login-box h1 {
+            color: #C8A96E;
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .login-box .form-group { margin-bottom: 18px; }
+        .login-box .btn { width: 100%; padding: 10px; }
+        .login-box label { font-size: 13px; }
+        .login-box .remember-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        .login-box .remember-row input[type="checkbox"] {
+            width: auto;
+        }
+        .login-box .remember-row label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .menu-card {
+            background: #2C2C2C;
+            border: 1px solid #3A3A3A;
+            border-radius: 4px;
+            padding: 25px 20px;
+            text-align: center;
+            text-decoration: none;
+            transition: border-color 0.2s, background 0.2s;
+            display: block;
+        }
+        .menu-card:hover {
+            border-color: #C8A96E;
+            background: #333333;
+        }
+        .menu-card .menu-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .menu-card .menu-label {
+            color: #C8A96E;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .menu-card .menu-desc {
+            color: #AAAAAA;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .menu-header {
+            margin-bottom: 25px;
+        }
+        .menu-header h1 {
+            color: #C8A96E;
+            font-size: 22px;
+        }
+        .menu-header p {
+            color: #AAAAAA;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        a { color: #C8A96E; }
+        a:hover { color: #D4B87A; }
+        @media (max-width: 768px) {
+            .sidebar { width: 60px; }
+            .sidebar a { padding: 12px 10px; font-size: 0; }
+            .sidebar a:hover { font-size: 14px; }
+            .form-row .form-group { min-width: 100%; }
+            .filter-bar { flex-direction: column; align-items: stretch; }
+        }
+        @media print {
+            .sidebar { display: none; }
+            .header { display: none; }
+            .content { background: white; color: black; }
+            .btn { display: none; }
+            body { background: white; }
+            table { border: 1px solid #000; }
+            th, td { color: #000 !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div style="display:flex; align-items:center; gap:12px;">
+            <div class="header-logo">CG</div>
+            <span class="header-title">CGDoc - {{.Title}}</span>
+        </div>
+        <div class="header-actions">
+            {{if .User}}
+            <span class="header-user">Usuário: <strong>{{.User.Nome}}</strong></span>
+            <a href="/change-password">Trocar senha</a>
+            <a href="/logout">Sair</a>
+            {{end}}
+        </div>
+    </div>
+    <div class="layout">
+        {{if .User}}
+        <nav class="sidebar">
+            <div class="sidebar-section">Menu</div>
+            <a href="/menu" class="{{if eq .ActiveMenu "menu"}}active{{end}}">Principal</a>
+            <a href="/cadastro/list" class="{{if eq .ActiveMenu "cadastro"}}active{{end}}">Cadastros</a>
+            <a href="/tramitacao/list" class="{{if eq .ActiveMenu "tramitacao"}}active{{end}}">Tramitação</a>
+            <a href="/moviment/list" class="{{if eq .ActiveMenu "moviment"}}active{{end}}">Movimentações</a>
+        </nav>
+        {{end}}
+        <main class="content">
+            {{if .ErrorMsg}}<div class="error-msg">{{.ErrorMsg}}</div>{{end}}
+            {{if .SuccessMsg}}<div class="success-msg">{{.SuccessMsg}}</div>{{end}}
+            {{template .ContentTemplate .}}
+        </main>
+    </div>
+</body>
+</html>
+{{end}}

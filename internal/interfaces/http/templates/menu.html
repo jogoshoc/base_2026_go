@@ -1,0 +1,29 @@
+{{template "base" .}}
+{{define "menu-content"}}
+<div class="menu-header">
+    <h1>Bem-vindo, {{.User.Nome}}</h1>
+    {{if eq .User.Privilegio "1"}}<p>Administrador do sistema</p>{{end}}
+</div>
+<div class="menu-grid">
+    <a href="/cadastro/list" class="menu-card">
+        <div class="menu-icon">📋</div>
+        <div class="menu-label">Cadastros</div>
+        <div class="menu-desc">Gerenciar documentos e processos</div>
+    </a>
+    <a href="/tramitacao/list" class="menu-card">
+        <div class="menu-icon">🔄</div>
+        <div class="menu-label">Tramitação</div>
+        <div class="menu-desc">Registrar e consultar tramitações</div>
+    </a>
+    <a href="/moviment/list" class="menu-card">
+        <div class="menu-icon">📤</div>
+        <div class="menu-label">Movimentações</div>
+        <div class="menu-desc">Movimentar documentos entre setores</div>
+    </a>
+    <a href="/change-password" class="menu-card">
+        <div class="menu-icon">🔑</div>
+        <div class="menu-label">Trocar Senha</div>
+        <div class="menu-desc">Alterar sua senha de acesso</div>
+    </a>
+</div>
+{{end}}

@@ -1,0 +1,26 @@
+{{template "base" .}}
+{{define "login-content"}}
+<div class="login-wrapper">
+    <div class="login-box">
+        <h1>{{.Subsystem}}</h1>
+        <form method="post">
+            <div class="form-group">
+                <label for="username">Usuário</label>
+                <input type="text" id="username" name="username" placeholder="Digite seu usuário" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+            </div>
+            <div class="remember-row">
+                <input type="checkbox" id="remember" name="remember" value="on">
+                <label for="remember">Lembrar senha</label>
+            </div>
+            <button type="submit" class="btn btn-primary" name="btnSubmit" value="Login">Entrar</button>
+        </form>
+        {{if .ErrorMsg}}
+        <div class="error-msg" style="margin-top:15px; text-align:center;">{{.ErrorMsg}}</div>
+        {{end}}
+    </div>
+</div>
+{{end}}
