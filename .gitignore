@@ -11,3 +11,5 @@ _reversa_sdd/temp/
 /query
 /sadm.exe
 /sercod.exe
+*.log
+*~

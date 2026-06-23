@@ -2,7 +2,7 @@
 {{define "menu-content"}}
 <div class="menu-header">
     <h1>Bem-vindo, {{.User.Nome}}</h1>
-    {{if eq .User.Privilegio "1"}}<p>Administrador do sistema</p>{{end}}
+    {{if eq .User.Privilegio "adm"}}<p>Administrador do sistema</p>{{end}}
 </div>
 <div class="menu-grid">
     <a href="/cadastro/list" class="menu-card">

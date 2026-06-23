@@ -97,6 +97,10 @@ func (s *AuthService) CheckSecurity(session *entities.Session, ownerID string, o
 	return true
 }
 
+func (s *AuthService) GetUserInfo(nrUsuario string) (*entities.Usuario, error) {
+	return s.repo.FindByNrUsuario(nrUsuario)
+}
+
 func (s *AuthService) CookieName() string {
 	return s.cookieName
 }

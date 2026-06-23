@@ -2,6 +2,7 @@
 
 > **Status:** 🟢 Funcional — 3/8 tarefas do ciclo atual concluídas
 > **Última atualização:** 22/06/2026
+> **Próxima sessão:** 23/06/2026 — Migrar login para sistema de templates
 > **Stack:** Go + MariaDB + Chi Router
 
 ---
@@ -316,23 +317,60 @@ Screenshots de referência do sistema legado ASP e do layout institucional PMMG:
 
 ## 9. Próximos Passos Imediatos
 
-### Prioridade 1 — Paridade e Consistência
-- [ ] Comparar telas ASP legadas com telas Go atuais
+### 🚀 PRÓXIMA SESSÃO — 23/06: Migrar Login para Sistema de Templates
+
+**Por que este primeiro:** Tarefa pequena, visível, segura — testa o pipeline de templates que criamos hoje sem risco de quebrar funcionalidades existentes.
+
+**Checklist para executar:**
+
+```
+[ ] git pull (confirmar synced com origin/master)
+[ ] go vet ./... (baseline antes de começar)
+[ ] cmd/sadm/main.go — adicionar templates.ParseTemplates() no startup
+[ ] internal/interfaces/http/sadm/auth.go — substituir w.Write([]byte(`...`)) do Login por templates.Render()
+[ ] Ajustar login.html para receber dados do handler (subsystem, errorMsg, remember)
+[ ] go vet ./... + go build ./cmd/sadm/
+[ ] cmd/sercod/main.go — adicionar templates.ParseTemplates() no startup
+[ ] internal/interfaces/http/sercod/auth.go — mesmo replace no Login
+[ ] go vet ./... + go build ./cmd/sercod/
+[ ] go test ./internal/application/... -v (garantir que nada quebrou)
+[ ] Commit: "feat: migra tela de login do SAdm e Sercod para sistema de templates"
+[ ] git push
+[ ] Opcional: redirect /cadastro → /cadastro/list (5 min)
+```
+
+**Arquivos envolvidos:**
+| Arquivo | Ação |
+|---------|------|
+| `cmd/sadm/main.go` | + `templates.ParseTemplates()` |
+| `internal/interfaces/http/sadm/auth.go` | Substituir HTML inline do `Login()` |
+| `internal/interfaces/http/templates/login.html` | ✅ Já existe — pode precisar de ajustes |
+| `internal/interfaces/http/templates/base.html` | ✅ Já existe |
+| `cmd/sercod/main.go` | + `templates.ParseTemplates()` |
+| `internal/interfaces/http/sercod/auth.go` | Substituir HTML inline do `Login()` |
+
+**Resultado esperado:** Tela de login com tema dark + dourado (identidade PMMG) nos dois subsistemas.
+
+---
+
+### Prioridade 2 — Paridade e Consistência
+- [ ] Migrar handler Menu (`sadm/auth.go`, `sercod/auth.go`) para `templates.Render()`
+- [ ] Migrar handler ChangePassword para `templates.Render()`
 - [ ] Ajustar CSS da listagem de cadastro (faltam colunas e filtros)
-- [ ] Migrar handlers HTML inline (`sadm/auth.go`, `sadm/cadastro.go`) para usar `templates.Render()`
+- [ ] Comparar telas ASP legadas com telas Go atuais
 - [ ] Adicionar redirect `/cadastro` → `/cadastro/list`
 
-### Prioridade 2 — Testes
+### Prioridade 3 — Testes
 - [ ] Implementar testes unitários para Tramitação
 - [ ] Implementar testes para o sistema de templates
 - [ ] Expandir cobertura de testes de integração
 
-### Prioridade 3 — Infraestrutura
+### Prioridade 4 — Infraestrutura
 - [ ] CI/CD com GitHub Actions (rodar `go vet` + `go test` no push)
 - [ ] Limpar `.gitignore` (adicionar `.bak`, `.agents/skills/`, `.claude/skills/`)
 - [ ] Remover `version: '3.8'` do docker-compose.yml
 
-### Prioridade 4 — Evolução
+### Prioridade 5 — Evolução
 - [ ] Logging estruturado (zerolog/slog)
 - [ ] Health checks (`/health`, `/ready`)
 - [ ] SSO entre SAdm e Sercod

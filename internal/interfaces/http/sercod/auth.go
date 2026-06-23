@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"cgdoc/internal/application/auth"
+	"cgdoc/internal/interfaces/http/templates"
 	"cgdoc/internal/interfaces/middleware"
 )
 
@@ -24,20 +25,11 @@ func NewAuthHandler(authService *auth.AuthService, cookieName string, sessionTTL
 
 func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
-		// Render login template
-		w.Write([]byte(`<!DOCTYPE html>
-<html>
-<head><title>Login - Sercod</title></head>
-<body>
-<h1>Login Sercod</h1>
-<form method="post">
-  <input type="text" name="username" placeholder="Usuário" required>
-  <input type="password" name="password" placeholder="Senha" required>
-  <label><input type="checkbox" name="remember"> Lembrar senha</label>
-  <button type="submit" name="btnSubmit" value="Login">Entrar</button>
-</form>
-</body>
-</html>`))
+		data := &templates.RenderData{
+			Title:     "Login",
+			Subsystem: "Sercod",
+		}
+		templates.Render(w, "login", data)
 		return
 	}
 
@@ -49,8 +41,13 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 
 	session, err := h.authService.Login(username, password)
 	if err != nil {
+		data := &templates.RenderData{
+			Title:     "Login",
+			Subsystem: "Sercod",
+			ErrorMsg:  "Credenciais inválidas",
+		}
 		w.WriteHeader(http.StatusUnauthorized)
-		w.Write([]byte("Credenciais inválidas"))
+		templates.Render(w, "login", data)
 		return
 	}
 
@@ -94,19 +91,26 @@ func (h *AuthHandler) Menu(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write([]byte(`<!DOCTYPE html>
-<html>
-<head><title>Menu - Sercod</title></head>
-<body>
-<h1>Menu Sercod</h1>
-<p>Usuário: ` + session.UserID + `</p>
-<p>Nível: ` + string(session.Nivel) + `</p>
-<ul>
-<li><a href="/cadastro/list">Cadastros</a></li>
-<li><a href="/tramitacao/list">Tramitações</a></li>
-<li><a href="/moviment/list">Movimentações</a></li>
-<li><a href="/login?a=logout">Sair</a></li>
-</ul>
-</body>
-</html>`))
+	// Look up user info for display name
+	userInfo, err := h.authService.GetUserInfo(session.UserID)
+	var nome, privilegio string
+	if err == nil && userInfo != nil {
+		nome = userInfo.Nome
+		privilegio = string(userInfo.Privilegio)
+	} else {
+		nome = session.UserID
+		privilegio = string(session.Nivel)
+	}
+
+	data := &templates.RenderData{
+		Title:      "Menu",
+		Subsystem:  "Sercod",
+		ActiveMenu: "menu",
+		User: &templates.UserData{
+			Nome:       nome,
+			NrUsuario:  session.UserID,
+			Privilegio: privilegio,
+		},
+	}
+	templates.Render(w, "menu", data)
 }

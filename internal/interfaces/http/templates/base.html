@@ -307,7 +307,7 @@
         <main class="content">
             {{if .ErrorMsg}}<div class="error-msg">{{.ErrorMsg}}</div>{{end}}
             {{if .SuccessMsg}}<div class="success-msg">{{.SuccessMsg}}</div>{{end}}
-            {{template .ContentTemplate .}}
+            {{include .ContentTemplate .}}
         </main>
     </div>
 </body>

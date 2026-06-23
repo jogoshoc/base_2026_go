@@ -15,6 +15,7 @@ import (
 	"cgdoc/internal/infrastructure/database"
 	"cgdoc/internal/infrastructure/session"
 	"cgdoc/internal/interfaces/http/sadm"
+	"cgdoc/internal/interfaces/http/templates"
 	"cgdoc/internal/interfaces/middleware"
 
 	"github.com/go-chi/chi"
@@ -23,6 +24,11 @@ import (
 
 func main() {
 	cfg := config.Load()
+
+	// Parse HTML templates
+	if err := templates.ParseTemplates(); err != nil {
+		log.Fatal("Failed to parse templates:", err)
+	}
 
 	// Database connection
 	db, err := sql.Open("mysql", cfg.Database.DSN())

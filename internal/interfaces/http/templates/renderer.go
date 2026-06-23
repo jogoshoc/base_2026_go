@@ -1,6 +1,7 @@
 package templates
 
 import (
+	"bytes"
 	"html/template"
 	"io/ioutil"
 	"net/http"
@@ -11,8 +12,9 @@ import (
 )
 
 var (
-	tmpl *template.Template
-	once sync.Once
+	tmpl   *template.Template
+	tmplMu sync.RWMutex
+	once   sync.Once
 )
 
 // RenderData holds common data passed to all templates.
@@ -43,7 +45,10 @@ func ParseTemplates() error {
 	var err error
 	once.Do(func() {
 		dir := getTemplatesDir()
-		t := template.New("")
+		funcMap := template.FuncMap{
+			"include": includeTemplate,
+		}
+		t := template.New("").Funcs(funcMap)
 		err = filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 			if err != nil {
 				return err
@@ -63,14 +68,27 @@ func ParseTemplates() error {
 		if err != nil {
 			return
 		}
+		tmplMu.Lock()
 		tmpl = t
+		tmplMu.Unlock()
 	})
 	return err
 }
 
-// Render executes a page template inside base.html.
-// The page template should define ContentTemplate (e.g. "login-content", "menu-content")
-// and base.html will render it via {{template .ContentTemplate .}}.
+// includeTemplate renders a named sub-template and returns its output as HTML.
+// Used via {{include .ContentTemplate .}} in base.html to render page-specific content.
+func includeTemplate(name string, data interface{}) (template.HTML, error) {
+	tmplMu.RLock()
+	defer tmplMu.RUnlock()
+	var buf bytes.Buffer
+	if err := tmpl.ExecuteTemplate(&buf, name, data); err != nil {
+		return "", err
+	}
+	return template.HTML(buf.String()), nil
+}
+
+// Render renders the page template (e.g. "login", "menu") with the given data.
+// Page templates should call {{template "base" .}} to include the base layout.
 func Render(w http.ResponseWriter, pageTemplate string, data *RenderData) {
 	if tmpl == nil {
 		http.Error(w, "templates not initialized", http.StatusInternalServerError)
