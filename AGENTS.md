@@ -1,8 +1,8 @@
 # CGDoc — Manual para Agentes de IA (AGENTS.md)
 
 > **Propósito**: Instruções específicas para ferramentas de IA (Claude, Cursor, etc.)
-> **Data**: 19/06/2026
-> **Estado**: Funcional. 8/8 tarefas concluídas.
+> **Data**: 23/06/2026
+> **Estado**: Funcional. Login e menu migrados para sistema de templates. 9 plugins OpenCode ativos.
 
 ---
 
@@ -20,7 +20,7 @@ São 3 containers Docker rodando no servidor Contabo (vmi2968998).
 
 ---
 
-## Estado Atual (19/06/2026)
+## Estado Atual (23/06/2026)
 
 ### ✅ Funcionalidades Implementadas e Testadas
 
@@ -91,6 +91,22 @@ ssh -T github-jogoshoc
 cd ~/Apps/base_2026_go
 git push origin master
 ```
+
+---
+
+## Plugins OpenCode (9 ativos)
+
+| Plugin | Ativação | Descrição |
+|--------|----------|-----------|
+| `opencode-matrixx` | 🔄 Auto | Sistema Morpheus de agentes multi-modelo |
+| `opencode-auto-resume` | 🔄 Auto | Retomada automática de sessões |
+| `opencode-runtime-fallback` | 🔄 Auto | Fallback em falhas de execução |
+| `opencode-todo-reminder` | 🔄 Auto | Lembretes de progresso de TODOs |
+| `oh-my-opencode` | 🔄 Auto | Produtividade no shell |
+| `opencode-mysql` | 🛠️ Tool | MCP server para queries MySQL |
+| `opencode-token-monitor` | 🔄 Auto | Monitoramento de tokens |
+| `opencode-write-status` | 🔄 Auto | Progresso de escrita em tempo real |
+| `opencode-auto-continue` | 🔄 Auto | Continuação automática em ociosidade |
 
 ---
 

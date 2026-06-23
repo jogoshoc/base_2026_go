@@ -1,9 +1,10 @@
 # CGDoc — Controle de Gestão Documental
 
-> **Status:** 🟢 Funcional — 3/8 tarefas do ciclo atual concluídas
-> **Última atualização:** 22/06/2026
-> **Próxima sessão:** 23/06/2026 — Migrar login para sistema de templates
+> **Status:** 🟢 Funcional — Login e Menu migrados para sistema de templates
+> **Última atualização:** 23/06/2026
+> **Próxima sessão:** Migrar ChangePassword + redirect `/cadastro`
 > **Stack:** Go + MariaDB + Chi Router
+> **OpenCode:** 9 plugins ativos (matrixx, auto-resume, runtime-fallback, todo-reminder, oh-my-opencode, mysql, token-monitor, write-status, auto-continue)
 
 ---
 
@@ -216,8 +217,8 @@ POST /login
 |------|-----------|---------|
 | Rota `/cadastro` sem subpath → redirect | 404 atualmente, redirecionar para `/cadastro/list` | 🔵 Baixo |
 | Paridade de interface | Comparar telas ASP (cgdoc/) vs Go, ajustar CSS | 🟡 Médio |
-| Migrar handlers HTML inline para templates | Handlers atuais usam `w.Write([]byte(...))` — migrar para `templates.Render()` | 🟡 Médio |
-| Limpar `.gitignore` | Adicionar `*.bak`, `.agents/skills/`, `.claude/skills/` | 🔵 Baixo |
+| Migrar handler **ChangePassword** para `templates.Render()` | Último handler com HTML inline | 🔵 Baixo |
+| Schema local incompatível (colunas legado vs Go) | `NumeroDoUsuario` → `nr_usuario` e outras colunas | 🟡 Médio |
 | Testes para Tramitação | `internal/application/tramitacao/service_test.go` | 🟡 Médio |
 
 ### Pendentes (Baixa Prioridade)
@@ -238,7 +239,7 @@ POST /login
 | Cadastro (CRUD) | ✅ Incluído nos 17 |
 | Moviment (CRUD) | ✅ Incluído nos 17 |
 | Tramitação | ❌ Pendente |
-| Templates (renderização) | ❌ Pendente |
+| Templates (renderização) | ✅ Testado manualmente (login + menu) |
 | Integration (handler → DB) | ❌ Pendente |
 
 ---
@@ -258,6 +259,7 @@ POST /login
 | E-07 | `cumplido` → `cumprido` (espanhol) | ✅ Resolvido | Commit 647c110 |
 | E-08 | NULL values no banco | ✅ Resolvido | UPDATE NULL → "" em todas as tabelas |
 | E-09 | Rebase abortado (conflitos local vs remote) | ✅ Resolvido | `git reset --hard origin/master` + cherry-pick dos arquivos únicos |
+| E-10 | Schema local (MariaDB Windows) tem colunas legado | 🔴 Aberto | `NumeroDoUsuario` em vez de `nr_usuario` — rodar migrations ou adaptar queries |
 
 ### Erros não Executados (Documentados)
 
@@ -265,16 +267,19 @@ POST /login
 |----|----------|--------|
 | NE-01 | Schema local usava `nr_protoc`, remote usa `nrprotoc` | Remote mais avançado (bcrypt, search, view) — adotamos schema do remote |
 | NE-02 | Normalização snake_case completa nas queries | Remote já tinha schema funcional com nomes diferentes (ex: `nr_usuario` vs `numero_usuario`) |
-| NE-03 | Sistema de templates integrado aos handlers | Handlers atuais do remote usam HTML inline — migração futura |
 
 ---
 
 ## 8. Arquivos Modificados Recentemente
 
-### Últimos Commits (22/06/2026)
+### Últimos Commits
 
 | Commit | Data | Descrição |
 |--------|------|-----------|
+| `1e0d3f0` | 23/06 | `docs: atualiza README.md e AGENTS.md com progresso dos plugins OpenCode` |
+| `e153ccb` | 23/06 | `feat: migra login e menu para sistema de templates com base.html` |
+| `51ff961` | 22/06 | `feat: adiciona screenshots de referencia do sistema legado como guia de UI` |
+| `e2550bd` | 22/06 | `docs: adiciona README.md completo com status, stack, funcionalidades e roadmap` |
 | `d0b4480` | 22/06 | `chore: atualiza .gitignore com binarios e arquivos temporarios` |
 | `f984504` | 22/06 | `feat: implementa sistema de templates com base.html e renderer` |
 | `4ea351e` | 22/06 | `feat: adiciona entidades aud_moviment e moviment_sec para tabelas do Access` |
@@ -317,48 +322,47 @@ Screenshots de referência do sistema legado ASP e do layout institucional PMMG:
 
 ## 9. Próximos Passos Imediatos
 
-### 🚀 PRÓXIMA SESSÃO — 23/06: Migrar Login para Sistema de Templates
+### ✅ CONCLUÍDO — 23/06: Migrar Login e Menu para Sistema de Templates
 
-**Por que este primeiro:** Tarefa pequena, visível, segura — testa o pipeline de templates que criamos hoje sem risco de quebrar funcionalidades existentes.
-
-**Checklist para executar:**
+**Checklist executado:** `e153ccb`
 
 ```
-[ ] git pull (confirmar synced com origin/master)
-[ ] go vet ./... (baseline antes de começar)
-[ ] cmd/sadm/main.go — adicionar templates.ParseTemplates() no startup
-[ ] internal/interfaces/http/sadm/auth.go — substituir w.Write([]byte(`...`)) do Login por templates.Render()
-[ ] Ajustar login.html para receber dados do handler (subsystem, errorMsg, remember)
-[ ] go vet ./... + go build ./cmd/sadm/
-[ ] cmd/sercod/main.go — adicionar templates.ParseTemplates() no startup
-[ ] internal/interfaces/http/sercod/auth.go — mesmo replace no Login
-[ ] go vet ./... + go build ./cmd/sercod/
-[ ] go test ./internal/application/... -v (garantir que nada quebrou)
-[ ] Commit: "feat: migra tela de login do SAdm e Sercod para sistema de templates"
-[ ] git push
-[ ] Opcional: redirect /cadastro → /cadastro/list (5 min)
+[x] git pull (confirmar synced com origin/master)
+[x] go vet ./... (baseline antes de começar)
+[x] cmd/sadm/main.go — adicionar templates.ParseTemplates() no startup
+[x] internal/interfaces/http/sadm/auth.go — substituir w.Write([]byte(`...`)) do Login e Menu por templates.Render()
+[x] Ajustar login.html para receber dados do handler (subsystem, errorMsg, remember)
+[x] go vet ./... + go build ./cmd/sadm/
+[x] cmd/sercod/main.go — adicionar templates.ParseTemplates() no startup
+[x] internal/interfaces/http/sercod/auth.go — mesmo replace no Login e Menu
+[x] go vet ./... + go build ./cmd/sercod/
+[x] go test ./internal/application/... -v (17/17 passando)
+[x] Commit: "feat: migra tela de login do SAdm e Sercod para sistema de templates"
+[x] git push
 ```
 
-**Arquivos envolvidos:**
-| Arquivo | Ação |
-|---------|------|
-| `cmd/sadm/main.go` | + `templates.ParseTemplates()` |
-| `internal/interfaces/http/sadm/auth.go` | Substituir HTML inline do `Login()` |
-| `internal/interfaces/http/templates/login.html` | ✅ Já existe — pode precisar de ajustes |
-| `internal/interfaces/http/templates/base.html` | ✅ Já existe |
-| `cmd/sercod/main.go` | + `templates.ParseTemplates()` |
-| `internal/interfaces/http/sercod/auth.go` | Substituir HTML inline do `Login()` |
+**Arquivos modificados:**
+- `cmd/sadm/main.go` — + `templates.ParseTemplates()`
+- `internal/interfaces/http/sadm/auth.go` — Login e Menu via `templates.Render()`
+- `cmd/sercod/main.go` — + `templates.ParseTemplates()`
+- `internal/interfaces/http/sercod/auth.go` — Login e Menu via `templates.Render()`
+- `internal/interfaces/http/templates/renderer.go` — `ParseTemplates` + `Render` + `includeTemplate`
+- `internal/interfaces/http/templates/base.html` — Layout com `{{include .ContentTemplate .}}`
+- `internal/interfaces/http/templates/login.html` — Tela com `{{define "login-content"}}`
+- `internal/interfaces/http/templates/menu.html` — Tela com `{{define "menu-content"}}`
 
-**Resultado esperado:** Tela de login com tema dark + dourado (identidade PMMG) nos dois subsistemas.
+**Resultado:** Telas de login e menu com tema dark + dourado (identidade PMMG) nos dois subsistemas ✅
 
 ---
 
 ### Prioridade 2 — Paridade e Consistência
-- [ ] Migrar handler Menu (`sadm/auth.go`, `sercod/auth.go`) para `templates.Render()`
+- [x] Migrar handler Login (`sadm/auth.go`, `sercod/auth.go`) para `templates.Render()`
+- [x] Migrar handler Menu (`sadm/auth.go`, `sercod/auth.go`) para `templates.Render()`
 - [ ] Migrar handler ChangePassword para `templates.Render()`
 - [ ] Ajustar CSS da listagem de cadastro (faltam colunas e filtros)
 - [ ] Comparar telas ASP legadas com telas Go atuais
 - [ ] Adicionar redirect `/cadastro` → `/cadastro/list`
+- [ ] Corrigir schema local (colunas legado vs Go no MariaDB local)
 
 ### Prioridade 3 — Testes
 - [ ] Implementar testes unitários para Tramitação
@@ -379,29 +383,31 @@ Screenshots de referência do sistema legado ASP e do layout institucional PMMG:
 
 ## 10. Checkpoint: Onde Paramos
 
-### Último Checkpoint (22/06/2026 — 14 commits no total)
+### Checkpoint 23/06/2026 — 16 commits no total
 
-**Estado atual:** Alinhados com `origin/master` (remote). 3 novos commits adicionados em cima dos 10 commits do remote.
+**Estado atual:** `origin/master` syncado. Migração de login e menu para templates concluída. 9 plugins OpenCode instalados.
 
-**O que foi feito nesta sessão:**
+**O que foi feito na sessão de 23/06:**
 
-1. ✅ Leitura de toda documentação do projeto (Reversa + manual)
-2. ✅ Resolução de divergência git (local estava 3 commits à frente do remote com conflitos)
-3. ✅ Reset para `origin/master` (remote mais avançado com bcrypt, search, view, docker)
-4. ✅ Restauração de arquivos exclusivos (templates, entidades, .gitignore)
-5. ✅ 3 commits atômicos com mensagens descritivas
-6. ✅ Push bem-sucedido para `origin/master`
-7. ✅ Builds Go verificados (`go build ./cmd/sadm/` + `./cmd/sercod/`)
-8. ✅ `go vet ./...` limpo
-9. ✅ Análise das imagens de referência de UI (pasta `images/`)
-10. ✅ Criação deste README.md
+1. ✅ Retomada dos serviços (SAdm `:8081`, Sercod `:8082`, MariaDB)
+2. ✅ `go vet ./...` + `go build ./cmd/sadm/` + `go build ./cmd/sercod/` — limpo
+3. ✅ `go test ./internal/application/... -v` — 17/17 passando
+4. ✅ SAdm `auth.go` — Login e Menu migrados para `templates.Render()`
+5. ✅ Sercod `auth.go` — Login e Menu migrados para `templates.Render()`
+6. ✅ Ambos `main.go` — `templates.ParseTemplates()` no startup
+7. ✅ Sistema de templates funcional (base.html + login.html + menu.html)
+8. ✅ Commit `e153ccb` + push para `origin/master`
+9. ✅ `.gitignore` atualizado (`.log`, `*~`)
+10. ✅ **9 plugins OpenCode instalados e registrados** (matrixx, auto-resume, runtime-fallback, todo-reminder, oh-my-opencode, mysql, token-monitor, write-status, auto-continue)
+11. ✅ `opencode.json` do projeto criado com model `opencode/deepseek-v4-flash-free`
 
 **O que NÃO foi feito (adiado):**
 
 | Item | Motivo |
 |------|--------|
-| Normalização snake_case nas consultas | Remote tem schema funcional — prioridade baixa |
-| Integração de templates com handlers existentes | Handlers remote usam HTML inline — migração futura |
+| Migrar handler ChangePassword | Pendente — próximo passo |
+| Redirect `/cadastro` → `/cadastro/list` | Pendente |
+| Schema local (colunas legado vs Go) | Necessário rodar migrations ou adaptar queries |
 | Testes de Tramitação | Pendente na lista de próximos passos |
 
 ### Plano Original (Reversa — 8 Tasks)
@@ -468,6 +474,28 @@ Baseado no `PLANO_COPIA_PERFEITA.md` (6 fases de Parallel Run):
 | 4 | Parallel Run | 🟡 Parcial (apps rodando, paridade de interface pendente) |
 | 5 | Cutover | ⏳ Não iniciado |
 | 6 | Estabilização | ⏳ Não iniciado |
+
+---
+
+## 13. Plugins OpenCode
+
+### Instalados (9 plugins ativos)
+
+| Plugin | Versão | Ativação | Descrição |
+|--------|--------|----------|-----------|
+| `opencode-matrixx` | — | 🔄 Auto | Sistema Morpheus de agentes multi-modelo com orquestração |
+| `opencode-auto-resume` | — | 🔄 Auto | Pergunta automaticamente se deseja retomar sessão anterior |
+| `opencode-runtime-fallback` | — | 🔄 Auto | Fallback automático quando tarefas falham |
+| `opencode-todo-reminder` | — | 🔄 Auto | Lembretes do sistema de TODOs |
+| `oh-my-opencode` | — | 🔄 Auto | Temas, prompts e produtividade no shell |
+| `opencode-mysql` | 0.1.1 | 🛠️ Tool/MCP | Executa queries MySQL via MCP server |
+| `opencode-token-monitor` | — | 🔄 Auto | Monitora uso de tokens e custo em background |
+| `opencode-write-status` | 0.5.0 | 🔄 Auto | Progresso de escrita/edição com detecção de stall |
+| `opencode-auto-continue` | 0.1.1 | 🔄 Auto | Continuação automática em sessões ociosas |
+
+### Registro
+
+Plugins registrados em `C:\.opencode\opencode.json` (global) e projeto em `opencode.json`.
 
 ---
 
